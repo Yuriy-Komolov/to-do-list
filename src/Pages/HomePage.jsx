@@ -1,12 +1,16 @@
 import React from 'react';
+import styled from 'styled-components';
 
-export default function HomePage(props) {
+export default function HomePage() {
   return (
     <>
-    <div>
-      log
-    </div>
+      <MainWrapper>
+
+      </MainWrapper>
     </>
   );
 }
 
+const MainWrapper = styled.div`
+  color: red;
+`;

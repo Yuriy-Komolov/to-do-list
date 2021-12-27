@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
 
-export default function AddTaskButton(color) {
+export default function AddTaskButton(props) {
   return (
     <>
-      <StyledButton>
+      <StyledButton {...props}>
         <IconWrapper>
           <IconPlus />
         </IconWrapper>
@@ -15,21 +15,44 @@ export default function AddTaskButton(color) {
 }
 
 const StyledButton = styled.button`
-  border: none;
-  color: ${({ color }) => color || "blue"};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  margin: 15px 0 0 0;
-  &:hover {
-    color: #1e78fa;
-    & div {
-      background-color: #1e78fa;
+  ${(props) => {
+    switch (props.$mode) {
+      case "withoutIcon":
+        return css`
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          margin: 15px 0 0 0;
+          padding: 5px 10px;
+          background-color: #1e78fa;
+          border-radius: 4px;
+          & div {
+            display: none;
+          }
+        `;
+
+      default:
+        return css`
+          border: none;
+          color: grey;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          margin: 15px 0 0 0;
+          &:hover {
+            color: #1e78fa;
+            & div {
+              background-color: #1e78fa;
+            }
+            & svg path {
+              fill: #fff;
+            }
+          }
+        `;
     }
-    & svg path {
-      fill: #fff;
-    }
-  }
+  }}
 `;
 
 const IconWrapper = styled.div`

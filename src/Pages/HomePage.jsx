@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
 import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
+import UploadTaskForm from "../Components/Forms/UploadTaskForm";
+
 export default function HomePage() {
+  const [showTaskForm, setShowTaskForm] = useState("false");
+
   return (
     <>
       <MainWrapper>
@@ -27,7 +31,7 @@ export default function HomePage() {
               All your tasks that are due today will show up here.
             </ContentSubtitle>
 
-            <AddTaskButton color="red" />
+            <AddTaskButton $mode="withoutIcon" />
           </Content>
         </PageContainer>
       </MainWrapper>

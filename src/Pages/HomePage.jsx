@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
-import AddTaskButton from "../UI/Buttons/AddTaskButton";
+import AddTaskButton from "../Components/Buttons/AddTaskButton";
 
 import UploadTaskForm from "../Components/Forms/UploadTaskForm";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState("false");
+  const [showTaskForm, setShowTaskForm] = useState(true);
+
+  const switchToForm = () => {
+    setShowTaskForm(false);
+  };
+  const switchToEmptyPage = () => {
+    setShowTaskForm(true);
+  };
 
   return (
     <>
@@ -21,23 +28,39 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
 
-          <AddTaskButton />
-          <Content>
-            <ContentImage>
-              <img src="/Images/home-page-bg.png" alt="hero page image" />
-            </ContentImage>
-            <ContentTitle>Get a clear view of the day ahead</ContentTitle>
-            <ContentSubtitle>
-              All your tasks that are due today will show up here.
-            </ContentSubtitle>
-
-            <AddTaskButton $mode="withoutIcon" />
-          </Content>
+          {showTaskForm ? (
+            <InnerContent hadlerClick={switchToForm} />
+          ) : (
+            <UploadTaskForm hadlerClick={switchToEmptyPage} />
+          )}
         </PageContainer>
       </MainWrapper>
     </>
   );
 }
+
+const InnerContent = ({ hadlerClick }) => {
+  return (
+    <>
+      <AddTaskButton type="button" text="Add task" onClick={hadlerClick} />
+      <Content>
+        <ContentImage>
+          <img src="/Images/home-page-bg.png" alt="imag" />
+        </ContentImage>
+        <ContentTitle>Get a clear view of the day ahead</ContentTitle>
+        <ContentSubtitle>
+          All your tasks that are due today will show up here.
+        </ContentSubtitle>
+        <AddTaskButton
+          type="button"
+          text="Add task"
+          onClick={hadlerClick}
+          $mode="withoutIcon"
+        />
+      </Content>
+    </>
+  );
+};
 
 const MainWrapper = styled.div`
   height: 100vh;

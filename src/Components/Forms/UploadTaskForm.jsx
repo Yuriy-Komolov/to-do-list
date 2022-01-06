@@ -2,23 +2,58 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import AddTaskButton from "../Buttons/AddTaskButton";
 
+import {
+  postTitleValidation,
+  postDescriptionValidation,
+} from "../../Utils/validationModule";
+
 export default function UploadTaskForm({ hadlerClick }) {
-  const [textareaState, setTextAreaState] = useState("");
+  const [title, setTitle] = useState("");
+  const [titleHeight, setTitleHeight] = useState("");
+
+  const [description, setDescription] = useState("");
+  const [descriptionHeight, setDescriptionHeight] = useState("");
+
+  const [errors, setErrors] = useState("");
+
+  const submitDisabled = () => {
+    return title.length === 0 ? true : false;
+  };
 
   return (
     <>
       <FormWrapper>
+        <Error>{errors}</Error>
         <form>
           <FormInner>
-            <FormInputTitleSpan placeholder="Title (Example=> To buy a book)" />
-            <FormInputSubtitle
+            <FormInputTitle
+              placeholder="Title (Example=> To buy a book)"
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setTitleHeight(e.target.scrollHeight);
+                setErrors(postTitleValidation(title));
+              }}
+              style={{ height: titleHeight }}
+            />
+
+            <FormInputDescription
               placeholder="Description..."
-              onChange={(e) => setTextAreaState(e.target.scrollHeight)}
-              style={{ height: textareaState }}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setDescriptionHeight(e.target.scrollHeight);
+
+                setErrors(postDescriptionValidation(description));
+              }}
+              style={{ height: descriptionHeight }}
             />
           </FormInner>
           <FormButtons>
-            <AddTaskButton type="submit" text="Submit" $mode="withoutIcon" />
+            <AddTaskButton
+              type="submit"
+              text="Submit"
+              $mode="withoutIcon"
+              disabled={submitDisabled()}
+            />
             <FormResetBtn type="button" text="Cancel" onClick={hadlerClick} />
           </FormButtons>
         </form>
@@ -43,14 +78,14 @@ const FormInner = styled.div`
   }
 `;
 
-const FormInputTitleSpan = styled.textarea`
-  padding: 4px 8px 0;
+const FormInputTitle = styled.textarea`
   width: 100%;
   font-size: 14px;
   line-height: 21px;
   font-weight: 600;
   resize: none;
-  height: 32px;
+  height: 28px;
+  padding: 4px 8px;
   overflow: hidden;
   border: none;
   &:focus {
@@ -64,8 +99,10 @@ const FormInputTitleSpan = styled.textarea`
   }
 `;
 
-const FormInputSubtitle = styled(FormInputTitleSpan)`
+const FormInputDescription = styled(FormInputTitle)`
   min-height: 46px;
+  font-size: 13px;
+  line-height: 18px;
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -78,6 +115,7 @@ const FormButtons = styled.div`
   display: flex;
   column-gap: 10px;
 `;
+
 const FormResetBtn = styled(AddTaskButton)`
   color: #000;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -92,4 +130,10 @@ const FormResetBtn = styled(AddTaskButton)`
   & div {
     display: none;
   }
+`;
+
+const Error = styled.p`
+  font-size: 12px;
+  color: #d1453b;
+  margin-bottom: 10px;
 `;

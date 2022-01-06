@@ -7,7 +7,7 @@ import AddTaskButton from "../Components/Buttons/AddTaskButton";
 import UploadTaskForm from "../Components/Forms/UploadTaskForm";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(true);
+  const [showTaskForm, setShowTaskForm] = useState(false);
 
   const switchToForm = () => {
     setShowTaskForm(false);
@@ -67,7 +67,7 @@ const MainWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 100px;
 `;
 
 const PageContainer = styled.div`

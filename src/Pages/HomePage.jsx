@@ -42,7 +42,12 @@ export default function HomePage() {
 const InnerContent = ({ hadlerClick }) => {
   return (
     <>
-      <AddTaskButton type="button" text="Add task" onClick={hadlerClick} />
+      <AddTaskButton
+        type="button"
+        text="Add task"
+        $mode="withIcon"
+        onClick={hadlerClick}
+      />
       <Content>
         <ContentImage>
           <img src="/Images/home-page-bg.png" alt="imag" />
@@ -51,12 +56,7 @@ const InnerContent = ({ hadlerClick }) => {
         <ContentSubtitle>
           All your tasks that are due today will show up here.
         </ContentSubtitle>
-        <AddTaskButton
-          type="button"
-          text="Add task"
-          onClick={hadlerClick}
-          $mode="withoutIcon"
-        />
+        <AddTaskButton type="button" text="Add task" onClick={hadlerClick} />
       </Content>
     </>
   );

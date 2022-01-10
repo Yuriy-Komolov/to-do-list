@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
 import AddTaskButton from "../Buttons/AddTaskButton";
 
 import {
@@ -47,11 +48,11 @@ export default function UploadTaskForm({ hadlerClick }) {
               style={{ height: descriptionHeight }}
             />
           </FormInner>
+
           <FormButtons>
-            <AddTaskButton
+            <StyledSubmit
               type="submit"
               text="Submit"
-              $mode="withoutIcon"
               disabled={submitDisabled()}
             />
             <FormResetBtn type="button" text="Cancel" onClick={hadlerClick} />
@@ -127,8 +128,14 @@ const FormResetBtn = styled(AddTaskButton)`
     color: #000;
     background-color: rgba(0, 0, 0, 0.1);
   }
-  & div {
-    display: none;
+`;
+
+const StyledSubmit = styled(AddTaskButton)`
+  &:disabled {
+    opacity: 0.7;
+    &:hover {
+      cursor: url("/Images/block.png"), auto;
+    }
   }
 `;
 

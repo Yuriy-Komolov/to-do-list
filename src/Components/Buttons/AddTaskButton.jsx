@@ -19,21 +19,7 @@ const primaryColor = "#1e78fa";
 const StyledButton = styled.button`
   ${(props) => {
     switch (props.$mode) {
-      case "withoutIcon":
-        return css`
-          border: none;
-          color: #fff;
-          cursor: pointer;
-          margin: 15px 0 0 0;
-          padding: 5px 10px;
-          background-color: ${primaryColor};
-          border-radius: 4px;
-          & div {
-            display: none;
-          }
-        `;
-
-      default:
+      case "withIcon":
         return css`
           border: none;
           color: grey;
@@ -49,6 +35,20 @@ const StyledButton = styled.button`
             & svg path {
               fill: #fff;
             }
+          }
+        `;
+
+      default:
+        return css`
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          margin: 15px 0 0 0;
+          padding: 5px 10px;
+          background-color: ${primaryColor};
+          border-radius: 4px;
+          & div {
+            display: none;
           }
         `;
     }

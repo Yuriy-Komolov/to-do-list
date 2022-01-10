@@ -9,17 +9,16 @@ import {
 } from "../../Utils/validationModule";
 
 export default function UploadTaskForm({ hadlerClick }) {
-  const [title, setTitle] = useState("");
-  const [titleHeight, setTitleHeight] = useState("");
-
-  const [description, setDescription] = useState("");
-  const [descriptionHeight, setDescriptionHeight] = useState("");
+  const [title, setTitle] = useState({
+    textareaHeight: "",
+    value: "",
+  });
+  const [description, setDescription] = useState({
+    textareaHeight: "",
+    value: "",
+  });
 
   const [errors, setErrors] = useState("");
-
-  const submitDisabled = () => {
-    return title.length === 0 ? true : false;
-  };
 
   return (
     <>
@@ -30,22 +29,29 @@ export default function UploadTaskForm({ hadlerClick }) {
             <FormInputTitle
               placeholder="Title (Example=> To buy a book)"
               onChange={(e) => {
-                setTitle(e.target.value);
-                setTitleHeight(e.target.scrollHeight);
-                setErrors(postTitleValidation(title));
+                setTitle((titleObj) => ({
+                  ...titleObj,
+                  value: e.target.value,
+                  textareaHeight: e.target.scrollHeight,
+                }));
+
+                setErrors(postTitleValidation(title.value));
               }}
-              style={{ height: titleHeight }}
+              style={{ height: title.textareaHeight }}
             />
 
             <FormInputDescription
               placeholder="Description..."
               onChange={(e) => {
-                setDescription(e.target.value);
-                setDescriptionHeight(e.target.scrollHeight);
+                setDescription((descriptionObj) => ({
+                  ...descriptionObj,
+                  value: e.target.value,
+                  textareaHeight: e.target.scrollHeight,
+                }));
 
-                setErrors(postDescriptionValidation(description));
+                setErrors(postDescriptionValidation(description.value));
               }}
-              style={{ height: descriptionHeight }}
+              style={{ height: description.textareaHeight }}
             />
           </FormInner>
 
@@ -53,7 +59,7 @@ export default function UploadTaskForm({ hadlerClick }) {
             <StyledSubmit
               type="submit"
               text="Submit"
-              disabled={submitDisabled()}
+              disabled={title.value.length === 0 ? true : false}
             />
             <FormResetBtn type="button" text="Cancel" onClick={hadlerClick} />
           </FormButtons>
@@ -132,9 +138,9 @@ const FormResetBtn = styled(AddTaskButton)`
 
 const StyledSubmit = styled(AddTaskButton)`
   &:disabled {
-    opacity: 0.7;
+    background-color: rgba(30, 120, 250, 0.7);
     &:hover {
-      cursor: url("/Images/block.png"), auto;
+      cursor: url("/Images/icons/block.png"), auto;
     }
   }
 `;

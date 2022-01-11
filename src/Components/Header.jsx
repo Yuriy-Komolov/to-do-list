@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import { primaryColor } from "../UI/Constants";
+
+import HeaderButton from "../UI/Buttons/HeaderButton";
 import HomePageIcon from "../UI/Icons/Header/HomePageIcon";
 import SearchIcon from "../UI/Icons/Header/SearchIcon";
 
@@ -12,16 +14,19 @@ export default function Header() {
         <Container>
           <Navbar>
             <LeftPart>
-              <Burger>
-                <span></span>
-              </Burger>
+              <HeaderButton hint="Open menu">
+                <Burger>
+                  <span></span>
+                </Burger>
+              </HeaderButton>
 
-              <BtnBox>
+              <HeaderButton hint={`Go to home G then H`}>
                 <HomePageIcon />
-              </BtnBox>
-              <BtnBox>
+              </HeaderButton>
+
+              <HeaderButton hint="Search">
                 <SearchIcon />
-              </BtnBox>
+              </HeaderButton>
               <SearchBar></SearchBar>
             </LeftPart>
           </Navbar>
@@ -53,21 +58,8 @@ const LeftPart = styled.div`
   align-items: center;
   column-gap: 5px;
 `;
-const BtnBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  //padding: 0 5px;
-  min-width: 28px;
-  height: 28px;
-  border-radius: 3px;
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-`;
 
-const Burger = styled(BtnBox)`
+const Burger = styled(HeaderButton)`
   & span {
     width: 18px;
     height: 1px;
@@ -80,6 +72,7 @@ const Burger = styled(BtnBox)`
       height: 1px;
       background-color: #fff;
       position: absolute;
+      left: 0;
     }
     &::before {
       top: 6px;

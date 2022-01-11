@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import AddTaskButton from "../Buttons/AddTaskButton";
+import AddTaskButton from "../../UI/Buttons/AddTaskButton";
 
 import {
   postTitleValidation,
@@ -9,57 +9,48 @@ import {
 } from "../../Utils/validationModule";
 
 export default function UploadTaskForm({ hadlerClick }) {
-  const [title, setTitle] = useState({
-    textareaHeight: "",
-    value: "",
-  });
-  const [description, setDescription] = useState({
-    textareaHeight: "",
-    value: "",
-  });
+  const [title, setTitle] = useState("");
+  const [titleHeight, setTitleHeight] = useState("");
+
+  const [description, setDescription] = useState("");
+  const [descriptionHeight, setDescriptionHeight] = useState("");
 
   const [errors, setErrors] = useState("");
 
   return (
     <>
       <FormWrapper>
-        <Error>{errors}</Error>
         <form>
           <FormInner>
             <FormInputTitle
               placeholder="Title (Example=> To buy a book)"
               onChange={(e) => {
-                setTitle((titleObj) => ({
-                  ...titleObj,
-                  value: e.target.value,
-                  textareaHeight: e.target.scrollHeight,
-                }));
+                setTitle(e.target.value);
+                setTitleHeight(e.target.scrollHeight);
 
-                setErrors(postTitleValidation(title.value));
+                setErrors(postTitleValidation(title));
               }}
-              style={{ height: title.textareaHeight }}
+              style={{ height: titleHeight }}
             />
 
             <FormInputDescription
               placeholder="Description..."
               onChange={(e) => {
-                setDescription((descriptionObj) => ({
-                  ...descriptionObj,
-                  value: e.target.value,
-                  textareaHeight: e.target.scrollHeight,
-                }));
+                setDescription(e.target.value);
+                setDescriptionHeight(e.target.scrollHeight);
 
-                setErrors(postDescriptionValidation(description.value));
+                setErrors(postDescriptionValidation(description));
               }}
-              style={{ height: description.textareaHeight }}
+              style={{ height: descriptionHeight }}
             />
+            <Error>{errors}</Error>
           </FormInner>
 
           <FormButtons>
             <StyledSubmit
               type="submit"
               text="Submit"
-              disabled={title.value.length === 0 ? true : false}
+              disabled={title.length === 0 || errors ? true : false}
             />
             <FormResetBtn type="button" text="Cancel" onClick={hadlerClick} />
           </FormButtons>
@@ -148,5 +139,5 @@ const StyledSubmit = styled(AddTaskButton)`
 const Error = styled.p`
   font-size: 12px;
   color: #d1453b;
-  margin-bottom: 10px;
+  margin: 0 0 10px 8px;
 `;

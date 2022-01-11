@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
-import AddTaskButton from "../Components/Buttons/AddTaskButton";
+import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
 import UploadTaskForm from "../Components/Forms/UploadTaskForm";
+import Header from "../Components/Header";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showTaskForm, setShowTaskForm] = useState(true);
 
   const switchToForm = () => {
     setShowTaskForm(false);
@@ -19,6 +20,7 @@ export default function HomePage() {
   return (
     <>
       <MainWrapper>
+        <Header />
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
@@ -63,11 +65,11 @@ const InnerContent = ({ hadlerClick }) => {
 };
 
 const MainWrapper = styled.div`
-  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 100px;
+  position: relative;
 `;
 
 const PageContainer = styled.div`

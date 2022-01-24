@@ -20,6 +20,7 @@ const ButtonBox = styled.button`
   border: none;
   cursor: pointer;
   position: relative;
+  color: #fff;
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
     &::before {
@@ -30,7 +31,7 @@ const ButtonBox = styled.button`
       padding: 6px 8px;
       border-radius: 3px;
       position: absolute;
-      bottom: -41px;
+      bottom: -40px;
     }
   }
 `;

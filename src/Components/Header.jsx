@@ -6,19 +6,21 @@ import { primaryColor } from "../UI/Constants";
 import HeaderButton from "../UI/Buttons/HeaderButton";
 import HomePageIcon from "../UI/Icons/Header/HomePageIcon";
 import SearchIcon from "../UI/Icons/Header/SearchIcon";
+import PlusIcon from "../UI/Icons/Header/PlusIcon";
+import InfoIcon from "../UI/Icons/Header/InfoIcon";
+import BellIcon from "../UI/Icons/Header/BellIcon";
+import ProductivityIcon from "../UI/Icons/Header/ProductivityIcon";
 
-export default function Header() {
+export default function Header({ handlerClick }) {
   return (
     <>
       <HeaderWrapper>
         <Container>
           <Navbar>
             <LeftPart>
-              <HeaderButton hint="Open menu">
-                <Burger>
-                  <span></span>
-                </Burger>
-              </HeaderButton>
+              <Burger hint="Open menu">
+                <span></span>
+              </Burger>
 
               <HeaderButton hint={`Go to home G then H`}>
                 <HomePageIcon />
@@ -27,8 +29,23 @@ export default function Header() {
               <HeaderButton hint="Search">
                 <SearchIcon />
               </HeaderButton>
-              <SearchBar></SearchBar>
             </LeftPart>
+
+            <RightPart>
+              <HeaderButton hint="Quick Add" onClick={handlerClick}>
+                <PlusIcon />
+              </HeaderButton>
+
+              <HeaderButton hint="Open Productivity O then P">
+                <ProductivityIcon /> 0 / 5
+              </HeaderButton>
+              <HeaderButton hint="Open help & information O then H">
+                <InfoIcon />
+              </HeaderButton>
+              <HeaderButton hint="Open help & information O then N">
+                <BellIcon />
+              </HeaderButton>
+            </RightPart>
           </Navbar>
         </Container>
       </HeaderWrapper>
@@ -42,6 +59,7 @@ const HeaderWrapper = styled.div`
   background-color: ${primaryColor};
   position: fixed;
   top: 0;
+  z-index: 3;
 `;
 
 const Container = styled.div`
@@ -52,6 +70,7 @@ const Container = styled.div`
 
 const Navbar = styled.nav`
   display: flex;
+  justify-content: space-between;
 `;
 const LeftPart = styled.div`
   display: flex;
@@ -83,4 +102,10 @@ const Burger = styled(HeaderButton)`
   }
 `;
 
-const SearchBar = styled.div``;
+const RightPart = styled(LeftPart)`
+  column-gap: 8px;
+  & button {
+    min-width: 32px;
+    height: 32px;
+  }
+`;

@@ -129,7 +129,7 @@ const FormResetBtn = styled(AddTaskButton)`
 
 const StyledSubmit = styled(AddTaskButton)`
   &:disabled {
-    background-color: rgba(30, 120, 250, 0.7);
+    background-color: rgba(30, 120, 250, 0.5);
     &:hover {
       cursor: url("/Images/icons/block.png"), auto;
     }

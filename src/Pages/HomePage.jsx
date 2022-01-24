@@ -10,6 +10,8 @@ import Header from "../Components/Header";
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(true);
 
+  const [quickTaskForm, setQuickTaskForm] = useState(false);
+
   const switchToForm = () => {
     setShowTaskForm(false);
   };
@@ -17,11 +19,19 @@ export default function HomePage() {
     setShowTaskForm(true);
   };
 
+  const switchToQuickTaskForm = () => {
+    setQuickTaskForm(true);
+  };
+
   return (
     <>
       <MainWrapper>
-        <Header />
-        <PageContainer>
+        <Header handlerClick={switchToQuickTaskForm} />
+        <PageContainer
+        // onClick={() => {
+        //   setQuickTaskForm(false);
+        // }}
+        >
           <PageHeader>
             <GetCurrentDate />
             <Filter>
@@ -34,6 +44,14 @@ export default function HomePage() {
             <InnerContent hadlerClick={switchToForm} />
           ) : (
             <UploadTaskForm hadlerClick={switchToEmptyPage} />
+          )}
+          {/* some */}
+          {quickTaskForm ? (
+            <QuickAddForm>
+              <UploadTaskForm />
+            </QuickAddForm>
+          ) : (
+            false
           )}
         </PageContainer>
       </MainWrapper>
@@ -77,6 +95,7 @@ const PageContainer = styled.div`
   margin: 0 auto;
   padding: 0 10px;
   width: 100%;
+  position: relative;
 `;
 
 const PageHeader = styled.div`
@@ -136,4 +155,21 @@ const ContentTitle = styled.h3`
 const ContentSubtitle = styled.p`
   color: #777;
   margin: 8px 0;
+`;
+
+const QuickAddForm = styled.div`
+  max-width: 550px;
+  box-shadow: 0 15px 50px 0 rgb(0 0 0 / 35%);
+  position: absolute;
+  top: 30%;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding: 15px 0;
+  z-index: 2;
+  background-color: #fff;
+  border-radius: 8px;
+  & div {
+    background: inherit;
+  }
 `;

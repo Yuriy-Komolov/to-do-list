@@ -7,31 +7,22 @@ import AddTaskButton from "../UI/Buttons/AddTaskButton";
 import UploadTaskForm from "../Components/Forms/UploadTaskForm";
 import Header from "../Components/Header";
 
+import ModalQuickAddForm from "../Components/Modals/ModalQuickAddForm";
+
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(true);
 
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
-  const switchToForm = () => {
-    setShowTaskForm(false);
-  };
-  const switchToEmptyPage = () => {
-    setShowTaskForm(true);
-  };
-
-  const switchToQuickTaskForm = () => {
-    setQuickTaskForm(true);
-  };
-
   return (
     <>
       <MainWrapper>
-        <Header handlerClick={switchToQuickTaskForm} />
-        <PageContainer
-        // onClick={() => {
-        //   setQuickTaskForm(false);
-        // }}
-        >
+        <Header
+          handlerClick={() => {
+            setQuickTaskForm(true);
+          }}
+        />
+        <PageContainer>
           <PageHeader>
             <GetCurrentDate />
             <Filter>
@@ -41,18 +32,44 @@ export default function HomePage() {
           </PageHeader>
 
           {showTaskForm ? (
-            <InnerContent hadlerClick={switchToForm} />
+            <InnerContent
+              hadlerClick={() => {
+                setShowTaskForm(false);
+              }}
+            />
           ) : (
-            <UploadTaskForm hadlerClick={switchToEmptyPage} />
+            <UploadTaskForm
+              hadlerClick={() => {
+                setShowTaskForm(true);
+              }}
+            />
           )}
-          {/* some */}
-          {quickTaskForm ? (
-            <QuickAddForm>
-              <UploadTaskForm />
-            </QuickAddForm>
+
+          {/* quickTaskForm  */}
+          {/* {quickTaskForm ? (
+            <ModalQuickAddForm
+              active={quickTaskForm}
+              setActive={setQuickTaskForm}
+            >
+              <UploadTaskForm
+                hadlerClick={() => {
+                  setQuickTaskForm(false);
+                }}
+              />
+            </ModalQuickAddForm>
           ) : (
             false
-          )}
+          )} */}
+          <ModalQuickAddForm
+            active={quickTaskForm}
+            setActive={setQuickTaskForm}
+          >
+            <UploadTaskForm
+              hadlerClick={() => {
+                setQuickTaskForm(false);
+              }}
+            />
+          </ModalQuickAddForm>
         </PageContainer>
       </MainWrapper>
     </>
@@ -157,19 +174,19 @@ const ContentSubtitle = styled.p`
   margin: 8px 0;
 `;
 
-const QuickAddForm = styled.div`
-  max-width: 550px;
-  box-shadow: 0 15px 50px 0 rgb(0 0 0 / 35%);
-  position: absolute;
-  top: 30%;
-  right: 0;
-  left: 0;
-  margin: auto;
-  padding: 15px 0;
-  z-index: 2;
-  background-color: #fff;
-  border-radius: 8px;
-  & div {
-    background: inherit;
-  }
-`;
+// const QuickAddForm = styled.div`
+//   max-width: 550px;
+//   box-shadow: 0 15px 50px 0 rgb(0 0 0 / 35%);
+//   position: absolute;
+//   top: 30%;
+//   right: 0;
+//   left: 0;
+//   margin: auto;
+//   padding: 15px 0;
+//   z-index: 2;
+//   background-color: #fff;
+//   border-radius: 8px;
+//   & div {
+//     background: inherit;
+//   }
+// `;

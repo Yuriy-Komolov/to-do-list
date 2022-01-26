@@ -22,9 +22,11 @@ export default function Header({ handlerClick }) {
                 <span></span>
               </Burger>
 
-              <HeaderButton hint={`Go to home G then H`}>
-                <HomePageIcon />
-              </HeaderButton>
+              <HeaderHomeButton hint={`Go to home G then H`}>
+                <a href="/">
+                  <HomePageIcon />
+                </a>
+              </HeaderHomeButton>
 
               <HeaderButton hint="Search">
                 <SearchIcon />
@@ -101,7 +103,11 @@ const Burger = styled(HeaderButton)`
     }
   }
 `;
-
+const HeaderHomeButton = styled(HeaderButton)`
+  & a {
+    line-height: 0;
+  }
+`;
 const RightPart = styled(LeftPart)`
   column-gap: 8px;
   & button {

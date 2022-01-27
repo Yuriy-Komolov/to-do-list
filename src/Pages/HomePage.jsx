@@ -46,20 +46,6 @@ export default function HomePage() {
           )}
 
           {/* quickTaskForm  */}
-          {/* {quickTaskForm ? (
-            <ModalQuickAddForm
-              active={quickTaskForm}
-              setActive={setQuickTaskForm}
-            >
-              <UploadTaskForm
-                hadlerClick={() => {
-                  setQuickTaskForm(false);
-                }}
-              />
-            </ModalQuickAddForm>
-          ) : (
-            false
-          )} */}
           <ModalQuickAddForm
             active={quickTaskForm}
             setActive={setQuickTaskForm}

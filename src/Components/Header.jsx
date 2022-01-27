@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { primaryColor } from "../UI/Constants";
 
 import HeaderButton from "../UI/Buttons/HeaderButton";
+import InputSearch from "../UI/Inputs/InputSearch";
+
 import HomePageIcon from "../UI/Icons/Header/HomePageIcon";
-import SearchIcon from "../UI/Icons/Header/SearchIcon";
 import PlusIcon from "../UI/Icons/Header/PlusIcon";
 import InfoIcon from "../UI/Icons/Header/InfoIcon";
 import BellIcon from "../UI/Icons/Header/BellIcon";
@@ -18,19 +19,18 @@ export default function Header({ handlerClick }) {
         <Container>
           <Navbar>
             <LeftPart>
+              {/*** Burger */}
               <Burger hint="Open menu">
                 <span></span>
               </Burger>
-
+              {/***Home page btn */}
               <HeaderHomeButton hint={`Go to home G then H`}>
                 <a href="/">
                   <HomePageIcon />
                 </a>
               </HeaderHomeButton>
-
-              <HeaderButton hint="Search">
-                <SearchIcon />
-              </HeaderButton>
+              {/*** Search */}
+              <InputSearch hint="Search F" />
             </LeftPart>
 
             <RightPart>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import AddTaskButton from "../Buttons/AddTaskButton";
+import AddTaskButton from "../../UI/Buttons/AddTaskButton";
 
 import {
   postTitleValidation,
@@ -17,14 +17,9 @@ export default function UploadTaskForm({ hadlerClick }) {
 
   const [errors, setErrors] = useState("");
 
-  const submitDisabled = () => {
-    return title.length === 0 ? true : false;
-  };
-
   return (
     <>
       <FormWrapper>
-        <Error>{errors}</Error>
         <form>
           <FormInner>
             <FormInputTitle
@@ -32,6 +27,7 @@ export default function UploadTaskForm({ hadlerClick }) {
               onChange={(e) => {
                 setTitle(e.target.value);
                 setTitleHeight(e.target.scrollHeight);
+
                 setErrors(postTitleValidation(title));
               }}
               style={{ height: titleHeight }}
@@ -47,13 +43,14 @@ export default function UploadTaskForm({ hadlerClick }) {
               }}
               style={{ height: descriptionHeight }}
             />
+            <Error>{errors}</Error>
           </FormInner>
 
           <FormButtons>
             <StyledSubmit
               type="submit"
               text="Submit"
-              disabled={submitDisabled()}
+              disabled={title.length === 0 || errors ? true : false}
             />
             <FormResetBtn type="button" text="Cancel" onClick={hadlerClick} />
           </FormButtons>
@@ -132,9 +129,9 @@ const FormResetBtn = styled(AddTaskButton)`
 
 const StyledSubmit = styled(AddTaskButton)`
   &:disabled {
-    opacity: 0.7;
+    background-color: rgba(30, 120, 250, 0.5);
     &:hover {
-      cursor: url("/Images/block.png"), auto;
+      cursor: url("/Images/icons/block.png"), auto;
     }
   }
 `;
@@ -142,5 +139,5 @@ const StyledSubmit = styled(AddTaskButton)`
 const Error = styled.p`
   font-size: 12px;
   color: #d1453b;
-  margin-bottom: 10px;
+  margin: 0 0 10px 8px;
 `;

@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import { primaryColor } from "../Constants";
+
 export default function AddTaskButton(props) {
   return (
     <>
@@ -13,8 +15,6 @@ export default function AddTaskButton(props) {
     </>
   );
 }
-
-const primaryColor = "#1e78fa";
 
 const StyledButton = styled.button`
   ${(props) => {

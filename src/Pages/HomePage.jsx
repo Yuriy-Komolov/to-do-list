@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
-import AddTaskButton from "../Components/Buttons/AddTaskButton";
+import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
 import UploadTaskForm from "../Components/Forms/UploadTaskForm";
+import Header from "../Components/Header";
+
+import ModalQuickAddForm from "../Components/Modals/ModalQuickAddForm";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showTaskForm, setShowTaskForm] = useState(true);
 
-  const switchToForm = () => {
-    setShowTaskForm(false);
-  };
-  const switchToEmptyPage = () => {
-    setShowTaskForm(true);
-  };
+  const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   return (
     <>
       <MainWrapper>
+        <Header
+          handlerClick={() => {
+            setQuickTaskForm(true);
+          }}
+        />
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
@@ -29,10 +32,30 @@ export default function HomePage() {
           </PageHeader>
 
           {showTaskForm ? (
-            <InnerContent hadlerClick={switchToForm} />
+            <InnerContent
+              hadlerClick={() => {
+                setShowTaskForm(false);
+              }}
+            />
           ) : (
-            <UploadTaskForm hadlerClick={switchToEmptyPage} />
+            <UploadTaskForm
+              hadlerClick={() => {
+                setShowTaskForm(true);
+              }}
+            />
           )}
+
+          {/* quickTaskForm  */}
+          <ModalQuickAddForm
+            active={quickTaskForm}
+            setActive={setQuickTaskForm}
+          >
+            <UploadTaskForm
+              hadlerClick={() => {
+                setQuickTaskForm(false);
+              }}
+            />
+          </ModalQuickAddForm>
         </PageContainer>
       </MainWrapper>
     </>
@@ -63,11 +86,11 @@ const InnerContent = ({ hadlerClick }) => {
 };
 
 const MainWrapper = styled.div`
-  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 100px;
+  position: relative;
 `;
 
 const PageContainer = styled.div`
@@ -75,6 +98,7 @@ const PageContainer = styled.div`
   margin: 0 auto;
   padding: 0 10px;
   width: 100%;
+  position: relative;
 `;
 
 const PageHeader = styled.div`
@@ -135,3 +159,20 @@ const ContentSubtitle = styled.p`
   color: #777;
   margin: 8px 0;
 `;
+
+// const QuickAddForm = styled.div`
+//   max-width: 550px;
+//   box-shadow: 0 15px 50px 0 rgb(0 0 0 / 35%);
+//   position: absolute;
+//   top: 30%;
+//   right: 0;
+//   left: 0;
+//   margin: auto;
+//   padding: 15px 0;
+//   z-index: 2;
+//   background-color: #fff;
+//   border-radius: 8px;
+//   & div {
+//     background: inherit;
+//   }
+// `;

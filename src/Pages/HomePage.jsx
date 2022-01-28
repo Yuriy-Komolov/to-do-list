@@ -4,16 +4,17 @@ import styled from "styled-components";
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
 import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
-import UploadTaskForm from "../Components/Forms/UploadTaskForm";
+import UploadTaskForm from "../UI/Forms/UploadTaskForm";
 import Header from "../Components/Header";
+import BurgerSidebar from "../Components/BurgerSidebar";
 
 import ModalQuickAddForm from "../Components/Modals/ModalQuickAddForm";
 
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(true);
-
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
+  const [burger, setBurger] = useState(false);
   return (
     <>
       <MainWrapper>
@@ -21,7 +22,11 @@ export default function HomePage() {
           handlerClick={() => {
             setQuickTaskForm(true);
           }}
+          burgerHandler={() => {
+            setBurger(burger ? false : true);
+          }}
         />
+        <BurgerSidebar active={burger} setActive={setBurger} />
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
@@ -89,7 +94,6 @@ const MainWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 100px;
   position: relative;
 `;
 
@@ -99,6 +103,7 @@ const PageContainer = styled.div`
   padding: 0 10px;
   width: 100%;
   position: relative;
+  margin-top: 100px;
 `;
 
 const PageHeader = styled.div`
@@ -159,20 +164,3 @@ const ContentSubtitle = styled.p`
   color: #777;
   margin: 8px 0;
 `;
-
-// const QuickAddForm = styled.div`
-//   max-width: 550px;
-//   box-shadow: 0 15px 50px 0 rgb(0 0 0 / 35%);
-//   position: absolute;
-//   top: 30%;
-//   right: 0;
-//   left: 0;
-//   margin: auto;
-//   padding: 15px 0;
-//   z-index: 2;
-//   background-color: #fff;
-//   border-radius: 8px;
-//   & div {
-//     background: inherit;
-//   }
-// `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { primaryColor } from "../UI/Constants";
@@ -12,7 +12,8 @@ import InfoIcon from "../UI/Icons/Header/InfoIcon";
 import BellIcon from "../UI/Icons/Header/BellIcon";
 import ProductivityIcon from "../UI/Icons/Header/ProductivityIcon";
 
-export default function Header({ handlerClick }) {
+export default function Header({ handlerClick, burgerHandler }) {
+  const [burger, setBurger] = useState(false);
   return (
     <>
       <HeaderWrapper>
@@ -20,7 +21,13 @@ export default function Header({ handlerClick }) {
           <Navbar>
             <LeftPart>
               {/*** Burger */}
-              <Burger hint="Open menu">
+              <Burger
+                hint={burger ? "Close menu m" : "Open menu m"}
+                onClick={() => {
+                  setBurger(burger ? false : true);
+                  burgerHandler();
+                }}
+              >
                 <span></span>
               </Burger>
               {/***Home page btn */}

@@ -6,7 +6,7 @@ import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
 import UploadTaskForm from "../UI/Forms/UploadTaskForm";
 import Header from "../Components/Header";
-import BurgerSidebar from "../Components/BurgerSidebar";
+import BurgerNavigation from "../Components/BurgerNavigation";
 
 import ModalQuickAddForm from "../Components/Modals/ModalQuickAddForm";
 
@@ -26,7 +26,7 @@ export default function HomePage() {
             setBurger(burger ? false : true);
           }}
         />
-        <BurgerSidebar active={burger} setActive={setBurger} />
+        <BurgerNavigation active={burger} setActive={setBurger} />
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />

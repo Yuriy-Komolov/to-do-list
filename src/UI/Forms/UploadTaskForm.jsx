@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import AddTaskButton from "../../UI/Buttons/AddTaskButton";
+import AddTaskButton from "../Buttons/AddTaskButton";
 
 import {
   postTitleValidation,

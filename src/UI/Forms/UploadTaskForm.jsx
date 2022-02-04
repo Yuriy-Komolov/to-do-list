@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import AddTaskButton from "../Buttons/AddTaskButton";
@@ -8,7 +8,7 @@ import {
   postDescriptionValidation,
 } from "../../Utils/validationModule";
 
-export default function UploadTaskForm({ hadlerClick }) {
+export default function UploadTaskForm({ hadlerClick, activeForm }) {
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
 
@@ -16,6 +16,13 @@ export default function UploadTaskForm({ hadlerClick }) {
   const [descriptionHeight, setDescriptionHeight] = useState("");
 
   const [errors, setErrors] = useState("");
+
+  const customFocus = useRef(null);
+  useEffect(() => {
+    if (activeForm === true) {
+      customFocus.current.focus();
+    }
+  }, []);
 
   return (
     <>
@@ -31,6 +38,7 @@ export default function UploadTaskForm({ hadlerClick }) {
                 setErrors(postTitleValidation(title));
               }}
               style={{ height: titleHeight }}
+              ref={customFocus}
             />
 
             <FormInputDescription
@@ -52,7 +60,13 @@ export default function UploadTaskForm({ hadlerClick }) {
               text="Submit"
               disabled={title.length === 0 || errors ? true : false}
             />
-            <FormResetBtn type="button" text="Cancel" onClick={hadlerClick} />
+            <FormResetBtn
+              type="button"
+              text="Cancel"
+              onClick={() => {
+                hadlerClick();
+              }}
+            />
           </FormButtons>
         </form>
       </FormWrapper>

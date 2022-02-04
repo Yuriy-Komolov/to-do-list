@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import useFocus from "../../Components/Hooks/useFocus";
 
 import SearchIcon from "../Icons/Header/SearchIcon";
 import InfoIcon from "../Icons/Header/InfoIcon";
@@ -10,6 +10,7 @@ export default function InputSearch({ hint }) {
   const [focus, setFocus] = useState(false);
   const [hover, setHover] = useState(false);
 
+  const [inputRef, setInputFocus] = useFocus();
   return (
     <>
       <InputWrapper
@@ -33,13 +34,14 @@ export default function InputSearch({ hint }) {
         <Input
           hover={hover}
           focus={focus}
+          placeholder="Search"
           onFocus={() => {
             setFocus(true);
           }}
           onBlur={() => {
             setFocus(false);
           }}
-          placeholder="Search"
+          ref={inputRef}
         />
         <ShortCutButton
           hint={hint}
@@ -47,6 +49,7 @@ export default function InputSearch({ hint }) {
           focus={focus}
           onClick={() => {
             setFocus(true);
+            setInputFocus();
           }}
         >
           f

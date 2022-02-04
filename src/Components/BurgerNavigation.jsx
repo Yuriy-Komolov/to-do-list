@@ -8,7 +8,7 @@ import FilterLabelIcon from "../UI/Icons/Navigation/FilterLabelsIcon";
 import TodayIcon from "../UI/Icons/Navigation/TodayIcon";
 import UpcomingIcon from "../UI/Icons/Navigation/UpcomingIcon";
 
-export default function BurgerNavigation({ active, setActive }) {
+export default function BurgerNavigation({ active }) {
   return (
     <>
       <NavigationWrapper active={active}>

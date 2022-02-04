@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
@@ -11,13 +11,32 @@ import BurgerNavigation from "../Components/BurgerNavigation";
 import ModalQuickAddForm from "../Components/Modals/ModalQuickAddForm";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(true);
+  const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
+
+  const divFocus = useRef(null);
+  useEffect(() => {
+    divFocus.current.focus();
+  }, []);
+
+  const keyboardPress = (press) => {
+    if (showTaskForm || quickTaskForm === false) {
+      switch (press.key) {
+        case "m":
+          return setBurger(burger ? false : true);
+        case "q":
+          return setQuickTaskForm(true);
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <>
-      <MainWrapper>
+      <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={divFocus}>
         <Header
           handlerClick={() => {
             setQuickTaskForm(true);
@@ -26,7 +45,7 @@ export default function HomePage() {
             setBurger(burger ? false : true);
           }}
         />
-        <BurgerNavigation active={burger} setActive={setBurger} />
+        <BurgerNavigation active={burger} />
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
@@ -37,13 +56,15 @@ export default function HomePage() {
           </PageHeader>
 
           {showTaskForm ? (
-            <InnerContent
+            <UploadTaskForm
               hadlerClick={() => {
                 setShowTaskForm(false);
+                divFocus.current.focus();
               }}
+              activeForm={showTaskForm}
             />
           ) : (
-            <UploadTaskForm
+            <InnerContent
               hadlerClick={() => {
                 setShowTaskForm(true);
               }}
@@ -55,11 +76,15 @@ export default function HomePage() {
             active={quickTaskForm}
             setActive={setQuickTaskForm}
           >
-            <UploadTaskForm
-              hadlerClick={() => {
-                setQuickTaskForm(false);
-              }}
-            />
+            {quickTaskForm ? (
+              <UploadTaskForm
+                hadlerClick={() => {
+                  setQuickTaskForm(false);
+                  divFocus.current.focus();
+                }}
+                activeForm={quickTaskForm}
+              />
+            ) : null}
           </ModalQuickAddForm>
         </PageContainer>
       </MainWrapper>

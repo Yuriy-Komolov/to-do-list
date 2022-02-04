@@ -22,7 +22,7 @@ export default function Header({ handlerClick, burgerHandler }) {
             <LeftPart>
               {/*** Burger */}
               <Burger
-                hint={burger ? "Close menu m" : "Open menu m"}
+                hint={burger ? `Close menu M` : "Open menu M"}
                 onClick={() => {
                   setBurger(burger ? false : true);
                   burgerHandler();
@@ -36,12 +36,13 @@ export default function Header({ handlerClick, burgerHandler }) {
                   <HomePageIcon />
                 </a>
               </HeaderHomeButton>
+
               {/*** Search */}
               <InputSearch hint="Search F" />
             </LeftPart>
 
             <RightPart>
-              <HeaderButton hint="Quick Add" onClick={handlerClick}>
+              <HeaderButton hint="Quick Add Q" onClick={handlerClick}>
                 <PlusIcon />
               </HeaderButton>
 
@@ -61,7 +62,6 @@ export default function Header({ handlerClick, burgerHandler }) {
     </>
   );
 }
-
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 50px;

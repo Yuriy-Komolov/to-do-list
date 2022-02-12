@@ -55,9 +55,6 @@ const QuickAddFormInner = styled.div`
   background-color: #fff;
   border-radius: 8px;
   position: relative;
-  /* transform: scale("${(props) => (props.active ? "1" : "0")}");
-  opacity: 0;
-  transition: all 1s ease-in-out; */
   transform: ${(props) => (props.active ? "scale(1)" : "scale(0)")};
   transition: 0.2s;
 

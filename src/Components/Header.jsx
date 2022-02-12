@@ -12,8 +12,14 @@ import InfoIcon from "../UI/Icons/Header/InfoIcon";
 import BellIcon from "../UI/Icons/Header/BellIcon";
 import ProductivityIcon from "../UI/Icons/Header/ProductivityIcon";
 
-export default function Header({ handlerClick, burgerHandler }) {
+export default function Header({
+  handlerClick,
+  burgerHandler,
+  activateSearchByPress,
+  setActivateSearchByPress,
+}) {
   const [burger, setBurger] = useState(false);
+
   return (
     <>
       <HeaderWrapper>
@@ -22,7 +28,7 @@ export default function Header({ handlerClick, burgerHandler }) {
             <LeftPart>
               {/*** Burger */}
               <Burger
-                hint={burger ? "Close menu m" : "Open menu m"}
+                hint={burger ? `Close menu M` : "Open menu M"}
                 onClick={() => {
                   setBurger(burger ? false : true);
                   burgerHandler();
@@ -36,12 +42,18 @@ export default function Header({ handlerClick, burgerHandler }) {
                   <HomePageIcon />
                 </a>
               </HeaderHomeButton>
+
               {/*** Search */}
-              <InputSearch hint="Search F" />
+              <InputSearch
+                hint="Search F"
+                active={activateSearchByPress}
+                setActiveFocus={setActivateSearchByPress}
+              />
             </LeftPart>
 
             <RightPart>
-              <HeaderButton hint="Quick Add" onClick={handlerClick}>
+              {/* Quick Add Button */}
+              <HeaderButton hint="Quick Add Q" onClick={handlerClick}>
                 <PlusIcon />
               </HeaderButton>
 
@@ -61,7 +73,6 @@ export default function Header({ handlerClick, burgerHandler }) {
     </>
   );
 }
-
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 50px;

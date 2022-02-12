@@ -15,19 +15,22 @@ export default function HomePage() {
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
+  const [inputSearch, setInputSearch] = useState(false);
 
-  const divFocus = useRef(null);
+  const windowFocus = useRef(null);
   useEffect(() => {
-    divFocus.current.focus();
+    windowFocus.current.focus();
   }, []);
 
   const keyboardPress = (press) => {
-    if (showTaskForm || quickTaskForm === false) {
+    if (!showTaskForm && !quickTaskForm && !inputSearch) {
       switch (press.key) {
         case "m":
           return setBurger(burger ? false : true);
         case "q":
           return setQuickTaskForm(true);
+        case "f":
+          return setInputSearch(true);
         default:
           break;
       }
@@ -36,7 +39,7 @@ export default function HomePage() {
 
   return (
     <>
-      <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={divFocus}>
+      <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={windowFocus}>
         <Header
           handlerClick={() => {
             setQuickTaskForm(true);
@@ -44,6 +47,8 @@ export default function HomePage() {
           burgerHandler={() => {
             setBurger(burger ? false : true);
           }}
+          activateSearchByPress={inputSearch}
+          setActivateSearchByPress={setInputSearch}
         />
         <BurgerNavigation active={burger} />
         <PageContainer>
@@ -59,7 +64,7 @@ export default function HomePage() {
             <UploadTaskForm
               hadlerClick={() => {
                 setShowTaskForm(false);
-                divFocus.current.focus();
+                windowFocus.current.focus();
               }}
               activeForm={showTaskForm}
             />
@@ -80,7 +85,7 @@ export default function HomePage() {
               <UploadTaskForm
                 hadlerClick={() => {
                   setQuickTaskForm(false);
-                  divFocus.current.focus();
+                  windowFocus.current.focus();
                 }}
                 activeForm={quickTaskForm}
               />

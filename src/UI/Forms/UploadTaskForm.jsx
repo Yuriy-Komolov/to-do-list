@@ -22,8 +22,7 @@ export default function UploadTaskForm({ hadlerClick, activeForm }) {
     if (activeForm === true) {
       customFocus.current.focus();
     }
-  }, []);
-
+  });
   return (
     <>
       <FormWrapper>

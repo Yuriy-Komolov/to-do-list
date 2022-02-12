@@ -12,8 +12,14 @@ import InfoIcon from "../UI/Icons/Header/InfoIcon";
 import BellIcon from "../UI/Icons/Header/BellIcon";
 import ProductivityIcon from "../UI/Icons/Header/ProductivityIcon";
 
-export default function Header({ handlerClick, burgerHandler }) {
+export default function Header({
+  handlerClick,
+  burgerHandler,
+  activateSearchByPress,
+  setActivateSearchByPress,
+}) {
   const [burger, setBurger] = useState(false);
+
   return (
     <>
       <HeaderWrapper>
@@ -38,10 +44,15 @@ export default function Header({ handlerClick, burgerHandler }) {
               </HeaderHomeButton>
 
               {/*** Search */}
-              <InputSearch hint="Search F" />
+              <InputSearch
+                hint="Search F"
+                active={activateSearchByPress}
+                setActiveFocus={setActivateSearchByPress}
+              />
             </LeftPart>
 
             <RightPart>
+              {/* Quick Add Button */}
               <HeaderButton hint="Quick Add Q" onClick={handlerClick}>
                 <PlusIcon />
               </HeaderButton>

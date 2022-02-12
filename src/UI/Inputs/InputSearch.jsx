@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
-import useFocus from "../../Components/Hooks/useFocus";
 
 import SearchIcon from "../Icons/Header/SearchIcon";
 import InfoIcon from "../Icons/Header/InfoIcon";
 import HeaderButton from "../Buttons/HeaderButton";
 
-export default function InputSearch({ hint }) {
-  const [focus, setFocus] = useState(false);
+export default function InputSearch({ hint, active, setActiveFocus }) {
   const [hover, setHover] = useState(false);
 
-  const [inputRef, setInputFocus] = useFocus();
+  const focusByPress = useRef(null);
+
+  useEffect(() => {
+    if (active) {
+      focusByPress.current.focus();
+    } else {
+      focusByPress.current.value = "";
+    }
+  });
+
   return (
     <>
       <InputWrapper
@@ -20,10 +27,16 @@ export default function InputSearch({ hint }) {
         onMouseOut={() => {
           setHover(false);
         }}
+        onFocus={() => {
+          setActiveFocus(true);
+        }}
+        onBlur={() => {
+          setActiveFocus(false);
+        }}
       >
         <StyledIconWrapper
           hover={hover}
-          focus={focus}
+          focus={active}
           onMouseOver={() => {
             setHover(true);
           }}
@@ -33,23 +46,16 @@ export default function InputSearch({ hint }) {
 
         <Input
           hover={hover}
-          focus={focus}
+          focus={active}
           placeholder="Search"
-          onFocus={() => {
-            setFocus(true);
-          }}
-          onBlur={() => {
-            setFocus(false);
-          }}
-          ref={inputRef}
+          ref={focusByPress}
         />
         <ShortCutButton
           hint={hint}
           hover={hover}
-          focus={focus}
+          focus={active}
           onClick={() => {
-            setFocus(true);
-            setInputFocus();
+            setActiveFocus(true);
           }}
         >
           f
@@ -57,12 +63,13 @@ export default function InputSearch({ hint }) {
 
         <InfoButton
           href="https://todoist.com/ru/help/articles/how-to-use-search"
-          focus={focus}
+          focus={active}
+          target="_blank"
         >
           <InfoIcon />
         </InfoButton>
 
-        <CloseInput focus={focus} />
+        <CloseInput focus={active} />
       </InputWrapper>
     </>
   );
@@ -80,10 +87,11 @@ const Input = styled.input`
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid transparent;
   border-radius: 4px;
-  padding: 5px 0 5px 34px;
+  padding: 5px 34px;
   position: relative;
   transition: 0.3s;
   width: ${(props) => (props.focus ? "450px" : " 198px")};
+
   &:focus {
     outline: none;
   }
@@ -92,6 +100,7 @@ const Input = styled.input`
     opacity: 1;
     font-size: 13px;
   }
+
   ${(props) =>
     props.hover || props.focus
       ? css`
@@ -138,12 +147,13 @@ const ShortCutButton = styled(HeaderButton)`
 `;
 
 const InfoButton = styled.a`
-  display: ${(props) => (props.focus ? "flex" : "none")};
+  visibility: ${(props) => (props.focus ? "visible" : "hidden")};
   height: 24px;
   width: 24px;
   position: absolute;
   right: 30px;
   top: 3px;
+  transition: visibility 0.1s;
   &:hover {
     background-color: rgba(20, 20, 20, 0.1);
     border-radius: 4px;

@@ -8,7 +8,7 @@ import UploadTaskForm from "../UI/Forms/UploadTaskForm";
 import Header from "../Components/Header";
 import BurgerNavigation from "../Components/BurgerNavigation";
 
-import ModalQuickAddForm from "../Components/Modals/ModalQuickAddForm";
+import ModalQuickAddForm from "../Components/Modals/QuickAddForm/ModalQuickAddForm";
 
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(false);
@@ -60,6 +60,7 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
 
+          {/* Basic Add Form */}
           {showTaskForm ? (
             <UploadTaskForm
               hadlerClick={() => {
@@ -80,17 +81,8 @@ export default function HomePage() {
           <ModalQuickAddForm
             active={quickTaskForm}
             setActive={setQuickTaskForm}
-          >
-            {quickTaskForm ? (
-              <UploadTaskForm
-                hadlerClick={() => {
-                  setQuickTaskForm(false);
-                  windowFocus.current.focus();
-                }}
-                activeForm={quickTaskForm}
-              />
-            ) : null}
-          </ModalQuickAddForm>
+            windowFocus={windowFocus}
+          />
         </PageContainer>
       </MainWrapper>
     </>

@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import UploadTaskForm from "../../../UI/Forms/UploadTaskForm";
+import QuickDiscardWarning from "./QuickDiscardWarning";
 
-export default function ModalQuickAddForm({ active, setActive, children }) {
+export default function ModalQuickAddForm({ active, setActive, windowFocus }) {
+  const [discartWarning, setDiscartWarning] = useState(false);
+  const [checkEmptyFormTitle, setEmptyFormTitle] = useState("");
+
   return (
     <>
       <QuickWrapper
         onClick={() => {
-          setActive(false);
+          if (checkEmptyFormTitle.length !== 0) setDiscartWarning(true);
+          else setActive(false);
         }}
         active={active}
       >
@@ -16,9 +22,25 @@ export default function ModalQuickAddForm({ active, setActive, children }) {
           }}
           active={active}
         >
-          {children}
+          {/**Form----------------------------------------**/}
+          <UploadTaskForm
+            hadlerClick={() => {
+              setActive(false);
+              windowFocus.current.focus();
+            }}
+            mode="quickMode"
+            activeForm={active}
+            setDiscartWarning={setDiscartWarning}
+            setEmptyTitle={setEmptyFormTitle}
+          />
         </QuickAddFormInner>
       </QuickWrapper>
+      <QuickDiscardWarning
+        activeModalWarning={discartWarning}
+        setModalWarning={setDiscartWarning}
+        setWholeForm={setActive}
+        setEmptyFormTitle={setEmptyFormTitle}
+      />
     </>
   );
 }

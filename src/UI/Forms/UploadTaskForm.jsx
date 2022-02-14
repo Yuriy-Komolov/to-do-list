@@ -2,13 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import AddTaskButton from "../Buttons/AddTaskButton";
-
 import {
   postTitleValidation,
   postDescriptionValidation,
 } from "../../Utils/validationModule";
 
-export default function UploadTaskForm({ hadlerClick, activeForm }) {
+export default function UploadTaskForm({
+  hadlerClick,
+  mode,
+  activeForm,
+  setDiscartWarning,
+  setEmptyTitle,
+}) {
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
 
@@ -17,12 +22,20 @@ export default function UploadTaskForm({ hadlerClick, activeForm }) {
 
   const [errors, setErrors] = useState("");
 
-  const customFocus = useRef(null);
+  const titleField = useRef(null);
+  const descriptionField = useRef(null);
   useEffect(() => {
     if (activeForm === true) {
-      customFocus.current.focus();
+      titleField.current.focus();
+    } else {
+      titleField.current.value = "";
+      setTitle("");
+
+      descriptionField.current.value = "";
+      setDescription("");
     }
-  });
+  }, [activeForm]);
+
   return (
     <>
       <FormWrapper>
@@ -33,11 +46,12 @@ export default function UploadTaskForm({ hadlerClick, activeForm }) {
               onChange={(e) => {
                 setTitle(e.target.value);
                 setTitleHeight(e.target.scrollHeight);
+                setEmptyTitle(e.target.value);
 
                 setErrors(postTitleValidation(title));
               }}
               style={{ height: titleHeight }}
-              ref={customFocus}
+              ref={titleField}
             />
 
             <FormInputDescription
@@ -48,6 +62,7 @@ export default function UploadTaskForm({ hadlerClick, activeForm }) {
 
                 setErrors(postDescriptionValidation(description));
               }}
+              ref={descriptionField}
               style={{ height: descriptionHeight }}
             />
             <Error>{errors}</Error>
@@ -57,13 +72,15 @@ export default function UploadTaskForm({ hadlerClick, activeForm }) {
             <StyledSubmit
               type="submit"
               text="Submit"
-              disabled={title.length === 0 || errors ? true : false}
+              disabled={title.trim().length === 0 || errors ? true : false}
             />
             <FormResetBtn
               type="button"
               text="Cancel"
               onClick={() => {
-                hadlerClick();
+                mode === "quickMode" && title
+                  ? setDiscartWarning(true)
+                  : hadlerClick();
               }}
             />
           </FormButtons>

@@ -51,7 +51,7 @@ const NavigationBtn = styled(HeaderButton)`
   justify-content: flex-start;
   color: #333;
   &::before {
-    left: 280px;
+    left: 290px;
     bottom: 0;
     top: 0;
     z-index: 100;

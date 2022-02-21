@@ -4,7 +4,7 @@ import styled from "styled-components";
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
 import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
-import UploadTaskForm from "../UI/Forms/UploadTaskForm";
+import UploadTaskForm from "../UI/Forms/UploadTask/UploadTaskForm";
 import Header from "../Components/Header";
 import BurgerNavigation from "../Components/BurgerNavigation";
 
@@ -13,9 +13,11 @@ import ModalQuickAddForm from "../Components/Modals/QuickAddForm/ModalQuickAddFo
 import EstablishIcon from "../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
+import TaskItem from "../UI/Forms/UploadTask/TaskItem";
+import TasksList from "../UI/Forms/UploadTask/TasksList";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showTaskForm, setShowTaskForm] = useState(true);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
@@ -25,6 +27,19 @@ export default function HomePage() {
   useEffect(() => {
     windowFocus.current.focus();
   }, []);
+
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Take dog for a walk",
+      description: "after super",
+    },
+    {
+      id: 2,
+      title: "title som tesdcsadsadt 2",
+      description: "description number 2",
+    },
+  ]);
 
   const keyboardPress = (press) => {
     if (!showTaskForm && !quickTaskForm && !inputSearch) {
@@ -66,13 +81,19 @@ export default function HomePage() {
 
           {/* Basic Add Form */}
           {showTaskForm ? (
-            <UploadTaskForm
-              hadlerClick={() => {
-                setShowTaskForm(false);
-                windowFocus.current.focus();
-              }}
-              activeForm={showTaskForm}
-            />
+            <>
+              <TasksList tasks={tasks} setTasks={setTasks} />
+
+              <UploadTaskForm
+                hadlerClick={() => {
+                  setShowTaskForm(false);
+                  windowFocus.current.focus();
+                }}
+                activeForm={showTaskForm}
+                tasks={tasks}
+                setTasks={setTasks}
+              />
+            </>
           ) : (
             <InnerContent
               hadlerClick={() => {
@@ -238,6 +259,7 @@ const EstablishModalConatiner = styled.div`
   position: absolute;
   bottom: 45px;
   visibility: ${(props) => (props.active ? "visible" : "hidden")};
+  transition-delay: 1s, 1ms;
 `;
 const EstablishModalTitle = styled.div`
   display: flex;

@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import AddTaskButton from "../Buttons/AddTaskButton";
+import AddTaskButton from "../../Buttons/AddTaskButton";
 import {
   postTitleValidation,
   postDescriptionValidation,
-} from "../../Utils/validationModule";
+} from "../../../Utils/validationModule";
 
 export default function UploadTaskForm({
   hadlerClick,
   mode,
   activeForm,
   setDiscartWarning,
-  setEmptyTitle,
+  tasks,
+  setTasks,
 }) {
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
@@ -24,6 +25,7 @@ export default function UploadTaskForm({
 
   const titleField = useRef(null);
   const descriptionField = useRef(null);
+
   useEffect(() => {
     if (activeForm === true) {
       titleField.current.focus();
@@ -36,6 +38,22 @@ export default function UploadTaskForm({
     }
   }, [activeForm]);
 
+  // Submit button
+  const addTask = (e) => {
+    e.preventDefault();
+
+    const newTask = {
+      id: Date.now(),
+      title: title,
+      description: description,
+    };
+
+    setTasks([...tasks, newTask]);
+
+    titleField.current.value = "";
+    descriptionField.current.value = "";
+  };
+
   return (
     <>
       <FormWrapper>
@@ -46,7 +64,6 @@ export default function UploadTaskForm({
               onChange={(e) => {
                 setTitle(e.target.value);
                 setTitleHeight(e.target.scrollHeight);
-                setEmptyTitle(e.target.value);
 
                 setErrors(postTitleValidation(title));
               }}
@@ -73,6 +90,7 @@ export default function UploadTaskForm({
               type="submit"
               text="Submit"
               disabled={title.trim().length === 0 || errors ? true : false}
+              onClick={addTask}
             />
             <FormResetBtn
               type="button"

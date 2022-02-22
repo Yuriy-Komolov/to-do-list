@@ -15,9 +15,10 @@ import FilterIcon from "../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
 import TaskItem from "../UI/Forms/UploadTask/TaskItem";
 import TasksList from "../UI/Forms/UploadTask/TasksList";
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react/cjs/react.production.min";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(true);
+  const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
@@ -29,16 +30,16 @@ export default function HomePage() {
   }, []);
 
   const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Take dog for a walk",
-      description: "after super",
-    },
-    {
-      id: 2,
-      title: "title som tesdcsadsadt 2",
-      description: "description number 2",
-    },
+    // {
+    //   id: 1,
+    //   title: "Take dog for a walk",
+    //   description: "after super",
+    // },
+    // {
+    //   id: 2,
+    //   title: "title som tesdcsadsadt 2",
+    //   description: "description number 2",
+    // },
   ]);
 
   const keyboardPress = (press) => {
@@ -78,12 +79,20 @@ export default function HomePage() {
               View
             </Filter>
           </PageHeader>
-
+          <TasksList tasks={tasks} setTasks={setTasks} />
+          {showTaskForm ? null : (
+            <AddTaskButton
+              type="button"
+              text="Add task"
+              $mode="withIcon"
+              onClick={() => {
+                setShowTaskForm(true);
+              }}
+            />
+          )}
           {/* Basic Add Form */}
           {showTaskForm ? (
             <>
-              <TasksList tasks={tasks} setTasks={setTasks} />
-
               <UploadTaskForm
                 hadlerClick={() => {
                   setShowTaskForm(false);
@@ -94,19 +103,17 @@ export default function HomePage() {
                 setTasks={setTasks}
               />
             </>
-          ) : (
-            <InnerContent
-              hadlerClick={() => {
-                setShowTaskForm(true);
-              }}
-            />
-          )}
+          ) : tasks.length === 0 ? (
+            <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
+          ) : null}
 
           {/* quickTaskForm  */}
           <ModalQuickAddForm
             active={quickTaskForm}
-            setActive={setQuickTaskForm}
+            setFormActive={setQuickTaskForm}
             windowFocus={windowFocus}
+            tasks={tasks}
+            setTasks={setTasks}
           />
         </PageContainer>
       </MainWrapper>
@@ -115,16 +122,10 @@ export default function HomePage() {
 }
 
 // Some components, made to achive more easier reading of main component ---------------------------------------------
-const InnerContent = ({ hadlerClick }) => {
+const InnerContent = ({ setShowTaskForm }) => {
   const [establishTooltip, setEstablishTooltip] = useState(false);
   return (
     <>
-      <AddTaskButton
-        type="button"
-        text="Add task"
-        $mode="withIcon"
-        onClick={hadlerClick}
-      />
       <Content>
         <ContentImage>
           <img src="/Images/home-page-bg.png" alt="imag" />
@@ -133,7 +134,13 @@ const InnerContent = ({ hadlerClick }) => {
         <ContentSubtitle>
           All your tasks that are due today will show up here.
         </ContentSubtitle>
-        <AddTaskButton type="button" text="Add task" onClick={hadlerClick} />
+        <AddTaskButton
+          type="button"
+          text="Add task"
+          onClick={() => {
+            setShowTaskForm(true);
+          }}
+        />
         <ContentEstablish
           onMouseEnter={() => {
             setEstablishTooltip(true);

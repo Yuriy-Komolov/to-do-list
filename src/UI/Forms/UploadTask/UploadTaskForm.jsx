@@ -12,6 +12,7 @@ export default function UploadTaskForm({
   mode,
   activeForm,
   setDiscartWarning,
+  setEmptyTitle,
   tasks,
   setTasks,
 }) {
@@ -50,6 +51,8 @@ export default function UploadTaskForm({
 
     setTasks([...tasks, newTask]);
 
+    setTitle("");
+    setEmptyTitle("");
     titleField.current.value = "";
     descriptionField.current.value = "";
   };
@@ -64,6 +67,7 @@ export default function UploadTaskForm({
               onChange={(e) => {
                 setTitle(e.target.value);
                 setTitleHeight(e.target.scrollHeight);
+                setEmptyTitle(e.target.value);
 
                 setErrors(postTitleValidation(title));
               }}

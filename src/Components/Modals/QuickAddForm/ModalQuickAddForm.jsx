@@ -3,16 +3,22 @@ import styled, { css } from "styled-components";
 import UploadTaskForm from "../../../UI/Forms/UploadTask/UploadTaskForm";
 import QuickDiscardWarning from "./QuickDiscardWarning";
 
-export default function ModalQuickAddForm({ active, setActive, windowFocus }) {
+export default function ModalQuickAddForm({
+  active,
+  setFormActive,
+  windowFocus,
+  tasks,
+  setTasks,
+}) {
   const [discartWarning, setDiscartWarning] = useState(false);
-  const [checkEmptyFormTitle, setEmptyFormTitle] = useState("");
-
+  const [checkingEmptyFormTitle, setCheckingEmptyFormTitle] = useState("");
+  console.log(checkingEmptyFormTitle);
   return (
     <>
       <QuickWrapper
         onClick={() => {
-          if (checkEmptyFormTitle.length !== 0) setDiscartWarning(true);
-          else setActive(false);
+          if (checkingEmptyFormTitle.length !== 0) setDiscartWarning(true);
+          else setFormActive(false);
         }}
         active={active}
       >
@@ -25,21 +31,23 @@ export default function ModalQuickAddForm({ active, setActive, windowFocus }) {
           {/**Form----------------------------------------**/}
           <UploadTaskForm
             hadlerClick={() => {
-              setActive(false);
+              setFormActive(false);
               windowFocus.current.focus();
             }}
             mode="quickMode"
             activeForm={active}
             setDiscartWarning={setDiscartWarning}
-            setEmptyTitle={setEmptyFormTitle}
+            setEmptyTitle={setCheckingEmptyFormTitle}
+            tasks={tasks}
+            setTasks={setTasks}
           />
         </QuickAddFormInner>
       </QuickWrapper>
       <QuickDiscardWarning
         activeModalWarning={discartWarning}
         setModalWarning={setDiscartWarning}
-        setWholeForm={setActive}
-        setEmptyFormTitle={setEmptyFormTitle}
+        setWholeForm={setFormActive}
+        setEmptyFormTitle={setCheckingEmptyFormTitle}
       />
     </>
   );

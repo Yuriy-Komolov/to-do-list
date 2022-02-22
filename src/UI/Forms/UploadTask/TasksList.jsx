@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TaskItem from "./TaskItem";
 
 export default function TasksList({ tasks, setTasks }) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import UploadTaskForm from "../../../UI/Forms/UploadTaskForm";
+import UploadTaskForm from "../../../UI/Forms/UploadTask/UploadTaskForm";
 import QuickDiscardWarning from "./QuickDiscardWarning";
 
 export default function ModalQuickAddForm({ active, setActive, windowFocus }) {

@@ -13,12 +13,10 @@ import ModalQuickAddForm from "../Components/Modals/QuickAddForm/ModalQuickAddFo
 import EstablishIcon from "../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
-import TaskItem from "../UI/Forms/UploadTask/TaskItem";
 import TasksList from "../UI/Forms/UploadTask/TasksList";
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react/cjs/react.production.min";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showTaskForm, setShowTaskForm] = useState(true);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
@@ -30,16 +28,16 @@ export default function HomePage() {
   }, []);
 
   const [tasks, setTasks] = useState([
-    // {
-    //   id: 1,
-    //   title: "Take dog for a walk",
-    //   description: "after super",
-    // },
-    // {
-    //   id: 2,
-    //   title: "title som tesdcsadsadt 2",
-    //   description: "description number 2",
-    // },
+    {
+      id: 1,
+      title: "111 Take dog for a walk",
+      description: "after super",
+    },
+    {
+      id: 2,
+      title: "2222 title som tesdcsadsadt 2",
+      description: "description number 2",
+    },
   ]);
 
   const keyboardPress = (press) => {

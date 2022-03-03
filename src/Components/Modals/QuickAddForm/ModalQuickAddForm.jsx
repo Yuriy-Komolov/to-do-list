@@ -12,7 +12,6 @@ export default function ModalQuickAddForm({
 }) {
   const [discartWarning, setDiscartWarning] = useState(false);
   const [checkingEmptyFormTitle, setCheckingEmptyFormTitle] = useState("");
-  console.log(checkingEmptyFormTitle);
   return (
     <>
       <QuickWrapper

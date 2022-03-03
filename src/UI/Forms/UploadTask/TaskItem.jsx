@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TaskItemCheckIcon from "../../Icons/HomePage/TaskItemCheckIcon";
+import DragIcon from "../../Icons/TaskItem/DragIcon";
 
-export default function TaskItem({ task, removeTask }) {
+export default function TaskItem({
+  task,
+  removeTask,
+  refference,
+  dragging,
+  draggingHandle,
+}) {
   const [hover, setHover] = useState(false);
 
   return (
     <>
       <Wrapper
+        ref={refference}
         onMouseEnter={() => {
           setHover(true);
         }}
         onMouseLeave={() => {
           setHover(false);
         }}
+        {...dragging}
       >
+        <DragButton hover={hover} {...draggingHandle}>
+          <DragIcon />
+        </DragButton>
         <Content>
           <Checkbox
             onClick={() => {
@@ -41,7 +53,25 @@ const Wrapper = styled.div`
   height: 50px;
   border: 1px solid red;
   margin-top: 10px;
+  background-color: #fff;
   cursor: pointer;
+  position: relative;
+`;
+
+const DragButton = styled.span`
+  display: block;
+  opacity: ${(props) => (props.hover ? "1" : "0")};
+  position: absolute;
+  left: -30px;
+  top: 3px;
+  cursor: move;
+  border-radius: 4px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    & svg path {
+      fill: #000;
+    }
+  }
 `;
 
 const Content = styled.div`

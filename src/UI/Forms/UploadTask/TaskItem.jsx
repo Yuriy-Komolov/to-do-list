@@ -9,6 +9,7 @@ export default function TaskItem({
   refference,
   dragging,
   draggingHandle,
+  snap,
 }) {
   const [hover, setHover] = useState(false);
 
@@ -23,6 +24,10 @@ export default function TaskItem({
           setHover(false);
         }}
         {...dragging}
+        style={{
+          ...dragging.style,
+          boxShadow: snap.isDragging ? "0px 2px 5px 0px #999999" : "none",
+        }}
       >
         <DragButton hover={hover} {...draggingHandle}>
           <DragIcon />
@@ -51,7 +56,7 @@ export default function TaskItem({
 const Wrapper = styled.div`
   width: 100%;
   height: 50px;
-  border: 1px solid red;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   background-color: #fff;
   cursor: pointer;

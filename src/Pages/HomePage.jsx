@@ -16,7 +16,7 @@ import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
 import TasksList from "../UI/Forms/UploadTask/TasksList";
 
 export default function HomePage() {
-  const [showTaskForm, setShowTaskForm] = useState(true);
+  const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
@@ -39,7 +39,6 @@ export default function HomePage() {
       description: "description number 2",
     },
   ]);
-
   const keyboardPress = (press) => {
     if (!showTaskForm && !quickTaskForm && !inputSearch) {
       switch (press.key) {
@@ -54,7 +53,6 @@ export default function HomePage() {
       }
     }
   };
-
   return (
     <>
       <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={windowFocus}>
@@ -90,17 +88,15 @@ export default function HomePage() {
           )}
           {/* Basic Add Form */}
           {showTaskForm ? (
-            <>
-              <UploadTaskForm
-                hadlerClick={() => {
-                  setShowTaskForm(false);
-                  windowFocus.current.focus();
-                }}
-                activeForm={showTaskForm}
-                tasks={tasks}
-                setTasks={setTasks}
-              />
-            </>
+            <UploadTaskForm
+              hadlerClick={() => {
+                setShowTaskForm(false);
+                windowFocus.current.focus();
+              }}
+              activeForm={showTaskForm}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
           ) : tasks.length === 0 ? (
             <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
           ) : null}

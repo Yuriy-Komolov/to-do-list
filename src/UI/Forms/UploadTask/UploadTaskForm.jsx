@@ -41,8 +41,6 @@ export default function UploadTaskForm({
 
   // Submit button
   const addTask = (e) => {
-    e.preventDefault();
-
     const newTask = {
       id: Date.now(),
       title: title,
@@ -52,9 +50,11 @@ export default function UploadTaskForm({
     setTasks([...tasks, newTask]);
 
     setTitle("");
-    setEmptyTitle("");
     titleField.current.value = "";
     descriptionField.current.value = "";
+    if (mode === "quickMode") {
+      setEmptyTitle("");
+    }
   };
 
   return (
@@ -67,9 +67,15 @@ export default function UploadTaskForm({
               onChange={(e) => {
                 setTitle(e.target.value);
                 setTitleHeight(e.target.scrollHeight);
-                setEmptyTitle(e.target.value);
 
                 setErrors(postTitleValidation(title));
+                if (mode === "quickMode") setEmptyTitle(e.target.value);
+              }}
+              onKeyPress={(press) => {
+                if (press.key === "Enter") {
+                  press.preventDefault();
+                  addTask();
+                }
               }}
               style={{ height: titleHeight }}
               ref={titleField}

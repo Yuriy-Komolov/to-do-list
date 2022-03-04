@@ -26,7 +26,7 @@ export default function TasksList({ tasks, setTasks }) {
                   key={item.id}
                   index={index}
                 >
-                  {(provided, _) => (
+                  {(provided, snapshot) => (
                     <TaskItem
                       task={item}
                       key={item.id}
@@ -34,6 +34,7 @@ export default function TasksList({ tasks, setTasks }) {
                       refference={provided.innerRef}
                       dragging={{ ...provided.draggableProps }}
                       draggingHandle={{ ...provided.dragHandleProps }}
+                      snap={snapshot}
                     />
                   )}
                 </Draggable>

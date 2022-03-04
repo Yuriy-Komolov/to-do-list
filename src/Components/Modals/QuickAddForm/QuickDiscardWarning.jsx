@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import AddTaskButton from "../../../UI/Buttons/AddTaskButton";
+import CloseIconButton from "../../../UI/Buttons/CloseIconButton";
 import InfoIcon from "../../../UI/Icons/Header/InfoIcon";
 
 export default function QuickDiscardWarning({
@@ -27,8 +28,9 @@ export default function QuickDiscardWarning({
             <StyledInfoIcon>
               <InfoIcon />
             </StyledInfoIcon>
-            <CloseIconBtn
-              onClick={() => {
+
+            <CloseIconButton
+              clickHandler={() => {
                 setModalWarning(false);
               }}
             />
@@ -110,31 +112,6 @@ const StyledInfoIcon = styled.div`
   width: 24px;
   & svg path {
     fill: grey;
-  }
-`;
-
-const CloseIconBtn = styled.span`
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:hover {
-    background-color: rgba(20, 20, 20, 0.1);
-    border-radius: 4px;
-  }
-  &::before,
-  ::after {
-    content: "";
-    height: 1px;
-    width: 19px;
-    position: absolute;
-    background-color: grey;
-    transform: rotate(-45deg);
-  }
-  &::after {
-    transform: rotate(45deg);
   }
 `;
 

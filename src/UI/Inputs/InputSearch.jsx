@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import SearchIcon from "../Icons/Header/SearchIcon";
 import InfoIcon from "../Icons/Header/InfoIcon";
 import HeaderButton from "../Buttons/HeaderButton";
+import CloseIconButton from "../Buttons/CloseIconButton";
 
 export default function InputSearch({ hint, active, setActiveFocus }) {
   const [hover, setHover] = useState(false);
@@ -162,6 +163,19 @@ const InfoButton = styled.a`
     fill: grey;
   }
 `;
+
+// const CloseInput = styled(CloseIconButton)`
+//   display: ${(props) => (props.focus ? "flex" : "none")};
+//   height: 20px;
+//   width: 20px;
+//   position: absolute;
+//   top: 5px;
+//   right: 4px;
+//   &::before,
+//   ::after {
+//     width: 16px;
+//   }
+// `;
 
 const CloseInput = styled.span`
   height: 20px;

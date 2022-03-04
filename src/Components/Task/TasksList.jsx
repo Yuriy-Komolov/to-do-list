@@ -34,7 +34,7 @@ export default function TasksList({ tasks, setTasks }) {
                       refference={provided.innerRef}
                       dragging={{ ...provided.draggableProps }}
                       draggingHandle={{ ...provided.dragHandleProps }}
-                      snap={snapshot}
+                      snapshot={snapshot}
                     />
                   )}
                 </Draggable>

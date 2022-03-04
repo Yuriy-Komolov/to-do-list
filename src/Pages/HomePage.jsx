@@ -13,11 +13,13 @@ import ModalQuickAddForm from "../Components/Modals/QuickAddForm/ModalQuickAddFo
 import EstablishIcon from "../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
-import TasksList from "../UI/Forms/UploadTask/TasksList";
+import TasksList from "../Components/Task/TasksList";
+import EditTask from "../Components/Task/EditTask";
 
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
+  const [taskEditModal, setTaskEditModal] = useState(true);
 
   const [burger, setBurger] = useState(false);
   const [inputSearch, setInputSearch] = useState(false);
@@ -75,7 +77,14 @@ export default function HomePage() {
               View
             </Filter>
           </PageHeader>
+          {/* ==================Tasks Section ====================================== */}
           <TasksList tasks={tasks} setTasks={setTasks} />
+
+          <EditTask
+            taskEditModal={taskEditModal}
+            setTaskEditModal={setTaskEditModal}
+          />
+
           {showTaskForm ? null : (
             <AddTaskButton
               type="button"
@@ -86,7 +95,7 @@ export default function HomePage() {
               }}
             />
           )}
-          {/* Basic Add Form */}
+          {/* =======================Basic Add Form =================================*/}
           {showTaskForm ? (
             <UploadTaskForm
               hadlerClick={() => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import TaskItemCheckIcon from "../../Icons/HomePage/TaskItemCheckIcon";
-import DragIcon from "../../Icons/TaskItem/DragIcon";
+import TaskItemCheckIcon from "../../UI/Icons/HomePage/TaskItemCheckIcon";
+import DragIcon from "../../UI/Icons/TaskItem/DragIcon";
 
 export default function TaskItem({
   task,
@@ -9,7 +9,7 @@ export default function TaskItem({
   refference,
   dragging,
   draggingHandle,
-  snap,
+  snapshot,
 }) {
   const [hover, setHover] = useState(false);
 
@@ -26,7 +26,7 @@ export default function TaskItem({
         {...dragging}
         style={{
           ...dragging.style,
-          boxShadow: snap.isDragging ? "0px 2px 5px 0px #999999" : "none",
+          boxShadow: snapshot.isDragging ? "0px 2px 5px 0px #999999" : "none",
         }}
       >
         <DragButton hover={hover} {...draggingHandle}>

@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
 import TaskItemCheckIcon from "../../UI/Icons/HomePage/TaskItemCheckIcon";
 import DragIcon from "../../UI/Icons/TaskItem/DragIcon";
+import TaskItemButton from "../../UI/Buttons/TaskItemButton";
+import PenIcon from "../../UI/Icons/TaskItem/PenIcon";
+import ComentIcon from "../../UI/Icons/TaskItem/ComentIcon";
+import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
+import DateIconSmooth from "../../UI/Icons/TaskItem/DateIconSmooth";
+import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
+import EditTask from "./EditTask";
 
 export default function TaskItem({
   task,
@@ -10,45 +18,97 @@ export default function TaskItem({
   dragging,
   draggingHandle,
   snapshot,
+  setTaskForm,
 }) {
   const [hover, setHover] = useState(false);
+  const [editTaskForm, setEditTaskForm] = useState(false);
+
+  const [testingWindow, setTestingWindow] = useState(false);
+
+  const editTaskFormHandlers = {
+    openEditTask: () => {
+      setEditTaskForm(true);
+      setTaskForm(true);
+    },
+    closeEditTask: () => {
+      setEditTaskForm(false);
+      setTaskForm(false);
+    },
+    id: task.id,
+    title: task.title,
+    description: task.description,
+  };
 
   return (
     <>
-      <Wrapper
-        ref={refference}
-        onMouseEnter={() => {
-          setHover(true);
-        }}
-        onMouseLeave={() => {
-          setHover(false);
-        }}
-        {...dragging}
-        style={{
-          ...dragging.style,
-          boxShadow: snapshot.isDragging ? "0px 2px 5px 0px #999999" : "none",
-        }}
-      >
-        <DragButton hover={hover} {...draggingHandle}>
-          <DragIcon />
-        </DragButton>
-        <Content>
-          <Checkbox
-            onClick={() => {
-              removeTask(task);
-            }}
-          >
-            <StyledCheckBoxIcon>
-              <TaskItemCheckIcon />
-            </StyledCheckBoxIcon>
-          </Checkbox>
-          <Text>
-            <Title>{task.title}</Title>
-            <Description>{task.description}</Description>
-          </Text>
-        </Content>
-        <Controls></Controls>
-      </Wrapper>
+      {editTaskForm ? (
+        <UploadTaskForm
+          editTask={editTaskFormHandlers}
+          mode="editTask"
+          hadlerClick={editTaskFormHandlers.closeEditTask}
+          taskItem={task}
+        />
+      ) : (
+        <Wrapper
+          ref={refference}
+          onMouseEnter={() => {
+            setHover(true);
+          }}
+          onMouseLeave={() => {
+            setHover(false);
+          }}
+          {...dragging}
+          style={{
+            ...dragging.style,
+            boxShadow: snapshot.isDragging ? "0px 2px 5px 0px #999999" : "none",
+          }}
+        >
+          <DragButton hover={hover} {...draggingHandle}>
+            <DragIcon />
+          </DragButton>
+          <Content>
+            <Checkbox
+              onClick={() => {
+                removeTask(task);
+              }}
+            >
+              <StyledCheckBoxIcon>
+                <TaskItemCheckIcon />
+              </StyledCheckBoxIcon>
+            </Checkbox>
+            <Text
+              onClick={() => {
+                setTestingWindow(true);
+                setTaskForm(true);
+              }}
+            >
+              <Title>{task.title}</Title>
+              <Description>{task.description}</Description>
+            </Text>
+          </Content>
+          <Controls active={hover}>
+            {/*======================= Pen button ========================*/}
+            <TaskItemButton clickHandler={editTaskFormHandlers.openEditTask}>
+              <PenIcon />
+            </TaskItemButton>
+
+            <TaskItemButton>
+              <DateIconSmooth />
+            </TaskItemButton>
+            <TaskItemButton>
+              <ComentIcon />
+            </TaskItemButton>
+            <TaskItemButton>
+              <DotsIcon />
+            </TaskItemButton>
+          </Controls>
+        </Wrapper>
+      )}
+      <EditTask
+        taskEditModal={testingWindow}
+        setTaskEditModal={setTestingWindow}
+        task={task}
+      />
     </>
   );
 }
@@ -108,6 +168,7 @@ const StyledCheckBoxIcon = styled.div`
 `;
 const Text = styled.div`
   padding: 0 8px 8px 8px;
+  width: 100%;
 `;
 const Title = styled.h3`
   flex-grow: 1;
@@ -127,4 +188,10 @@ const Description = styled.p`
   color: grey;
 `;
 
-const Controls = styled.div``;
+const Controls = styled.div`
+  display: ${(props) => (props.active ? "flex" : "none")};
+  position: absolute;
+  right: -35px;
+  top: 10px;
+  column-gap: 8px;
+`;

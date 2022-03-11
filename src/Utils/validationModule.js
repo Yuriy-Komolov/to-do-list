@@ -1,5 +1,4 @@
-const TITLE_LENGTH = 20;
-const DESCRIPTION_LENGTH = 30;
+import { TITLE_LENGTH, DESCRIPTION_LENGTH } from "../UI/Constants";
 
 export const postTitleValidation = (title) => {
   let error = "";

@@ -14,12 +14,11 @@ import EstablishIcon from "../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
 import TasksList from "../Components/Task/TasksList";
-import EditTask from "../Components/Task/EditTask";
 
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
-  const [taskEditModal, setTaskEditModal] = useState(true);
+  const [taskForm, setTaskForm] = useState(false);
 
   const [burger, setBurger] = useState(false);
   const [inputSearch, setInputSearch] = useState(false);
@@ -41,8 +40,9 @@ export default function HomePage() {
       description: "description number 2",
     },
   ]);
+  console.log(taskForm);
   const keyboardPress = (press) => {
-    if (!showTaskForm && !quickTaskForm && !inputSearch) {
+    if (!showTaskForm && !quickTaskForm && !inputSearch && !taskForm) {
       switch (press.key) {
         case "m":
           return setBurger(burger ? false : true);
@@ -78,11 +78,10 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
-          <TasksList tasks={tasks} setTasks={setTasks} />
-
-          <EditTask
-            taskEditModal={taskEditModal}
-            setTaskEditModal={setTaskEditModal}
+          <TasksList
+            tasks={tasks}
+            setTasks={setTasks}
+            setTaskForm={setTaskForm}
           />
 
           {showTaskForm ? null : (
@@ -110,7 +109,7 @@ export default function HomePage() {
             <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
           ) : null}
 
-          {/* quickTaskForm  */}
+          {/* ======================== quickTaskForm ===============================*/}
           <ModalQuickAddForm
             active={quickTaskForm}
             setFormActive={setQuickTaskForm}

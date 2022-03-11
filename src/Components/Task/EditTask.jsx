@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
 import CloseIconButton from "../../UI/Buttons/CloseIconButton";
 import TaskItemCheckIcon from "../../UI/Icons/HomePage/TaskItemCheckIcon";
-import TodayIcon from "../../UI/Icons/HomePage/TodayIcon";
+import DateIcon from "../../UI/Icons/TaskItem/DateIcon";
 import InboxIcon from "../../UI/Icons/Navigation/InboxIcon";
+import SelectIcon from "../../UI/Icons/TaskItem/SelectIcon";
+import LabelIcon from "../../UI/Icons/TaskItem/LabelIcon";
+import FlagIcon from "../../UI/Icons/TaskItem/FlagIcon";
+import ClockIcon from "../../UI/Icons/TaskItem/ClockIcon";
+import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
+import TaskItemButton from "../../UI/Buttons/TaskItemButton";
+import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 
-export default function EditTask({ taskEditModal, setTaskEditModal }) {
+export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
+  const [editTaskWindow, setEditTaskWindow] = useState(false);
+
+  const editTaskFormHandlers = {
+    openEditTask: () => {
+      setEditTaskWindow(true);
+    },
+    closeEditTask: () => {
+      setEditTaskWindow(false);
+    },
+    id: task.id,
+    title: task.title,
+    description: task.description,
+  };
   return (
     <>
-      <ModalWrapper active={taskEditModal}>
-        <ModalBox>
+      <ModalWrapper
+        active={taskEditModal}
+        onClick={() => {
+          setTaskEditModal(false);
+        }}
+      >
+        <ModalBox
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <BoxHeader>
             <InboxBtn>
               <InboxIcon />
@@ -21,24 +51,65 @@ export default function EditTask({ taskEditModal, setTaskEditModal }) {
               }}
             />
           </BoxHeader>
-          <ItemBody>
-            <Checkbox>
-              <StyledCheckBoxIcon>
-                <TaskItemCheckIcon />
-              </StyledCheckBoxIcon>
-            </Checkbox>
-            <ItemContent>
-              <TitleEdit>Text</TitleEdit>
-              <DescriptionEdit>DescriptionEdit</DescriptionEdit>
+          {editTaskWindow ? (
+            <UploadTaskForm
+              editTask={editTaskFormHandlers}
+              mode="editTask"
+              hadlerClick={editTaskFormHandlers.closeEditTask}
+              taskItem={task}
+            />
+          ) : (
+            <BoxMain>
+              <Checkbox>
+                <StyledCheckBoxIcon>
+                  <TaskItemCheckIcon />
+                </StyledCheckBoxIcon>
+              </Checkbox>
+              <ItemContent>
+                <TitleEdit onClick={editTaskFormHandlers.openEditTask}>
+                  {editTaskFormHandlers.title}
+                </TitleEdit>
+                <DescriptionEdit onClick={editTaskFormHandlers.openEditTask}>
+                  {editTaskFormHandlers.description}
+                </DescriptionEdit>
 
-              <div>
-                <TodayButton>
-                  <TodayIcon />
-                  Today
-                </TodayButton>
-              </div>
-            </ItemContent>
-          </ItemBody>
+                <div>
+                  <TodayButton>
+                    <DateIcon />
+                    Today
+                  </TodayButton>
+                </div>
+                <ItemFooter>
+                  {/* Select */}
+                  <TaskItemButton>
+                    <SelectIcon />
+                  </TaskItemButton>
+
+                  {/* Label */}
+                  <TaskItemButton>
+                    <LabelIcon />
+                  </TaskItemButton>
+
+                  {/* Flag */}
+                  <TaskItemButton>
+                    <FlagIcon />
+                  </TaskItemButton>
+
+                  {/* Clock */}
+                  <TaskItemButton>
+                    <ClockIcon />
+                  </TaskItemButton>
+
+                  {/* Dots */}
+                  <TaskItemButton>
+                    <DotsIcon />
+                  </TaskItemButton>
+                </ItemFooter>
+              </ItemContent>
+            </BoxMain>
+          )}
+
+          <BoxTabs></BoxTabs>
         </ModalBox>
       </ModalWrapper>
     </>
@@ -77,7 +148,7 @@ const BoxHeader = styled.div`
   margin-bottom: 10px;
 `;
 
-const ItemBody = styled.div`
+const BoxMain = styled.div`
   display: flex;
 `;
 
@@ -150,3 +221,12 @@ const TodayButton = styled.button`
     background-color: rgba(0, 0, 0, 0.1);
   }
 `;
+
+const ItemFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 12px;
+`;
+
+const BoxTabs = styled.div``;

@@ -3,11 +3,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import TaskItem from "./TaskItem";
 
-export default function TasksList({ tasks, setTasks }) {
+export default function TasksList({ tasks, setTasks, setTaskForm }) {
   const removeTask = (task) => {
     setTasks(tasks.filter((p) => p.id !== task.id));
   };
-
   return (
     <>
       <DragDropContext
@@ -35,6 +34,7 @@ export default function TasksList({ tasks, setTasks }) {
                       dragging={{ ...provided.draggableProps }}
                       draggingHandle={{ ...provided.dragHandleProps }}
                       snapshot={snapshot}
+                      setTaskForm={setTaskForm}
                     />
                   )}
                 </Draggable>

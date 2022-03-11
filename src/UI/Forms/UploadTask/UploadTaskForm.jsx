@@ -15,6 +15,8 @@ export default function UploadTaskForm({
   setEmptyTitle,
   tasks,
   setTasks,
+  editTask,
+  taskItem,
 }) {
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
@@ -37,7 +39,26 @@ export default function UploadTaskForm({
       descriptionField.current.value = "";
       setDescription("");
     }
-  }, [activeForm]);
+
+    // ======== Edit Task Fields==========================================================
+    if (editTask) {
+      setTitle(editTask.title);
+      titleField.current.value = editTask.title;
+      titleField.current.focus();
+
+      setDescription(editTask.description);
+      descriptionField.current.value = editTask.description;
+    }
+  }, [activeForm, editTask]);
+
+  // Edit task button
+  const submitEditTask = (e) => {
+    e.preventDefault();
+
+    taskItem.title = title;
+    taskItem.description = description;
+    formClosing();
+  };
 
   // Submit button
   const addTask = (e) => {
@@ -48,13 +69,17 @@ export default function UploadTaskForm({
     };
 
     setTasks([...tasks, newTask]);
-
+    console.log(tasks);
     setTitle("");
     titleField.current.value = "";
     descriptionField.current.value = "";
     if (mode === "quickMode") {
       setEmptyTitle("");
     }
+  };
+  // Close Button
+  const formClosing = () => {
+    mode === "quickMode" && title ? setDiscartWarning(true) : hadlerClick();
   };
 
   return (
@@ -98,19 +123,11 @@ export default function UploadTaskForm({
           <FormButtons>
             <StyledSubmit
               type="submit"
-              text="Submit"
+              text={mode === "editTask" ? "Save" : "Submit"}
               disabled={title.trim().length === 0 || errors ? true : false}
-              onClick={addTask}
+              onClick={mode === "editTask" ? submitEditTask : addTask}
             />
-            <FormResetBtn
-              type="button"
-              text="Cancel"
-              onClick={() => {
-                mode === "quickMode" && title
-                  ? setDiscartWarning(true)
-                  : hadlerClick();
-              }}
-            />
+            <FormResetBtn type="button" text="Cancel" onClick={formClosing} />
           </FormButtons>
         </form>
       </FormWrapper>

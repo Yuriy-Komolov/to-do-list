@@ -13,13 +13,13 @@ import ModalQuickAddForm from "../Components/Modals/QuickAddForm/ModalQuickAddFo
 import EstablishIcon from "../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
-import TaskItem from "../UI/Forms/UploadTask/TaskItem";
-import TasksList from "../UI/Forms/UploadTask/TasksList";
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react/cjs/react.production.min";
+import TasksList from "../Components/Task/TasksList";
+import EditTask from "../Components/Task/EditTask";
 
 export default function HomePage() {
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
+  const [taskEditModal, setTaskEditModal] = useState(true);
 
   const [burger, setBurger] = useState(false);
   const [inputSearch, setInputSearch] = useState(false);
@@ -30,18 +30,17 @@ export default function HomePage() {
   }, []);
 
   const [tasks, setTasks] = useState([
-    // {
-    //   id: 1,
-    //   title: "Take dog for a walk",
-    //   description: "after super",
-    // },
-    // {
-    //   id: 2,
-    //   title: "title som tesdcsadsadt 2",
-    //   description: "description number 2",
-    // },
+    {
+      id: 1,
+      title: "111 Take dog for a walk",
+      description: "after super",
+    },
+    {
+      id: 2,
+      title: "2222 title som tesdcsadsadt 2",
+      description: "description number 2",
+    },
   ]);
-
   const keyboardPress = (press) => {
     if (!showTaskForm && !quickTaskForm && !inputSearch) {
       switch (press.key) {
@@ -56,7 +55,6 @@ export default function HomePage() {
       }
     }
   };
-
   return (
     <>
       <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={windowFocus}>
@@ -79,7 +77,14 @@ export default function HomePage() {
               View
             </Filter>
           </PageHeader>
+          {/* ==================Tasks Section ====================================== */}
           <TasksList tasks={tasks} setTasks={setTasks} />
+
+          <EditTask
+            taskEditModal={taskEditModal}
+            setTaskEditModal={setTaskEditModal}
+          />
+
           {showTaskForm ? null : (
             <AddTaskButton
               type="button"
@@ -90,19 +95,17 @@ export default function HomePage() {
               }}
             />
           )}
-          {/* Basic Add Form */}
+          {/* =======================Basic Add Form =================================*/}
           {showTaskForm ? (
-            <>
-              <UploadTaskForm
-                hadlerClick={() => {
-                  setShowTaskForm(false);
-                  windowFocus.current.focus();
-                }}
-                activeForm={showTaskForm}
-                tasks={tasks}
-                setTasks={setTasks}
-              />
-            </>
+            <UploadTaskForm
+              hadlerClick={() => {
+                setShowTaskForm(false);
+                windowFocus.current.focus();
+              }}
+              activeForm={showTaskForm}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
           ) : tasks.length === 0 ? (
             <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
           ) : null}

@@ -27,6 +27,7 @@ const StyledButton = styled.button`
           display: flex;
           align-items: center;
           margin: 15px 0 0 0;
+          width: 100%;
           &:hover {
             color: ${primaryColor};
             & div {

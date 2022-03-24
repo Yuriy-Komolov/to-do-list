@@ -18,6 +18,8 @@ import CheckIcon from "../UI/Icons/HomePage/CheckIcon";
 import TasksList from "../Components/Task/TasksList";
 
 export default function HomePage() {
+  const tasks = useSelector((state) => state);
+
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
   const [taskForm, setTaskForm] = useState(false);
@@ -29,8 +31,6 @@ export default function HomePage() {
   useEffect(() => {
     windowFocus.current.focus();
   }, []);
-
-  const tasks = useSelector((state) => state);
 
   const keyboardPress = (press) => {
     if (!showTaskForm && !quickTaskForm && !inputSearch && !taskForm) {

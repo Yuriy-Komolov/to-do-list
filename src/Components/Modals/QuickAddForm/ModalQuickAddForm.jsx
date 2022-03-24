@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import UploadTaskForm from "../../../UI/Forms/UploadTask/UploadTaskForm";
 import QuickDiscardWarning from "./QuickDiscardWarning";
@@ -11,8 +10,6 @@ export default function ModalQuickAddForm({
 }) {
   const [discartWarning, setDiscartWarning] = useState(false);
   const [checkingEmptyFormTitle, setCheckingEmptyFormTitle] = useState("");
-
-  const tasks = useSelector((state) => state);
 
   return (
     <>

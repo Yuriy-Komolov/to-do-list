@@ -88,17 +88,21 @@ export default function TaskItem({
           </Content>
           <Controls active={hover}>
             {/*======================= Pen button ========================*/}
-            <TaskItemButton clickHandler={editTaskFormHandlers.openEditTask}>
+            <TaskItemButton
+              clickHandler={editTaskFormHandlers.openEditTask}
+              hint="Edit Task"
+              keybord="Ctrl E"
+            >
               <PenIcon />
             </TaskItemButton>
 
-            <TaskItemButton>
+            <TaskItemButton hint="Set sue date..." keybord="T">
               <DateIconSmooth />
             </TaskItemButton>
-            <TaskItemButton>
+            <TaskItemButton hint="Coment on task" keybord="C">
               <ComentIcon />
             </TaskItemButton>
-            <TaskItemButton>
+            <TaskItemButton hint="More actions" keybord=" . ">
               <DotsIcon />
             </TaskItemButton>
           </Controls>
@@ -189,7 +193,8 @@ const Description = styled.p`
 `;
 
 const Controls = styled.div`
-  display: ${(props) => (props.active ? "flex" : "none")};
+  display: flex;
+  opacity: ${(props) => (props.active ? 1 : 0)};
   position: absolute;
   right: -35px;
   top: 10px;

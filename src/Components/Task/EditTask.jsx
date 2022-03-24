@@ -12,9 +12,20 @@ import ClockIcon from "../../UI/Icons/TaskItem/ClockIcon";
 import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
 import TaskItemButton from "../../UI/Buttons/TaskItemButton";
 import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
+import SubTask from "./Tabs/SubTask";
+import { Content, Tab } from "./Tabs/Tab";
 
 export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
   const [editTaskWindow, setEditTaskWindow] = useState(false);
+
+  const [tabsState, setTabsState] = useState(0);
+
+  const handleClick = (e) => {
+    const index = parseInt(e.target.id, 0);
+    if (index !== tabsState) {
+      setTabsState(index);
+    }
+  };
 
   const editTaskFormHandlers = {
     openEditTask: () => {
@@ -55,7 +66,7 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
             <UploadTaskForm
               editTask={editTaskFormHandlers}
               mode="editTask"
-              hadlerClick={editTaskFormHandlers.closeEditTask}
+              cancelHendler={editTaskFormHandlers.closeEditTask}
               taskItem={task}
             />
           ) : (
@@ -109,7 +120,33 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
             </BoxMain>
           )}
 
-          <BoxTabs></BoxTabs>
+          <BoxTabs>
+            {/* <TabsButton>Sub-tasks</TabsButton>
+            <TabsButton>Coments</TabsButton>
+            <TabsButton>Activity</TabsButton> */}
+            <TabsButtons>
+              <Tab onClick={handleClick} active={tabsState === 0} id={0}>
+                Sub-tasks
+              </Tab>
+              <Tab onClick={handleClick} active={tabsState === 1} id={1}>
+                Coments
+              </Tab>
+              <Tab onClick={handleClick} active={tabsState === 2} id={2}>
+                Activity
+              </Tab>
+            </TabsButtons>
+            <>
+              <Content active={tabsState === 0}>
+                <SubTask />
+              </Content>
+              <Content active={tabsState === 1}>
+                <h1>Content 2</h1>
+              </Content>
+              <Content active={tabsState === 2}>
+                <h1>Content 3</h1>
+              </Content>
+            </>
+          </BoxTabs>
         </ModalBox>
       </ModalWrapper>
     </>
@@ -129,6 +166,7 @@ const ModalWrapper = styled.div`
   display: ${(props) => (props.active ? "flex" : "none")};
   align-items: center;
   justify-content: center;
+  padding: 32px 0;
 `;
 
 const ModalBox = styled.div`
@@ -137,6 +175,7 @@ const ModalBox = styled.div`
   width: 100%;
   max-width: 650px;
   border-radius: 10px;
+  height: 100%;
   max-height: 960px;
   min-height: 400px;
   padding: 20px 24px;
@@ -227,6 +266,15 @@ const ItemFooter = styled.div`
   align-items: center;
   justify-content: flex-end;
   column-gap: 12px;
+  margin-bottom: 10px;
 `;
 
-const BoxTabs = styled.div``;
+const BoxTabs = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const TabsButtons = styled.div`
+  display: flex;
+`;

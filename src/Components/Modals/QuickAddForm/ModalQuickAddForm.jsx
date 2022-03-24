@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import UploadTaskForm from "../../../UI/Forms/UploadTask/UploadTaskForm";
 import QuickDiscardWarning from "./QuickDiscardWarning";
@@ -7,11 +8,12 @@ export default function ModalQuickAddForm({
   active,
   setFormActive,
   windowFocus,
-  tasks,
-  setTasks,
 }) {
   const [discartWarning, setDiscartWarning] = useState(false);
   const [checkingEmptyFormTitle, setCheckingEmptyFormTitle] = useState("");
+
+  const tasks = useSelector((state) => state);
+
   return (
     <>
       <QuickWrapper
@@ -29,16 +31,15 @@ export default function ModalQuickAddForm({
         >
           {/**Form----------------------------------------**/}
           <UploadTaskForm
-            hadlerClick={() => {
+            cancelHendler={() => {
               setFormActive(false);
               windowFocus.current.focus();
             }}
             mode="quickMode"
             activeForm={active}
+            setQuickFormActive={setFormActive}
             setDiscartWarning={setDiscartWarning}
             setEmptyTitle={setCheckingEmptyFormTitle}
-            tasks={tasks}
-            setTasks={setTasks}
           />
         </QuickAddFormInner>
       </QuickWrapper>

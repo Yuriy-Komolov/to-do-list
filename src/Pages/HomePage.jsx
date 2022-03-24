@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 
 import GetCurrentDate from "../Components/Dates/GetCurrentDate";
 import AddTaskButton from "../UI/Buttons/AddTaskButton";
 
 import UploadTaskForm from "../UI/Forms/UploadTask/UploadTaskForm";
-import Header from "../Components/Header";
-import BurgerNavigation from "../Components/BurgerNavigation";
+import Header from "../Components/Header/Header";
+import BurgerNavigation from "../Components/Header/BurgerNavigation";
 
 import ModalQuickAddForm from "../Components/Modals/QuickAddForm/ModalQuickAddForm";
 
@@ -28,19 +30,8 @@ export default function HomePage() {
     windowFocus.current.focus();
   }, []);
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "111 Take dog for a walk",
-      description: "after super",
-    },
-    {
-      id: 2,
-      title: "2222 title som tesdcsadsadt 2",
-      description: "description number 2",
-    },
-  ]);
-  console.log(taskForm);
+  const tasks = useSelector((state) => state);
+
   const keyboardPress = (press) => {
     if (!showTaskForm && !quickTaskForm && !inputSearch && !taskForm) {
       switch (press.key) {
@@ -55,6 +46,7 @@ export default function HomePage() {
       }
     }
   };
+
   return (
     <>
       <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={windowFocus}>
@@ -78,11 +70,7 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
-          <TasksList
-            tasks={tasks}
-            setTasks={setTasks}
-            setTaskForm={setTaskForm}
-          />
+          <TasksList setTaskForm={setTaskForm} />
 
           {showTaskForm ? null : (
             <AddTaskButton
@@ -97,13 +85,11 @@ export default function HomePage() {
           {/* =======================Basic Add Form =================================*/}
           {showTaskForm ? (
             <UploadTaskForm
-              hadlerClick={() => {
+              cancelHendler={() => {
                 setShowTaskForm(false);
                 windowFocus.current.focus();
               }}
               activeForm={showTaskForm}
-              tasks={tasks}
-              setTasks={setTasks}
             />
           ) : tasks.length === 0 ? (
             <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
@@ -115,7 +101,6 @@ export default function HomePage() {
             setFormActive={setQuickTaskForm}
             windowFocus={windowFocus}
             tasks={tasks}
-            setTasks={setTasks}
           />
         </PageContainer>
       </MainWrapper>

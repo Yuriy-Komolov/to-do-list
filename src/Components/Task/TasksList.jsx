@@ -1,12 +1,20 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useSelector, useDispatch } from "react-redux";
 
 import TaskItem from "./TaskItem";
 
-export default function TasksList({ tasks, setTasks, setTaskForm }) {
+export default function TasksList({ setTaskForm }) {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state);
+
   const removeTask = (task) => {
-    setTasks(tasks.filter((p) => p.id !== task.id));
+    dispatch({
+      type: "REMOVE_TASK",
+      payload: tasks.filter((p) => p.id !== task.id),
+    });
   };
+
   return (
     <>
       <DragDropContext

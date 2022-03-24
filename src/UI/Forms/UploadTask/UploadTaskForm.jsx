@@ -7,14 +7,18 @@ import {
   postDescriptionValidation,
 } from "../../../Utils/validationModule";
 
+import { Provider, useDispatch, useSelector } from "react-redux";
+import store from "../../../Components/Store/index";
+
 export default function UploadTaskForm({
-  hadlerClick,
+  cancelHendler,
   mode,
   activeForm,
+  setQuickFormActive,
   setDiscartWarning,
   setEmptyTitle,
-  tasks,
-  setTasks,
+  editTask,
+  taskItem,
 }) {
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
@@ -27,6 +31,11 @@ export default function UploadTaskForm({
   const titleField = useRef(null);
   const descriptionField = useRef(null);
 
+  const dispatch = useDispatch();
+  const defaultTasks = useSelector((state) => state);
+
+  console.log("work", defaultTasks);
+
   useEffect(() => {
     if (activeForm === true) {
       titleField.current.focus();
@@ -37,7 +46,26 @@ export default function UploadTaskForm({
       descriptionField.current.value = "";
       setDescription("");
     }
-  }, [activeForm]);
+
+    // ======== Edit Task Fields==========================================================
+    if (editTask) {
+      setTitle(editTask.title);
+      titleField.current.value = editTask.title;
+      titleField.current.focus();
+
+      setDescription(editTask.description);
+      descriptionField.current.value = editTask.description;
+    }
+  }, [activeForm, editTask]);
+
+  // Edit task button
+  const submitEditTask = (e) => {
+    e.preventDefault();
+
+    taskItem.title = title;
+    taskItem.description = description;
+    formClosing();
+  };
 
   // Submit button
   const addTask = (e) => {
@@ -47,73 +75,73 @@ export default function UploadTaskForm({
       description: description,
     };
 
-    setTasks([...tasks, newTask]);
+    dispatch({ type: "ADD_TASK", payload: newTask });
 
     setTitle("");
     titleField.current.value = "";
     descriptionField.current.value = "";
     if (mode === "quickMode") {
       setEmptyTitle("");
+      setQuickFormActive(false);
     }
+  };
+
+  // Close Button
+  const formClosing = () => {
+    mode === "quickMode" && title ? setDiscartWarning(true) : cancelHendler();
   };
 
   return (
     <>
-      <FormWrapper>
-        <form>
-          <FormInner>
-            <FormInputTitle
-              placeholder="Title (Example=> To buy a book)"
-              onChange={(e) => {
-                setTitle(e.target.value);
-                setTitleHeight(e.target.scrollHeight);
+      <Provider store={store}>
+        <FormWrapper>
+          <form>
+            <FormInner>
+              <FormInputTitle
+                placeholder="Title (Example=> To buy a book)"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setTitleHeight(e.target.scrollHeight);
 
-                setErrors(postTitleValidation(title));
-                if (mode === "quickMode") setEmptyTitle(e.target.value);
-              }}
-              onKeyPress={(press) => {
-                if (press.key === "Enter") {
-                  press.preventDefault();
-                  addTask();
-                }
-              }}
-              style={{ height: titleHeight }}
-              ref={titleField}
-            />
+                  setErrors(postTitleValidation(title));
+                  if (mode === "quickMode") setEmptyTitle(e.target.value);
+                }}
+                onKeyPress={(press) => {
+                  if (press.key === "Enter") {
+                    press.preventDefault();
+                    addTask();
+                  }
+                }}
+                style={{ height: titleHeight }}
+                ref={titleField}
+              />
 
-            <FormInputDescription
-              placeholder="Description..."
-              onChange={(e) => {
-                setDescription(e.target.value);
-                setDescriptionHeight(e.target.scrollHeight);
+              <FormInputDescription
+                placeholder="Description..."
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  setDescriptionHeight(e.target.scrollHeight);
 
-                setErrors(postDescriptionValidation(description));
-              }}
-              ref={descriptionField}
-              style={{ height: descriptionHeight }}
-            />
-            <Error>{errors}</Error>
-          </FormInner>
+                  setErrors(postDescriptionValidation(description));
+                }}
+                ref={descriptionField}
+                style={{ height: descriptionHeight }}
+              />
+              <Error>{errors}</Error>
+            </FormInner>
 
-          <FormButtons>
-            <StyledSubmit
-              type="submit"
-              text="Submit"
-              disabled={title.trim().length === 0 || errors ? true : false}
-              onClick={addTask}
-            />
-            <FormResetBtn
-              type="button"
-              text="Cancel"
-              onClick={() => {
-                mode === "quickMode" && title
-                  ? setDiscartWarning(true)
-                  : hadlerClick();
-              }}
-            />
-          </FormButtons>
-        </form>
-      </FormWrapper>
+            <FormButtons>
+              <StyledSubmit
+                type="submit"
+                text={mode === "editTask" ? "Save" : "Submit"}
+                disabled={title.trim().length === 0 || errors ? true : false}
+                onClick={mode === "editTask" ? submitEditTask : addTask}
+              />
+              <FormResetBtn type="button" text="Cancel" onClick={formClosing} />
+            </FormButtons>
+          </form>
+        </FormWrapper>
+      </Provider>
     </>
   );
 }

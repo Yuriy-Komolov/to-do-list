@@ -7,11 +7,10 @@ export default function ModalQuickAddForm({
   active,
   setFormActive,
   windowFocus,
-  tasks,
-  setTasks,
 }) {
   const [discartWarning, setDiscartWarning] = useState(false);
   const [checkingEmptyFormTitle, setCheckingEmptyFormTitle] = useState("");
+
   return (
     <>
       <QuickWrapper
@@ -29,16 +28,15 @@ export default function ModalQuickAddForm({
         >
           {/**Form----------------------------------------**/}
           <UploadTaskForm
-            hadlerClick={() => {
+            cancelHendler={() => {
               setFormActive(false);
               windowFocus.current.focus();
             }}
             mode="quickMode"
             activeForm={active}
+            setQuickFormActive={setFormActive}
             setDiscartWarning={setDiscartWarning}
             setEmptyTitle={setCheckingEmptyFormTitle}
-            tasks={tasks}
-            setTasks={setTasks}
           />
         </QuickAddFormInner>
       </QuickWrapper>

@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import HeaderButton from "../UI/Buttons/HeaderButton";
+import HeaderButton from "../../UI/Buttons/HeaderButton";
 
-import InboxIcon from "../UI/Icons/Navigation/InboxIcon";
-import FilterLabelIcon from "../UI/Icons/Navigation/FilterLabelsIcon";
-import TodayIcon from "../UI/Icons/Navigation/TodayIcon";
-import UpcomingIcon from "../UI/Icons/Navigation/UpcomingIcon";
+import InboxIcon from "../../UI/Icons/Navigation/InboxIcon";
+import FilterLabelIcon from "../../UI/Icons/Navigation/FilterLabelsIcon";
+import TodayIcon from "../../UI/Icons/Navigation/TodayIcon";
+import UpcomingIcon from "../../UI/Icons/Navigation/UpcomingIcon";
 
 export default function BurgerNavigation({ active }) {
   return (

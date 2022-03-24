@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function TodayIcon() {
+export default function DateIcon() {
   return (
     <>
       <svg

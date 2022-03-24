@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { primaryColor } from "../UI/Constants";
+import { primaryColor } from "../../UI/Constants";
 
-import HeaderButton from "../UI/Buttons/HeaderButton";
-import InputSearch from "../UI/Inputs/InputSearch";
+import HeaderButton from "../../UI/Buttons/HeaderButton";
+import InputSearch from "../../UI/Inputs/InputSearch";
 
-import HomePageIcon from "../UI/Icons/Header/HomePageIcon";
-import PlusIcon from "../UI/Icons/Header/PlusIcon";
-import InfoIcon from "../UI/Icons/Header/InfoIcon";
-import BellIcon from "../UI/Icons/Header/BellIcon";
-import ProductivityIcon from "../UI/Icons/Header/ProductivityIcon";
+import HomePageIcon from "../../UI/Icons/Header/HomePageIcon";
+import PlusIcon from "../../UI/Icons/Header/PlusIcon";
+import InfoIcon from "../../UI/Icons/Header/InfoIcon";
+import BellIcon from "../../UI/Icons/Header/BellIcon";
+import ProductivityIcon from "../../UI/Icons/Header/ProductivityIcon";
 
 export default function Header({
   handlerClick,
@@ -57,9 +57,9 @@ export default function Header({
                 <PlusIcon />
               </HeaderButton>
 
-              <HeaderButton hint="Open Productivity O then P">
-                <ProductivityIcon /> 0 / 5
-              </HeaderButton>
+              <ProductivityButton hint="Open Productivity O then P">
+                <ProductivityIcon />0 / 5
+              </ProductivityButton>
               <HeaderButton hint="Open help & information O then H">
                 <InfoIcon />
               </HeaderButton>
@@ -125,6 +125,10 @@ const HeaderHomeButton = styled(HeaderButton)`
   & a {
     line-height: 0;
   }
+`;
+const ProductivityButton = styled(HeaderButton)`
+  display: flex;
+  column-gap: 6px;
 `;
 const RightPart = styled(LeftPart)`
   column-gap: 8px;

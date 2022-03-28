@@ -3,13 +3,15 @@ import styled from "styled-components";
 import AddTaskButton from "../../../UI/Buttons/AddTaskButton";
 import UploadTaskForm from "../../../UI/Forms/UploadTask/UploadTaskForm";
 
-export default function SubTask() {
+export default function SubTask({ task }) {
   const [subtaskForm, setSubtaskForm] = useState(false);
   return (
     <>
       <Wrapper>
         {subtaskForm ? (
           <UploadTaskForm
+            mode="subTask"
+            taskItem={task}
             cancelHendler={() => {
               setSubtaskForm(false);
             }}

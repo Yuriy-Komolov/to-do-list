@@ -45,7 +45,7 @@ export default function TaskItem({
         <UploadTaskForm
           editTask={editTaskFormHandlers}
           mode="editTask"
-          hadlerClick={editTaskFormHandlers.closeEditTask}
+          cancelHendler={editTaskFormHandlers.closeEditTask}
           taskItem={task}
         />
       ) : (

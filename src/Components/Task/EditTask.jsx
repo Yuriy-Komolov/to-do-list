@@ -137,7 +137,7 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
             </TabsButtons>
             <>
               <Content active={tabsState === 0}>
-                <SubTask />
+                <SubTask task={task} />
               </Content>
               <Content active={tabsState === 1}>
                 <h1>Content 2</h1>

@@ -7,8 +7,7 @@ import {
   postDescriptionValidation,
 } from "../../../Utils/validationModule";
 
-import { Provider, useDispatch, useSelector } from "react-redux";
-import store from "../../../Components/Store/index";
+import { useDispatch } from "react-redux";
 
 export default function UploadTaskForm({
   cancelHendler,
@@ -20,21 +19,25 @@ export default function UploadTaskForm({
   editTask,
   taskItem,
 }) {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
 
   const [description, setDescription] = useState("");
   const [descriptionHeight, setDescriptionHeight] = useState("");
 
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState({
+    titleError: "",
+    descriptionError: "",
+  });
+  const disabledButtonCondition =
+    title.trim().length === 0 ||
+    errors.titleError !== "" ||
+    errors.descriptionError;
 
   const titleField = useRef(null);
   const descriptionField = useRef(null);
-
-  const dispatch = useDispatch();
-  const defaultTasks = useSelector((state) => state);
-
-  console.log("work", defaultTasks);
 
   useEffect(() => {
     if (activeForm === true) {
@@ -58,21 +61,13 @@ export default function UploadTaskForm({
     }
   }, [activeForm, editTask]);
 
-  // Edit task button
-  const submitEditTask = (e) => {
-    e.preventDefault();
-
-    taskItem.title = title;
-    taskItem.description = description;
-    formClosing();
-  };
-
-  // Submit button
+  // Submit button ========================
   const addTask = (e) => {
     const newTask = {
       id: Date.now(),
       title: title,
       description: description,
+      subtasks: [],
     };
 
     dispatch({ type: "ADD_TASK", payload: newTask });
@@ -91,57 +86,92 @@ export default function UploadTaskForm({
     mode === "quickMode" && title ? setDiscartWarning(true) : cancelHendler();
   };
 
+  // Edit task button ========================
+  const submitEditTask = (e) => {
+    e.preventDefault();
+
+    taskItem.title = title;
+    taskItem.description = description;
+    formClosing();
+  };
+
+  // Add subtask =============================
+  const addSubTask = (e) => {
+    e.preventDefault();
+    const newSubtask = {
+      id: Date.now(),
+      title: title,
+      description: description,
+    };
+    taskItem.subtasks = [...taskItem.subtasks, newSubtask];
+  };
+
+  const modeChecking =
+    mode === "editTask"
+      ? submitEditTask
+      : mode === "subTask"
+      ? addSubTask
+      : addTask;
   return (
     <>
-      <Provider store={store}>
-        <FormWrapper>
-          <form>
-            <FormInner>
-              <FormInputTitle
-                placeholder="Title (Example=> To buy a book)"
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                  setTitleHeight(e.target.scrollHeight);
+      <FormWrapper>
+        <form>
+          <FormInner>
+            <FormInputTitle
+              placeholder="Title (Example=> To buy a book)"
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setTitleHeight(e.target.scrollHeight);
 
-                  setErrors(postTitleValidation(title));
-                  if (mode === "quickMode") setEmptyTitle(e.target.value);
-                }}
-                onKeyPress={(press) => {
-                  if (press.key === "Enter") {
-                    press.preventDefault();
-                    addTask();
-                  }
-                }}
-                style={{ height: titleHeight }}
-                ref={titleField}
-              />
+                setErrors((errors) => ({
+                  ...errors,
+                  titleError: postTitleValidation(title),
+                }));
+                if (mode === "quickMode") setEmptyTitle(e.target.value);
+              }}
+              onKeyPress={(press) => {
+                if (press.key === "Enter") {
+                  press.preventDefault();
+                  addTask();
+                }
+              }}
+              style={{ height: titleHeight }}
+              ref={titleField}
+            />
 
-              <FormInputDescription
-                placeholder="Description..."
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                  setDescriptionHeight(e.target.scrollHeight);
+            <FormInputDescription
+              placeholder="Description..."
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setDescriptionHeight(e.target.scrollHeight);
 
-                  setErrors(postDescriptionValidation(description));
-                }}
-                ref={descriptionField}
-                style={{ height: descriptionHeight }}
-              />
-              <Error>{errors}</Error>
-            </FormInner>
+                setErrors((errors) => ({
+                  ...errors,
+                  descriptionError: postDescriptionValidation(description),
+                }));
+              }}
+              ref={descriptionField}
+              style={{ height: descriptionHeight }}
+            />
+            {/* {displayErrors.map((elem, index) => (
+              <Error key={index}>{elem}</Error>
+            ))} */}
+            <Error>{errors.titleError}</Error>
+            <Error>{errors.descriptionError}</Error>
+            {/* <Error>{errors.map((error) => error)}</Error> */}
+          </FormInner>
 
-            <FormButtons>
-              <StyledSubmit
-                type="submit"
-                text={mode === "editTask" ? "Save" : "Submit"}
-                disabled={title.trim().length === 0 || errors ? true : false}
-                onClick={mode === "editTask" ? submitEditTask : addTask}
-              />
-              <FormResetBtn type="button" text="Cancel" onClick={formClosing} />
-            </FormButtons>
-          </form>
-        </FormWrapper>
-      </Provider>
+          <FormButtons>
+            <StyledSubmit
+              type="submit"
+              text={mode === "editTask" ? "Save" : "Add Task"}
+              disabled={disabledButtonCondition}
+              onClick={modeChecking}
+            />
+            <FormResetBtn type="button" text="Cancel" onClick={formClosing} />
+          </FormButtons>
+        </form>
+      </FormWrapper>
     </>
   );
 }
@@ -214,6 +244,7 @@ const FormResetBtn = styled(AddTaskButton)`
 `;
 
 const StyledSubmit = styled(AddTaskButton)`
+  font-weight: 600;
   &:disabled {
     background-color: rgba(30, 120, 250, 0.5);
     &:hover {

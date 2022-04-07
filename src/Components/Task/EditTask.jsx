@@ -17,6 +17,7 @@ import { Content, Tab } from "./Tabs/Tab";
 
 export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
   const [editTaskWindow, setEditTaskWindow] = useState(false);
+  const [subtasks, setSubtasks] = useState(task.subtasks);
 
   const [tabsState, setTabsState] = useState(0);
 
@@ -137,7 +138,7 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
             </TabsButtons>
             <>
               <Content active={tabsState === 0}>
-                <SubTask />
+                <SubTask subtasks={subtasks} />
               </Content>
               <Content active={tabsState === 1}>
                 <h1>Content 2</h1>

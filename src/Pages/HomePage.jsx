@@ -70,7 +70,7 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
-          <TasksList setTaskForm={setTaskForm} />
+          <TasksList setTaskForm={setTaskForm} list={tasks} />
 
           {showTaskForm ? null : (
             <AddTaskButton

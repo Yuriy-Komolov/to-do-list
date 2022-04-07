@@ -1,17 +1,15 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import TaskItem from "./TaskItem";
 
-export default function TasksList({ setTaskForm }) {
+export default function TasksList({ setTaskForm, list }) {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state);
-
   const removeTask = (task) => {
     dispatch({
       type: "REMOVE_TASK",
-      payload: tasks.filter((p) => p.id !== task.id),
+      payload: list.filter((p) => p.id !== task.id),
     });
   };
 
@@ -21,13 +19,13 @@ export default function TasksList({ setTaskForm }) {
         onDragEnd={(param) => {
           const destinationIndex = param.destination.index;
           const sourceIndex = param.source.index;
-          tasks.splice(destinationIndex, 0, tasks.splice(sourceIndex, 1)[0]);
+          list.splice(destinationIndex, 0, list.splice(sourceIndex, 1)[0]);
         }}
       >
         <Droppable droppableId="droppable-1">
           {(provided, _) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {tasks.map((item, index) => (
+              {list.map((item, index) => (
                 <Draggable
                   draggableId={"draggable-" + item.id}
                   key={item.id}

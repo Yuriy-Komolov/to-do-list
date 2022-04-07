@@ -19,18 +19,25 @@ export default function UploadTaskForm({
   editTask,
   taskItem,
 }) {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
 
   const [description, setDescription] = useState("");
   const [descriptionHeight, setDescriptionHeight] = useState("");
 
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState({
+    titleError: "",
+    descriptionError: "",
+  });
+  const disabledButtonCondition =
+    title.trim().length === 0 ||
+    errors.titleError !== "" ||
+    errors.descriptionError;
 
   const titleField = useRef(null);
   const descriptionField = useRef(null);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (activeForm === true) {
@@ -91,7 +98,11 @@ export default function UploadTaskForm({
   // Add subtask =============================
   const addSubTask = (e) => {
     e.preventDefault();
-    const newSubtask = { title: title, description: description };
+    const newSubtask = {
+      id: Date.now(),
+      title: title,
+      description: description,
+    };
     taskItem.subtasks = [...taskItem.subtasks, newSubtask];
   };
 
@@ -112,7 +123,10 @@ export default function UploadTaskForm({
                 setTitle(e.target.value);
                 setTitleHeight(e.target.scrollHeight);
 
-                setErrors(postTitleValidation(title));
+                setErrors((errors) => ({
+                  ...errors,
+                  titleError: postTitleValidation(title),
+                }));
                 if (mode === "quickMode") setEmptyTitle(e.target.value);
               }}
               onKeyPress={(press) => {
@@ -131,19 +145,27 @@ export default function UploadTaskForm({
                 setDescription(e.target.value);
                 setDescriptionHeight(e.target.scrollHeight);
 
-                setErrors(postDescriptionValidation(description));
+                setErrors((errors) => ({
+                  ...errors,
+                  descriptionError: postDescriptionValidation(description),
+                }));
               }}
               ref={descriptionField}
               style={{ height: descriptionHeight }}
             />
-            <Error>{errors}</Error>
+            {/* {displayErrors.map((elem, index) => (
+              <Error key={index}>{elem}</Error>
+            ))} */}
+            <Error>{errors.titleError}</Error>
+            <Error>{errors.descriptionError}</Error>
+            {/* <Error>{errors.map((error) => error)}</Error> */}
           </FormInner>
 
           <FormButtons>
             <StyledSubmit
               type="submit"
               text={mode === "editTask" ? "Save" : "Add Task"}
-              disabled={title.trim().length === 0 || errors ? true : false}
+              disabled={disabledButtonCondition}
               onClick={modeChecking}
             />
             <FormResetBtn type="button" text="Cancel" onClick={formClosing} />

@@ -19,7 +19,6 @@ import TasksList from "../Components/Task/TasksList";
 
 export default function HomePage() {
   const tasks = useSelector((state) => state);
-  console.log(tasks);
 
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [quickTaskForm, setQuickTaskForm] = useState(false);
@@ -71,7 +70,7 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
-          <TasksList setTaskForm={setTaskForm} />
+          <TasksList setTaskForm={setTaskForm} list={tasks} />
 
           {showTaskForm ? null : (
             <AddTaskButton

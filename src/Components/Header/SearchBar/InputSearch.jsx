@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 
-import SearchIcon from "../Icons/Header/SearchIcon";
-import InfoIcon from "../Icons/Header/InfoIcon";
-import HeaderButton from "../Buttons/HeaderButton";
-import CloseIconButton from "../Buttons/CloseIconButton";
+import SearchIcon from "../../../UI/Icons/Header/SearchIcon";
+import InfoIcon from "../../../UI/Icons/Header/InfoIcon";
+import HeaderButton from "../../../UI/Buttons/HeaderButton";
+import SearchResultBox from "./SearchResultBox";
 
 export default function InputSearch({ hint, active, setActiveFocus }) {
   const [hover, setHover] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
   const focusByPress = useRef(null);
 
@@ -33,6 +34,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
         }}
         onBlur={() => {
           setActiveFocus(false);
+          setSearchInput("");
         }}
       >
         <StyledIconWrapper
@@ -50,6 +52,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
           focus={active}
           placeholder="Search"
           ref={focusByPress}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
         <ShortCutButton
           hint={hint}
@@ -71,6 +74,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
         </InfoButton>
 
         <CloseInput focus={active} />
+        <SearchResultBox active={active} searchInput={searchInput} />
       </InputWrapper>
     </>
   );
@@ -163,19 +167,6 @@ const InfoButton = styled.a`
     fill: grey;
   }
 `;
-
-// const CloseInput = styled(CloseIconButton)`
-//   display: ${(props) => (props.focus ? "flex" : "none")};
-//   height: 20px;
-//   width: 20px;
-//   position: absolute;
-//   top: 5px;
-//   right: 4px;
-//   &::before,
-//   ::after {
-//     width: 16px;
-//   }
-// `;
 
 const CloseInput = styled.span`
   height: 20px;

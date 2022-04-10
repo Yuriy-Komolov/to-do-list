@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
 export default function GetCurrentDate() {
-
   const today = new Date();
   const monthOfYear = today.toLocaleString("en-US", { month: "short" });
   const dayOfWeek = today.toLocaleString("en-US", { weekday: "short" });
@@ -12,9 +11,7 @@ export default function GetCurrentDate() {
     <>
       <DateWrapper>
         <TodayTitle>Today</TodayTitle>
-          <StyledDate>
-            {dateOutput}
-          </StyledDate>
+        <StyledDate>{dateOutput}</StyledDate>
       </DateWrapper>
     </>
   );

@@ -6,10 +6,12 @@ import HomePage from "./Pages/HomePage";
 import UpcomingPage from "./Pages/UpcomingPage";
 import store from "./Components/Store";
 import { Provider } from "react-redux";
+import Header from "./Components/Header/Header";
 
 export default function App() {
   return (
     <Provider store={store}>
+      {/* <Header /> */}
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />

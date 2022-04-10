@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function TodayIcon() {
+  const dateNow = new Date().getDate().toString().padStart(2, "0");
   return (
     <>
       <svg width="24" height="24" viewBox="0 0 24 24">
@@ -21,7 +22,7 @@ export default function TodayIcon() {
             fontWeight="500"
           >
             <tspan x="8" y="15" textAnchor="middle">
-              28
+              {dateNow}
             </tspan>
           </text>
         </g>

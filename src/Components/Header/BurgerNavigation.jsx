@@ -13,18 +13,29 @@ export default function BurgerNavigation({ active }) {
     <>
       <NavigationWrapper active={active}>
         <NavigationInner>
-          <NavigationBtn hint="Go to Inbox G then i">
-            <InboxIcon /> Inbox
-          </NavigationBtn>
-          <NavigationBtn hint="Go to Today G then T">
-            <TodayIcon /> Today
-          </NavigationBtn>
-          <NavigationBtn hint="Go to Upcoming G then U">
-            <UpcomingIcon /> Upcoming
-          </NavigationBtn>
-          <NavigationBtn hint="Go to Inbox G then V">
-            <FilterLabelIcon /> Filters & Labels
-          </NavigationBtn>
+          <a href="/">
+            <NavigationBtn hint="Go to Inbox G then i">
+              <InboxIcon /> Inbox
+            </NavigationBtn>
+          </a>
+
+          <a href="/">
+            <NavigationBtn hint="Go to Today G then T">
+              <TodayIcon /> Today
+            </NavigationBtn>
+          </a>
+
+          <a href="/upcoming">
+            <NavigationBtn hint="Go to Upcoming G then U">
+              <UpcomingIcon /> Upcoming
+            </NavigationBtn>
+          </a>
+
+          <a href="/">
+            <NavigationBtn hint="Go to Inbox G then V">
+              <FilterLabelIcon /> Filters & Labels
+            </NavigationBtn>
+          </a>
         </NavigationInner>
       </NavigationWrapper>
     </>

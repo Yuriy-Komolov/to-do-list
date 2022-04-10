@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { primaryColor } from "../../UI/Constants";
 
 import HeaderButton from "../../UI/Buttons/HeaderButton";
-import InputSearch from "../../UI/Inputs/InputSearch";
+import InputSearch from "../Header/SearchBar/InputSearch";
 
 import HomePageIcon from "../../UI/Icons/Header/HomePageIcon";
 import PlusIcon from "../../UI/Icons/Header/PlusIcon";
@@ -36,7 +36,7 @@ export default function Header({
               >
                 <span></span>
               </Burger>
-              {/***Home page btn */}
+              {/***HomePage btn */}
               <HeaderHomeButton hint={`Go to home G then H`}>
                 <a href="/">
                   <HomePageIcon />

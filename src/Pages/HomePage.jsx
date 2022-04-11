@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import styled from "styled-components";
@@ -21,46 +21,10 @@ export default function HomePage() {
   const tasks = useSelector((state) => state);
 
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [quickTaskForm, setQuickTaskForm] = useState(false);
-  const [taskForm, setTaskForm] = useState(false);
-
-  const [burger, setBurger] = useState(false);
-  const [inputSearch, setInputSearch] = useState(false);
-
-  const windowFocus = useRef(null);
-  useEffect(() => {
-    windowFocus.current.focus();
-  }, []);
-
-  const keyboardPress = (press) => {
-    if (!showTaskForm && !quickTaskForm && !inputSearch && !taskForm) {
-      switch (press.key) {
-        case "m":
-          return setBurger(burger ? false : true);
-        case "q":
-          return setQuickTaskForm(true);
-        case "f":
-          return setInputSearch(true);
-        default:
-          break;
-      }
-    }
-  };
 
   return (
     <>
-      <MainWrapper onKeyPress={keyboardPress} tabIndex={-1} ref={windowFocus}>
-        <Header
-          handlerClick={() => {
-            setQuickTaskForm(true);
-          }}
-          burgerHandler={() => {
-            setBurger(burger ? false : true);
-          }}
-          activateSearchByPress={inputSearch}
-          setActivateSearchByPress={setInputSearch}
-        />
-        <BurgerNavigation active={burger} />
+      <MainWrapper>
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
@@ -70,7 +34,7 @@ export default function HomePage() {
             </Filter>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
-          <TasksList setTaskForm={setTaskForm} list={tasks} />
+          <TasksList list={tasks} />
 
           {showTaskForm ? null : (
             <AddTaskButton
@@ -87,21 +51,12 @@ export default function HomePage() {
             <UploadTaskForm
               cancelHendler={() => {
                 setShowTaskForm(false);
-                windowFocus.current.focus();
               }}
               activeForm={showTaskForm}
             />
           ) : tasks.length === 0 ? (
             <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
           ) : null}
-
-          {/* ======================== quickTaskForm ===============================*/}
-          <ModalQuickAddForm
-            active={quickTaskForm}
-            setFormActive={setQuickTaskForm}
-            windowFocus={windowFocus}
-            tasks={tasks}
-          />
         </PageContainer>
       </MainWrapper>
     </>

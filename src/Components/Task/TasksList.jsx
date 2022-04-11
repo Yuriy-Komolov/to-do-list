@@ -40,7 +40,6 @@ export default function TasksList({ setTaskForm, list }) {
                       dragging={{ ...provided.draggableProps }}
                       draggingHandle={{ ...provided.dragHandleProps }}
                       snapshot={snapshot}
-                      setTaskForm={setTaskForm}
                     />
                   )}
                 </Draggable>

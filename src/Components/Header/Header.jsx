@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 
 import { primaryColor } from "../../UI/Constants";
@@ -11,18 +13,37 @@ import PlusIcon from "../../UI/Icons/Header/PlusIcon";
 import InfoIcon from "../../UI/Icons/Header/InfoIcon";
 import BellIcon from "../../UI/Icons/Header/BellIcon";
 import ProductivityIcon from "../../UI/Icons/Header/ProductivityIcon";
+import ModalQuickAddForm from "../Modals/QuickAddForm/ModalQuickAddForm";
+import BurgerNavigation from "./BurgerNavigation";
 
-export default function Header({
-  handlerClick,
-  burgerHandler,
-  activateSearchByPress,
-  setActivateSearchByPress,
-}) {
-  const [burger, setBurger] = useState(false);
+export default function Header({ burger, setBurger }) {
+  const [quickTaskForm, setQuickTaskForm] = useState(false);
+  const [inputSearch, setInputSearch] = useState(false);
 
+  const windowFocus = useRef(null);
+  const tasks = useSelector((state) => state);
+
+  useEffect(() => {
+    windowFocus.current.focus();
+  }, []);
+
+  const keyboardPress = (press) => {
+    if (!quickTaskForm && !inputSearch) {
+      switch (press.key) {
+        case "m":
+          return setBurger(burger ? false : true);
+        case "q":
+          return setQuickTaskForm(true);
+        case "f":
+          return setInputSearch(true);
+        default:
+          break;
+      }
+    }
+  };
   return (
     <>
-      <HeaderWrapper>
+      <HeaderWrapper onKeyPress={keyboardPress} tabIndex={1} ref={windowFocus}>
         <Container>
           <Navbar>
             <LeftPart>
@@ -31,7 +52,6 @@ export default function Header({
                 hint={burger ? `Close menu M` : "Open menu M"}
                 onClick={() => {
                   setBurger(burger ? false : true);
-                  burgerHandler();
                 }}
               >
                 <span></span>
@@ -46,14 +66,19 @@ export default function Header({
               {/*** Search */}
               <InputSearch
                 hint="Search F"
-                active={activateSearchByPress}
-                setActiveFocus={setActivateSearchByPress}
+                active={inputSearch}
+                setActiveFocus={setInputSearch}
               />
             </LeftPart>
 
             <RightPart>
               {/* Quick Add Button */}
-              <HeaderButton hint="Quick Add Q" onClick={handlerClick}>
+              <HeaderButton
+                hint="Quick Add Q"
+                onClick={() => {
+                  setQuickTaskForm(true);
+                }}
+              >
                 <PlusIcon />
               </HeaderButton>
 
@@ -70,6 +95,13 @@ export default function Header({
           </Navbar>
         </Container>
       </HeaderWrapper>
+      <BurgerNavigation active={burger} />
+      <ModalQuickAddForm
+        active={quickTaskForm}
+        setFormActive={setQuickTaskForm}
+        windowFocus={windowFocus}
+        tasks={tasks}
+      />
     </>
   );
 }
@@ -80,6 +112,7 @@ const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   z-index: 3;
+  outline: none;
 `;
 
 const Container = styled.div`

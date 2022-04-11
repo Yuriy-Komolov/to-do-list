@@ -18,7 +18,6 @@ export default function TaskItem({
   dragging,
   draggingHandle,
   snapshot,
-  setTaskForm,
 }) {
   const [hover, setHover] = useState(false);
   const [editTaskForm, setEditTaskForm] = useState(false);
@@ -28,11 +27,9 @@ export default function TaskItem({
   const editTaskFormHandlers = {
     openEditTask: () => {
       setEditTaskForm(true);
-      setTaskForm(true);
     },
     closeEditTask: () => {
       setEditTaskForm(false);
-      setTaskForm(false);
     },
     id: task.id,
     title: task.title,
@@ -79,7 +76,6 @@ export default function TaskItem({
             <Text
               onClick={() => {
                 setTestingWindow(true);
-                setTaskForm(true);
               }}
             >
               <Title>{task.title}</Title>

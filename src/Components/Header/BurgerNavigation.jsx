@@ -46,7 +46,7 @@ const NavigationWrapper = styled.div`
   height: 100vh;
   background-color: #fafafa;
   padding: 80px 10px 0 35px;
-  position: relative;
+  position: fixed;
   width: ${(props) => (props.active ? "328px" : "0")};
   left: ${(props) => (props.active ? "0" : "-30%")};
   transition: all 0.4s ease-in-out;
@@ -65,7 +65,7 @@ const NavigationBtn = styled(HeaderButton)`
     left: 290px;
     bottom: 0;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     height: 20px;
   }
   &:hover {

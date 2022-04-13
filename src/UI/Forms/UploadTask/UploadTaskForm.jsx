@@ -23,21 +23,21 @@ export default function UploadTaskForm({
 
   const [title, setTitle] = useState("");
   const [titleHeight, setTitleHeight] = useState("");
+  const titleField = useRef(null);
 
   const [description, setDescription] = useState("");
   const [descriptionHeight, setDescriptionHeight] = useState("");
+  const descriptionField = useRef(null);
 
   const [errors, setErrors] = useState({
     titleError: "",
     descriptionError: "",
   });
+
   const disabledButtonCondition =
     title.trim().length === 0 ||
     errors.titleError !== "" ||
     errors.descriptionError;
-
-  const titleField = useRef(null);
-  const descriptionField = useRef(null);
 
   useEffect(() => {
     if (activeForm === true) {

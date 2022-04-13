@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
@@ -21,7 +20,6 @@ export default function Header({ burger, setBurger }) {
   const [inputSearch, setInputSearch] = useState(false);
 
   const windowFocus = useRef(null);
-  const tasks = useSelector((state) => state);
 
   useEffect(() => {
     windowFocus.current.focus();
@@ -100,7 +98,6 @@ export default function Header({ burger, setBurger }) {
         active={quickTaskForm}
         setFormActive={setQuickTaskForm}
         windowFocus={windowFocus}
-        tasks={tasks}
       />
     </>
   );

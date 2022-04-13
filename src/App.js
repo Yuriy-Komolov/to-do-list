@@ -8,16 +8,18 @@ import store from "./Components/Store";
 import { Provider } from "react-redux";
 import Header from "./Components/Header/Header";
 import styled from "styled-components";
+import HeroPage from "./Pages/HeroPage";
 
 export default function App() {
   const [burger, setBurger] = useState(false);
   return (
     <Provider store={store}>
-      <Header burger={burger} setBurger={setBurger} />
+      {/* <Header burger={burger} setBurger={setBurger} /> */}
       <Main active={burger}>
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/hero" element={<HeroPage />} />
             <Route path="/upcoming" element={<UpcomingPage />} />
           </Routes>
         </Router>

@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import Header from "./Components/Header/Header";
 import styled from "styled-components";
 import HeroPage from "./Pages/HeroPage";
+import SingUpPage from "./Pages/SingUpPage";
 
 export default function App() {
   const [burger, setBurger] = useState(false);
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/hero" element={<HeroPage />} />
             <Route path="/upcoming" element={<UpcomingPage />} />
+            <Route path="/sign-up" element={<SingUpPage />} />
           </Routes>
         </Router>
       </Main>

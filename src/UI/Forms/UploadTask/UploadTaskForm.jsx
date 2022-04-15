@@ -153,12 +153,8 @@ export default function UploadTaskForm({
               ref={descriptionField}
               style={{ height: descriptionHeight }}
             />
-            {/* {displayErrors.map((elem, index) => (
-              <Error key={index}>{elem}</Error>
-            ))} */}
             <Error>{errors.titleError}</Error>
             <Error>{errors.descriptionError}</Error>
-            {/* <Error>{errors.map((error) => error)}</Error> */}
           </FormInner>
 
           <FormButtons>

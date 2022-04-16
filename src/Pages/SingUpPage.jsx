@@ -1,30 +1,32 @@
 import React from "react";
 import styled from "styled-components";
+
 import LoginSignUpHeader from "../Components/LogIn&SignUp/LoginSignUpHeader";
-import { backgroundColor } from "../UI/Constants";
+import { Line } from "../UI/Atoms/Line";
+import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
+import { primaryColor } from "../UI/Constants";
 import SignUpForm from "../UI/Forms/SignUpForm";
 
 export default function SingUpPage() {
   return (
     <>
-      <Wrapper>
-        <ViewBox>
-          <LoginSignUpHeader pageTitle="Sign up" />
-          <SignUpForm />
-        </ViewBox>
-      </Wrapper>
+      <SignUpLoginViewBox>
+        <LoginSignUpHeader pageTitle="Sign up" />
+        <SignUpForm />
+        <Line />
+        <RedirectingBlock>
+          Already signed up?
+          <a href="/log-in"> Go to login</a>
+        </RedirectingBlock>
+      </SignUpLoginViewBox>
     </>
   );
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: ${backgroundColor};
-`;
-const ViewBox = styled.div`
-  padding: 20px 30px;
-  background-color: #fff;
+const RedirectingBlock = styled.div`
+  margin: 32px 0;
+  text-align: center;
+  & a {
+    color: ${primaryColor};
+  }
 `;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import React from "react";
 
-export default function FormInput({ label }) {
+export default function FormInput({ label, ...otherInputProps }) {
   return (
     <>
       <Group>
         <Label>{label}</Label>
-        <Input></Input>
+        <Input {...otherInputProps}></Input>
       </Group>
     </>
   );

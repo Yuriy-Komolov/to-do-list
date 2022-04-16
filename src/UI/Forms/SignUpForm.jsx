@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import FormInput from "../Inputs/FormInput";
 import AddTaskButton from "../Buttons/AddTaskButton";
-import { Line } from "../Atoms/Line";
 import { primaryColor } from "../Constants";
 
 export default function SignUpForm() {
@@ -12,11 +11,6 @@ export default function SignUpForm() {
       <form>
         <FormInput label="Email" />
         <StyledButton text="Sign up with email" />
-        <Line />
-        <RedirectingBlock>
-          Already signed up?
-          <a href="/log-in"> Go to login</a>
-        </RedirectingBlock>
       </form>
     </>
   );
@@ -28,13 +22,5 @@ const StyledButton = styled(AddTaskButton)`
   margin-bottom: 32px;
   &:hover {
     background-color: rgba();
-  }
-`;
-
-const RedirectingBlock = styled.div`
-  margin: 32px 0;
-  text-align: center;
-  & a {
-    color: ${primaryColor};
   }
 `;

@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import LogoImage from "../UI/Icons/HeroPage/LogoImage";
+import LogoImage from "../../UI/Icons/HeroPage/LogoImage";
 
-import { primaryColor, textColor } from "../UI/Constants";
-
-export default function HeroPage() {
+import { primaryColor, textColor } from "../../UI/Constants";
+export default function HeroComponent() {
   return (
     <>
       <HeroWrapper>
         <Header>
           <Container>
             <HeaderInner>
-              <Logo href="/hero">
+              <Logo href="/">
                 <LogoImage />
                 todoList
               </Logo>

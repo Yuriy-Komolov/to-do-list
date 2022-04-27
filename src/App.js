@@ -1,34 +1,31 @@
 import React, { useState } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import styled from "styled-components";
 
 import HomePage from "./Pages/HomePage";
 import UpcomingPage from "./Pages/UpcomingPage";
-import store from "./Components/Store";
-import { Provider } from "react-redux";
-import Header from "./Components/Header/Header";
-import styled from "styled-components";
-import HeroPage from "./Pages/HeroPage";
 import SingUpPage from "./Pages/SingUpPage";
 import LoginPage from "./Pages/LoginPage";
+
+import Header from "./Components/Header/Header";
 
 export default function App() {
   const [burger, setBurger] = useState(false);
   return (
-    <Provider store={store}>
+    <>
       {/* <Header burger={burger} setBurger={setBurger} /> */}
       <Main active={burger}>
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/hero" element={<HeroPage />} />
             <Route path="/upcoming" element={<UpcomingPage />} />
             <Route path="/sign-up" element={<SingUpPage />} />
             <Route path="/log-in" element={<LoginPage />} />
           </Routes>
         </Router>
       </Main>
-    </Provider>
+    </>
   );
 }
 

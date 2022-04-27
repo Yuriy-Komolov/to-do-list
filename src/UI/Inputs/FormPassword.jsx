@@ -5,12 +5,16 @@ import CrossedTheEyeImage from "../Icons/LogInSignUp/CrossedTheEyeImage";
 import TheEyeImage from "../Icons/LogInSignUp/TheEyeImage";
 import FormInput from "./FormInput";
 
-export default function FormPassword() {
+export default function FormPassword({ ...otherProps }) {
   const [showPassword, setShowPassword] = useState(true);
   return (
     <>
       <Container>
-        <FormInput label="Password" type={showPassword ? "password" : "text"} />
+        <FormInput
+          label="Password"
+          type={showPassword ? "password" : "text"}
+          {...otherProps}
+        />
         <TheEye
           onClick={() =>
             showPassword ? setShowPassword(false) : setShowPassword(true)

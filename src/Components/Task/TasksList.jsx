@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import TaskItem from "./TaskItem";
 
-export default function TasksList({ setTaskForm, list }) {
+export default function TasksList({ list }) {
   const dispatch = useDispatch();
   const removeTask = (task) => {
     dispatch({

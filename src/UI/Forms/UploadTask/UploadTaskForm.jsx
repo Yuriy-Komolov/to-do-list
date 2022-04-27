@@ -63,6 +63,7 @@ export default function UploadTaskForm({
 
   // Submit button ========================
   const addTask = (e) => {
+    e.preventDefault();
     const newTask = {
       id: Date.now(),
       title: title,

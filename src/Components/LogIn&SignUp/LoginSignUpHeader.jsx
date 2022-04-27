@@ -5,16 +5,16 @@ import { Line } from "../../UI/Atoms/Line";
 import { primaryColor } from "../../UI/Constants";
 import LogoImage from "../../UI/Icons/HeroPage/LogoImage";
 
-export default function LoginSignUpHeader({ pageTitle }) {
+export default function LoginSignUpHeader({ pageTitle, googleHandler }) {
   return (
     <>
       <Container>
-        <Logo href="/hero">
+        <Logo href="/">
           <LogoImage />
           todoList
         </Logo>
         <PageTitle>{pageTitle}</PageTitle>
-        <SocialsButton>
+        <SocialsButton onClick={googleHandler}>
           <img
             width="16"
             height="16"

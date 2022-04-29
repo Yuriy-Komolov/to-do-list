@@ -1,34 +1,56 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import styled from "styled-components";
+
+import { setUser } from "./Store/slices/userSlice";
+import { useDispatch } from "react-redux";
+import { auth } from "./FireBase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 import HomePage from "./Pages/HomePage";
 import UpcomingPage from "./Pages/UpcomingPage";
-import store from "./Components/Store";
-import { Provider } from "react-redux";
-import Header from "./Components/Header/Header";
-import styled from "styled-components";
-import HeroPage from "./Pages/HeroPage";
 import SingUpPage from "./Pages/SingUpPage";
 import LoginPage from "./Pages/LoginPage";
 
+import Header from "./Components/Header/Header";
+import { useAuth } from "./Components/Hooks/useAuth";
+
 export default function App() {
   const [burger, setBurger] = useState(false);
+  const userInfo = useAuth();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(
+          setUser({
+            email: user.email,
+            userName: user.displayName,
+            id: user.uid,
+            token: user.accessToken,
+          })
+        );
+      }
+    });
+  }, []);
   return (
-    <Provider store={store}>
-      {/* <Header burger={burger} setBurger={setBurger} /> */}
+    <>
+      {userInfo.isAuth ? (
+        <Header burger={burger} setBurger={setBurger} />
+      ) : null}
       <Main active={burger}>
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/hero" element={<HeroPage />} />
             <Route path="/upcoming" element={<UpcomingPage />} />
             <Route path="/sign-up" element={<SingUpPage />} />
             <Route path="/log-in" element={<LoginPage />} />
           </Routes>
         </Router>
       </Main>
-    </Provider>
+    </>
   );
 }
 

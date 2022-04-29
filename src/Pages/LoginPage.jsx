@@ -6,11 +6,16 @@ import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
 import { primaryColor, primaryGrey } from "../UI/Constants";
 import LoginForm from "../UI/Forms/LoginForm";
 
+import { logout } from "../FireBase/firebase";
+
 export default function LoginPage() {
   return (
     <>
       <SignUpLoginViewBox>
-        <LoginSignUpHeader pageTitle="Log in" />
+        <LoginSignUpHeader
+          pageTitle="Log in"
+          // googleHandler={signInWithGoogle}
+        />
         <LoginForm />
         <RestorePassword href="#">Forgot your password?</RestorePassword>
         <Line />
@@ -18,6 +23,7 @@ export default function LoginPage() {
           Don't have an account? <a href="/sign-up">Sign up</a>
         </RedirectingBlock>
         <SupportBtn href="#">TodoList Support</SupportBtn>
+        <button onClick={logout}>Logout</button>
       </SignUpLoginViewBox>
     </>
   );

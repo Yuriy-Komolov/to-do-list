@@ -6,10 +6,9 @@ import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
 import { primaryColor, primaryGrey } from "../UI/Constants";
 import LoginForm from "../UI/Forms/LoginForm";
 
-import { auth, logout } from "../FireBase/firebase";
+import { logout } from "../FireBase/firebase";
 
 export default function LoginPage() {
-  console.log(auth);
   return (
     <>
       <SignUpLoginViewBox>

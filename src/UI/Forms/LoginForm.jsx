@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { auth } from "../../FireBase/firebase";
@@ -18,6 +18,11 @@ export default function LoginForm() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (auth.currentUser) {
+      navigate("/");
+    }
+  });
 
   const submitHendler = async (e) => {
     e.preventDefault();

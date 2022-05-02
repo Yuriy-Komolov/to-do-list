@@ -15,12 +15,16 @@ import LoginPage from "./Pages/LoginPage";
 
 import Header from "./Components/Header/Header";
 import { useAuth } from "./Components/Hooks/useAuth";
+import Spinner from "./UI/Atoms/Spinner";
 
 export default function App() {
   const [burger, setBurger] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const userInfo = useAuth();
   const dispatch = useDispatch();
 
+  console.log(auth.currentUser);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -34,9 +38,15 @@ export default function App() {
         );
       }
     });
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
+
   return (
     <>
+      {loading ? <Spinner /> : null}
       {userInfo.isAuth ? (
         <Header burger={burger} setBurger={setBurger} />
       ) : null}

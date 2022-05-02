@@ -42,10 +42,6 @@ export default function LoginForm() {
       navigate("/");
       // dispatch({ type: "SET_CURRENT_USER", payload: auth.currentUser });
       console.log(userCredential.user);
-
-      const user = auth.currentUser();
-
-      console.log(user);
     } catch (error) {
       console.log(error);
     }

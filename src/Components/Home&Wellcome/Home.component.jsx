@@ -12,12 +12,21 @@ import EstablishIcon from "../../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../../UI/Icons/HomePage/CheckIcon";
 import TasksList from "../../Components/Task/TasksList";
+import { signOut } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../../Store/slices/userSlice";
+import { auth } from "../../FireBase/firebase";
 
 export default function HomeComponent() {
   const tasks = useSelector((state) => state.tasks);
 
   const [showTaskForm, setShowTaskForm] = useState(false);
+  const dispatch = useDispatch();
 
+  const logout = async () => {
+    await signOut(auth);
+    dispatch(removeUser());
+  };
   return (
     <>
       <MainWrapper>
@@ -28,6 +37,7 @@ export default function HomeComponent() {
               <FilterIcon />
               View
             </Filter>
+            <button onClick={logout}>logout</button>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
           <TasksList list={tasks} />

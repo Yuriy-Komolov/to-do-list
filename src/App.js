@@ -24,7 +24,6 @@ export default function App() {
   const userInfo = useAuth();
   const dispatch = useDispatch();
 
-  console.log(auth.currentUser);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -38,15 +37,12 @@ export default function App() {
         );
       }
     });
-    const timer = setTimeout(() => setLoading(false), 1000);
-    return () => {
-      clearTimeout(timer);
-    };
   }, []);
 
   return (
     <>
-      {loading ? <Spinner /> : null}
+      {loading ? <Spinner setLoading={setLoading} /> : null}
+
       {userInfo.isAuth ? (
         <Header burger={burger} setBurger={setBurger} />
       ) : null}

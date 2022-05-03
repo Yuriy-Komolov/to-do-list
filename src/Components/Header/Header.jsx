@@ -14,10 +14,13 @@ import BellIcon from "../../UI/Icons/Header/BellIcon";
 import ProductivityIcon from "../../UI/Icons/Header/ProductivityIcon";
 import ModalQuickAddForm from "../Modals/QuickAddForm/ModalQuickAddForm";
 import BurgerNavigation from "./BurgerNavigation";
+import ProfileAvatar from "../../UI/Atoms/ProfileAvatar";
+import ProfileComponent from "../Profile/ProfileComponent";
 
 export default function Header({ burger, setBurger }) {
   const [quickTaskForm, setQuickTaskForm] = useState(false);
   const [inputSearch, setInputSearch] = useState(false);
+  const [userProfile, setUserProfile] = useState(false);
 
   const windowFocus = useRef(null);
 
@@ -39,6 +42,7 @@ export default function Header({ burger, setBurger }) {
       }
     }
   };
+
   return (
     <>
       <HeaderWrapper onKeyPress={keyboardPress} tabIndex={1} ref={windowFocus}>
@@ -89,6 +93,14 @@ export default function Header({ burger, setBurger }) {
               <HeaderButton hint="Open help & information O then N">
                 <BellIcon />
               </HeaderButton>
+              <ProfileButton
+                hint="Open profile"
+                onClick={() => {
+                  setUserProfile(true);
+                }}
+              >
+                <ProfileAvatar />
+              </ProfileButton>
             </RightPart>
           </Navbar>
         </Container>
@@ -98,6 +110,10 @@ export default function Header({ burger, setBurger }) {
         active={quickTaskForm}
         setFormActive={setQuickTaskForm}
         windowFocus={windowFocus}
+      />
+      <ProfileComponent
+        userProfile={userProfile}
+        setUserProfile={setUserProfile}
       />
     </>
   );
@@ -159,6 +175,11 @@ const HeaderHomeButton = styled(HeaderButton)`
 const ProductivityButton = styled(HeaderButton)`
   display: flex;
   column-gap: 6px;
+`;
+const ProfileButton = styled(HeaderButton)`
+  &:hover {
+    background: unset;
+  }
 `;
 const RightPart = styled(LeftPart)`
   column-gap: 8px;

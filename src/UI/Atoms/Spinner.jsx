@@ -1,8 +1,16 @@
 import React from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import { primaryColor } from "../Constants";
-export default function Spinner() {
+
+export default function Spinner({ setLoading }) {
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => {
+      clearTimeout(timer);
+    };
+  });
   return (
     <>
       <SpinnerWrapper>

@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 import "firebase/firestore";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const config = {
   apiKey: "AIzaSyDwsIzImmaV9mLn57trL1I4ai3VFUlPlH4",
@@ -16,9 +16,5 @@ const config = {
 const app = initializeApp(config);
 
 export const auth = getAuth(app);
-
-export const logout = async () => {
-  await signOut(auth);
-};
 
 export default app;

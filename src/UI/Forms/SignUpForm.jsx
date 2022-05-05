@@ -13,7 +13,6 @@ import { setUser } from "../../Store/slices/userSlice";
 import FormInput from "../Inputs/FormInput";
 import FormPassword from "../Inputs/FormPassword";
 import AddTaskButton from "../Buttons/AddTaskButton";
-import { logout } from "../../FireBase/firebase";
 
 export default function SignUpForm() {
   const [userName, setUserName] = useState("");
@@ -72,7 +71,6 @@ export default function SignUpForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <StyledButton text="Sign up with email" onClick={submitHendler} />
-          <button onClick={logout}>Logout</button>
         </Container>
       </form>
     </>

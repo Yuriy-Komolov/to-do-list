@@ -4,6 +4,11 @@ import styled from "styled-components";
 import ProfileAvatar from "../../UI/Atoms/ProfileAvatar";
 import { useAuth } from "../Hooks/useAuth";
 
+import { signOut } from "firebase/auth";
+import { auth } from "../../FireBase/firebase";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../../Store/slices/userSlice";
+
 import { Line } from "../../UI/Atoms/Line";
 import SettingsIcon from "../../UI/Icons/Profile/SettingsIcon";
 import ThemeIcon from "../../UI/Icons/Profile/ThemeIcon";
@@ -14,6 +19,12 @@ import LogOutIcon from "../../UI/Icons/Profile/LogOutIcon";
 
 export default function ProfileComponent({ userProfile, setUserProfile }) {
   const user = useAuth();
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    await signOut(auth);
+    dispatch(removeUser());
+  };
   return (
     <>
       <Wrapper
@@ -71,7 +82,7 @@ export default function ProfileComponent({ userProfile, setUserProfile }) {
           </Section>
           <Line />
           <Section>
-            <RowWithoutControles>
+            <RowWithoutControles onClick={logout}>
               <LogOutIcon />
               Log out
             </RowWithoutControles>

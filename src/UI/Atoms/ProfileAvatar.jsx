@@ -4,9 +4,10 @@ import { useAuth } from "../../Components/Hooks/useAuth";
 
 export default function ProfileAvatar() {
   const { userName } = useAuth();
+
   return (
     <>
-      <Container>{userName.slice(0, 1).toUpperCase()}</Container>
+      <Container>{userName?.slice(0, 1).toUpperCase()}</Container>
     </>
   );
 }

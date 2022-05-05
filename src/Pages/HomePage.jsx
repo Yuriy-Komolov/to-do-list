@@ -7,7 +7,6 @@ import HeroComponent from "../Components/Home&Wellcome/Hero.component";
 
 export default function HomePage() {
   const userInfo = useAuth();
-  console.log(userInfo);
 
   return <>{userInfo.isAuth ? <HomeComponent /> : <HeroComponent />}</>;
 }

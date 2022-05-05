@@ -33,6 +33,7 @@ export default function HeroComponent() {
 const HeroWrapper = styled.div`
   height: 100vh;
   width: 100%;
+
   background-color: #fafafa;
 `;
 const Header = styled.header`

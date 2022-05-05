@@ -1,4 +1,3 @@
-import { composeWithDevTools } from "redux-devtools-extension";
 import { taskReducer } from "./taskReduser";
 import { configureStore } from "@reduxjs/toolkit";
 import userReduser from "./slices/userSlice";

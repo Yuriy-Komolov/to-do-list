@@ -14,7 +14,7 @@ import CheckIcon from "../../UI/Icons/HomePage/CheckIcon";
 import TasksList from "../../Components/Task/TasksList";
 
 export default function HomeComponent() {
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.persistedReduser.tasks);
 
   const [showTaskForm, setShowTaskForm] = useState(false);
 

@@ -5,7 +5,7 @@ import DateIcon from "../../../UI/Icons/Navigation/TodayIcon";
 import InboxIcon from "../../../UI/Icons/Navigation/InboxIcon";
 import { useSelector } from "react-redux";
 export default function SearchResultBox({ active, searchInput }) {
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.persistedReduser.tasks);
 
   const filteredTasks = tasks.filter((task) =>
     task.title.toLowerCase().includes(searchInput.toLowerCase())

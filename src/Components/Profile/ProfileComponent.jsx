@@ -112,7 +112,8 @@ const Container = styled.div`
   max-height: 80vh;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
   background-color: #fff;
-  border: 1px solid red;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
 `;
 
 const Section = styled.div`

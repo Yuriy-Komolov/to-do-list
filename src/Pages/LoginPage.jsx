@@ -3,7 +3,7 @@ import styled from "styled-components";
 import LoginSignUpHeader from "../Components/LogIn&SignUp/LoginSignUpHeader";
 import { Line } from "../UI/Atoms/Line";
 import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
-import { primaryColor, primaryGrey } from "../UI/Constants";
+import { primaryColor, primaryGrey } from "../Constants/UI.Constants";
 import LoginForm from "../UI/Forms/LoginForm";
 
 export default function LoginPage() {

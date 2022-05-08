@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../FireBase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../Store/slices/userSlice";
 
 import AddTaskButton from "../Buttons/AddTaskButton";
-import { primaryGrey } from "../Constants";
+import { primaryGrey } from "../../Constants/UI.Constants";
 import FormInput from "../Inputs/FormInput";
 import FormPassword from "../Inputs/FormPassword";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Error from "../Atoms/Error";
+import {
+  signUpEmailValidation,
+  signUpPasswordValidation,
+} from "../../Utils/validationModule";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,15 +42,16 @@ export default function LoginForm() {
       dispatch(
         setUser({
           email: userCredential.user.email,
+          userName: userCredential.user.displayName,
           id: userCredential.user.uid,
           token: userCredential.user.accessToken,
         })
       );
       navigate("/");
-      // dispatch({ type: "SET_CURRENT_USER", payload: auth.currentUser });
-      console.log(userCredential.user);
     } catch (error) {
       console.log(error);
+      setPasswordError(signUpPasswordValidation(error));
+      setEmailError(signUpEmailValidation(error));
     }
   };
 
@@ -58,10 +66,12 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             autoFocus
           />
+          <Error>{emailError}</Error>
           <FormPassword
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Error>{passwordError}</Error>
           <StyledButton text="Log in" onClick={submitHendler} />
           <LoginCheckbox htmlFor="checkbox">
             <input type="checkbox" id="checkbox" /> Keep me logged in

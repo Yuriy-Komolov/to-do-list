@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
 
-import { primaryColor } from "../../UI/Constants";
+import { primaryColor } from "../../Constants/UI.Constants";
 
 import HeaderButton from "../../UI/Buttons/HeaderButton";
 import InputSearch from "../Header/SearchBar/InputSearch";

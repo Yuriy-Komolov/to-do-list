@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { primaryColor } from "../Constants";
+import { primaryColor } from "../../Constants/UI.Constants";
 
 export default function AddTaskButton(props) {
   return (

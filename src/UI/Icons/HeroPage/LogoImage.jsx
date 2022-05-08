@@ -1,5 +1,5 @@
 import React from "react";
-import { primaryColor } from "../../Constants";
+import { primaryColor } from "../../../Constants/UI.Constants";
 
 export default function LogoImage() {
   return (

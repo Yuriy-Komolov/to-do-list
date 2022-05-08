@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Line } from "../../UI/Atoms/Line";
 
-import { primaryColor } from "../../UI/Constants";
+import { primaryColor } from "../../Constants/UI.Constants";
 import LogoImage from "../../UI/Icons/HeroPage/LogoImage";
 
 export default function LoginSignUpHeader({ pageTitle, googleHandler }) {

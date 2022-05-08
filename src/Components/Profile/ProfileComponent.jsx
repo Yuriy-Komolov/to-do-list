@@ -114,6 +114,7 @@ const Container = styled.div`
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
+  overflow: auto;
 `;
 
 const Section = styled.div`

@@ -5,9 +5,8 @@ import styled from "styled-components";
 import LoginSignUpHeader from "../Components/LogIn&SignUp/LoginSignUpHeader";
 import { Line } from "../UI/Atoms/Line";
 import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
-import { primaryColor } from "../UI/Constants";
+import { primaryColor } from "../Constants/UI.Constants";
 import SignUpForm from "../UI/Forms/SignUpForm";
-
 export default function SingUpPage() {
   return (
     <>

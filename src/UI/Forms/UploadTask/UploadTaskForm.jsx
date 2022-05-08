@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 import AddTaskButton from "../../Buttons/AddTaskButton";
+import Error from "../../Atoms/Error";
 import {
   postTitleValidation,
   postDescriptionValidation,
 } from "../../../Utils/validationModule";
-
-import { useDispatch } from "react-redux";
 
 export default function UploadTaskForm({
   cancelHendler,
@@ -248,10 +248,4 @@ const StyledSubmit = styled(AddTaskButton)`
       cursor: url("/Images/icons/block.png"), auto;
     }
   }
-`;
-
-const Error = styled.p`
-  font-size: 12px;
-  color: #d1453b;
-  margin: 0 0 10px 8px;
 `;

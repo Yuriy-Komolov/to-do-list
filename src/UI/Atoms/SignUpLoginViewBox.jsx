@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { backgroundColor } from "../Constants";
+import { backgroundColor } from "../../Constants/UI.Constants";
 export default function SignUpLoginViewBox({ children }) {
   return (
     <>

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import LogoImage from "../../UI/Icons/HeroPage/LogoImage";
 
-import { primaryColor, textColor } from "../../UI/Constants";
+import { primaryColor, textColor } from "../../Constants/UI.Constants";
 export default function HeroComponent() {
   return (
     <>

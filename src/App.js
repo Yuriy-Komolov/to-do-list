@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
-
-import { setUser } from "./Store/slices/userSlice";
-import { useDispatch } from "react-redux";
-import { auth } from "./FireBase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
 import HomePage from "./Pages/HomePage";
 import UpcomingPage from "./Pages/UpcomingPage";
@@ -20,22 +15,6 @@ export default function App() {
   const [burger, setBurger] = useState(false);
 
   const userInfo = useAuth();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(
-          setUser({
-            email: user.email,
-            userName: user.displayName,
-            id: user.uid,
-            token: user.accessToken,
-          })
-        );
-      }
-    });
-  }, [dispatch]);
 
   return (
     <>

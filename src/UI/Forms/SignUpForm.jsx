@@ -13,14 +13,21 @@ import { setUser } from "../../Store/slices/userSlice";
 import FormInput from "../Inputs/FormInput";
 import FormPassword from "../Inputs/FormPassword";
 import AddTaskButton from "../Buttons/AddTaskButton";
+import {
+  signUpEmailValidation,
+  signUpPasswordValidation,
+} from "../../Utils/validationModule";
+import Error from "../Atoms/Error";
 
 export default function SignUpForm() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = getAuth();
   useEffect(() => {
@@ -32,21 +39,26 @@ export default function SignUpForm() {
   const submitHendler = async (e) => {
     e.preventDefault();
 
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    updateProfile(userCredential.user, { displayName: userName });
-    dispatch(
-      setUser({
-        email: userCredential.user.email,
-        id: userCredential.user.uid,
-        token: userCredential.user.accessToken,
-      })
-    );
-    navigate("/");
-    console.log(userCredential.user);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      updateProfile(userCredential.user, { displayName: userName });
+      dispatch(
+        setUser({
+          email: userCredential.user.email,
+          id: userCredential.user.uid,
+          token: userCredential.user.accessToken,
+        })
+      );
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setPasswordError(signUpPasswordValidation(error));
+      setEmailError(signUpEmailValidation(error));
+    }
   };
 
   return (
@@ -66,10 +78,12 @@ export default function SignUpForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <Error>{emailError}</Error>
           <FormPassword
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Error>{passwordError}</Error>
           <StyledButton text="Sign up with email" onClick={submitHendler} />
         </Container>
       </form>

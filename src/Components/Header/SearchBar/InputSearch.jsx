@@ -53,6 +53,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
           placeholder="Search"
           ref={focusByPress}
           onChange={(e) => setSearchInput(e.target.value)}
+          value={searchInput}
         />
         <ShortCutButton
           hint={hint}

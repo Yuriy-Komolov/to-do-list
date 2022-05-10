@@ -7,11 +7,15 @@ import { Line } from "../UI/Atoms/Line";
 import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
 import { primaryColor } from "../Constants/UI.Constants";
 import SignUpForm from "../UI/Forms/SignUpForm";
+import { useGoogleAuth } from "../Components/Hooks/useGoogleAuth";
+
 export default function SingUpPage() {
+  const googleSubmit = useGoogleAuth();
+
   return (
     <>
       <SignUpLoginViewBox>
-        <LoginSignUpHeader pageTitle="Sign up" />
+        <LoginSignUpHeader pageTitle="Sign up" googleHandler={googleSubmit} />
         <SignUpForm />
         <Line />
         <RedirectingBlock>

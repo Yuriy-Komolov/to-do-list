@@ -5,15 +5,14 @@ import { Line } from "../UI/Atoms/Line";
 import SignUpLoginViewBox from "../UI/Atoms/SignUpLoginViewBox";
 import { primaryColor, primaryGrey } from "../Constants/UI.Constants";
 import LoginForm from "../UI/Forms/LoginForm";
+import { useGoogleAuth } from "../Components/Hooks/useGoogleAuth";
 
 export default function LoginPage() {
+  const googleLogIn = useGoogleAuth();
   return (
     <>
       <SignUpLoginViewBox>
-        <LoginSignUpHeader
-          pageTitle="Log in"
-          // googleHandler={signInWithGoogle}
-        />
+        <LoginSignUpHeader pageTitle="Log in" googleHandler={googleLogIn} />
         <LoginForm />
         <RestorePassword href="#">Forgot your password?</RestorePassword>
         <Line />

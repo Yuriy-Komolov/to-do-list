@@ -49,6 +49,7 @@ export default function SignUpForm() {
       dispatch(
         setUser({
           email: userCredential.user.email,
+          userName: userCredential.user.displayName,
           id: userCredential.user.uid,
           token: userCredential.user.accessToken,
         })

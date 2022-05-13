@@ -51,7 +51,8 @@ export default function Header({ burger, setBurger }) {
             <LeftPart>
               {/*** Burger */}
               <Burger
-                hint={burger ? `Close menu M` : "Open menu M"}
+                hint={burger ? `Close menu` : "Open menu"}
+                keybord="M"
                 onClick={() => {
                   setBurger(burger ? false : true);
                 }}
@@ -59,7 +60,7 @@ export default function Header({ burger, setBurger }) {
                 <span></span>
               </Burger>
               {/***HomePage btn */}
-              <HeaderHomeButton hint={`Go to home G then H`}>
+              <HeaderHomeButton hint="Go to home" keybord="G then H">
                 <a href="/">
                   <HomePageIcon />
                 </a>
@@ -67,7 +68,7 @@ export default function Header({ burger, setBurger }) {
 
               {/*** Search */}
               <InputSearch
-                hint="Search F"
+                hint="Search"
                 active={inputSearch}
                 setActiveFocus={setInputSearch}
               />
@@ -76,7 +77,8 @@ export default function Header({ burger, setBurger }) {
             <RightPart>
               {/* Quick Add Button */}
               <HeaderButton
-                hint="Quick Add Q"
+                hint="Quick Add"
+                keybord="Q"
                 onClick={() => {
                   setQuickTaskForm(true);
                 }}
@@ -84,17 +86,19 @@ export default function Header({ burger, setBurger }) {
                 <PlusIcon />
               </HeaderButton>
 
-              <ProductivityButton hint="Open Productivity O then P">
+              <ProductivityButton hint="Open Productivity " keybord="O then P">
                 <ProductivityIcon />0 / 5
               </ProductivityButton>
-              <HeaderButton hint="Open help & information O then H">
+              <HeaderButton hint="Open help & information " keybord="O then H">
                 <InfoIcon />
               </HeaderButton>
-              <HeaderButton hint="Open help & information O then N">
+              <HeaderButton hint="Open help & information " keybord="O then N">
                 <BellIcon />
               </HeaderButton>
+
               <ProfileButton
-                hint="Open profile"
+                hint="Open profile photo menu"
+                keybord="O then U"
                 onClick={() => {
                   setUserProfile(true);
                 }}
@@ -178,6 +182,10 @@ const ProductivityButton = styled(HeaderButton)`
 `;
 const ProfileButton = styled(HeaderButton)`
   &:hover {
+    & div {
+      display: flex;
+      left: -130px;
+    }
     background: unset;
   }
 `;

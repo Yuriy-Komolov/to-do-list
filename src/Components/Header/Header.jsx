@@ -97,7 +97,7 @@ export default function Header({ burger, setBurger }) {
               </HeaderButton>
 
               <ProfileButton
-                hint="Open profile photo menu"
+                hint="Open profile photo menu "
                 keybord="O then U"
                 onClick={() => {
                   setUserProfile(true);

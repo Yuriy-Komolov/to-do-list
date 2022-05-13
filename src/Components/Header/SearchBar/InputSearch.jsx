@@ -57,6 +57,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
         />
         <ShortCutButton
           hint={hint}
+          keybord="F"
           hover={hover}
           focus={active}
           onClick={() => {
@@ -134,14 +135,14 @@ const ShortCutButton = styled(HeaderButton)`
   line-height: 14px;
   color: #202020;
   padding: 0 5px;
-  height: unset;
   min-width: unset;
+  height: unset;
   background-color: #fff;
   border: 1px solid #c1c7c3;
   opacity: 0.6;
   border-radius: 2px;
   position: absolute;
-  right: 10px;
+  right: 15px;
   visibility: ${(props) => (props.hover ? "visible" : "hidden")};
   visibility: ${(props) => (props.focus ? "hidden" : null)};
   :hover {

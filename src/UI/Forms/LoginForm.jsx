@@ -49,7 +49,6 @@ export default function LoginForm() {
       );
       navigate("/");
     } catch (error) {
-      console.log(error);
       setPasswordError(signUpPasswordValidation(error));
       setEmailError(signUpEmailValidation(error));
     }

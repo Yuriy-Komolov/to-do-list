@@ -1,3 +1,4 @@
+import { actions } from "./actionTypes";
 const defaultState = [
   {
     id: 1,
@@ -31,12 +32,31 @@ const defaultState = [
   },
 ];
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
+
 export const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case "ADD_TASK": {
+    case actions.addTask: {
       return [...state, action.payload];
     }
-    case "REMOVE_TASK": {
+    case "REFRESH_TASK": {
+      if (defaultState.length !== 0) {
+        return [
+          ...(state = reorder(
+            state,
+            action.payload.sourceIndex,
+            action.payload.destinationIndex
+          )),
+        ];
+      }
+      return state;
+    }
+    case action.removeTask: {
       return [...action.payload];
     }
     case "ADD_SUBTASK": {

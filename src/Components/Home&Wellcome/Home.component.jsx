@@ -15,7 +15,6 @@ import TasksList from "../../Components/Task/TasksList";
 
 export default function HomeComponent() {
   const tasks = useSelector((state) => state.persistedReduser.tasks);
-
   const [showTaskForm, setShowTaskForm] = useState(false);
 
   return (
@@ -30,7 +29,7 @@ export default function HomeComponent() {
             </Filter>
           </PageHeader>
           {/* ==================Tasks Section ====================================== */}
-          <TasksList list={tasks} />
+          <TasksList />
 
           {showTaskForm ? null : (
             <AddTaskButton
@@ -51,7 +50,7 @@ export default function HomeComponent() {
               activeForm={showTaskForm}
             />
           ) : tasks.length === 0 ? (
-            <InnerContent setShowTaskForm={setShowTaskForm} tasks={tasks} />
+            <InnerContent setShowTaskForm={setShowTaskForm} />
           ) : null}
         </PageContainer>
       </MainWrapper>

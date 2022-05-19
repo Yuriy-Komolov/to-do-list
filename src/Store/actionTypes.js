@@ -1,5 +1,6 @@
 export const actions = {
-  addTask: "ADD_TASK",
-  removeTask: "REMOVE_TASK",
-  refresh: "REFRESH_TASK",
+  ADD_TASK: "ADD_TASK",
+  REMOVE_TASK: "REMOVE_TASK",
+  REFRESH_LIST: "REFRESH_TASK",
+  ARR_SUBTASK: "ADD_SUBTASK",
 };

@@ -41,10 +41,10 @@ const reorder = (list, startIndex, endIndex) => {
 
 export const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.addTask: {
+    case actions.ADD_TASK: {
       return [...state, action.payload];
     }
-    case "REFRESH_TASK": {
+    case actions.REFRESH_LIST: {
       if (defaultState.length !== 0) {
         return [
           ...(state = reorder(
@@ -56,10 +56,10 @@ export const taskReducer = (state = defaultState, action) => {
       }
       return state;
     }
-    case action.removeTask: {
+    case action.REMOVE_TASK: {
       return [...action.payload];
     }
-    case "ADD_SUBTASK": {
+    case action.ARR_SUBTASK: {
       return [...state, action.payload];
     }
     default:

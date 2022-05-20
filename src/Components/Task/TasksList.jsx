@@ -1,34 +1,20 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { moveItemAction } from "../../Store/actions";
+import { refreshListAction } from "../../Store/taskActions";
 import TaskItem from "./TaskItem";
 
 export default function TasksList() {
   const list = useSelector((state) => state.persistedReduser.tasks);
-
   const dispatch = useDispatch();
-  // const refreshTasks = () => {
-  //   dispatch({
-  //     type: "REFRESH_TASK",
-  //     payload: list,
-  //   });
-  // };
-
-  const removeTask = (task) => {
-    dispatch({
-      type: "REMOVE_TASK",
-      payload: list.filter((p) => p.id !== task.id),
-    });
-  };
-
   return (
     <>
       <DragDropContext
         onDragEnd={(param) => {
-          dispatch(moveItemAction(param.source.index, param.destination.index));
+          dispatch(
+            refreshListAction(param.source.index, param.destination.index)
+          );
         }}
       >
         <Droppable droppableId="droppable-1">
@@ -42,9 +28,9 @@ export default function TasksList() {
                 >
                   {(provided, snapshot) => (
                     <TaskItem
+                      list={list}
                       task={item}
                       key={item.id}
-                      removeTask={removeTask}
                       refference={provided.innerRef}
                       dragging={{ ...provided.draggableProps }}
                       draggingHandle={{ ...provided.dragHandleProps }}

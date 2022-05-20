@@ -27,9 +27,9 @@ export default function SubTask({ subtasks }) {
                 setSubtaskForm(true);
               }}
             />
-            {subtasks.map((item, index) => (
+            {/* {subtasks.map((item, index) => (
               <div key={index}>{item.title}</div>
-            ))}
+            ))} */}
             {/* <TasksList list={subtasks} /> */}
           </>
         )}

@@ -20,7 +20,6 @@ export const useGoogleAuth = () => {
           token: userCredential.user.accessToken,
         })
       );
-      console.log(userCredential);
     } catch (error) {
       console.log(error);
     }

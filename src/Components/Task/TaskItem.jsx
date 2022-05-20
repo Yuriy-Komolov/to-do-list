@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { removeTaskAction } from "../../Store/taskActions";
+
 import TaskItemCheckIcon from "../../UI/Icons/HomePage/TaskItemCheckIcon";
 import DragIcon from "../../UI/Icons/TaskItem/DragIcon";
 import TaskItemButton from "../../UI/Buttons/TaskItemButton";
@@ -10,15 +12,18 @@ import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
 import DateIconSmooth from "../../UI/Icons/TaskItem/DateIconSmooth";
 import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 import EditTask from "./EditTask";
+import { useDispatch } from "react-redux";
 
 export default function TaskItem({
+  list,
   task,
-  removeTask,
   refference,
   dragging,
   draggingHandle,
   snapshot,
 }) {
+  const dispatch = useDispatch();
+
   const [hover, setHover] = useState(false);
   const [editTaskForm, setEditTaskForm] = useState(false);
 
@@ -66,7 +71,7 @@ export default function TaskItem({
           <Content>
             <Checkbox
               onClick={() => {
-                removeTask(task);
+                dispatch(removeTaskAction(list, task));
               }}
             >
               <StyledCheckBoxIcon>

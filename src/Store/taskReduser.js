@@ -1,48 +1,40 @@
-const defaultState = [
-  {
-    id: 1,
-    title: "111 Take dog for a walk",
-    description: "after super",
-    subtasks: [
-      { id: 1, title: "111 Take dog for a walk", description: "after super" },
-      {
-        id: 2,
-        title: "2222 title som tesdcsadsadt 2",
-        description: "description number 2",
-      },
-      {
-        id: 3,
-        title: "5555 title som tesdcsadsadt 33",
-        description: "description number 2",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "2222 title som tesdcsadsadt 2",
-    description: "description number 2",
-    subtasks: [
-      {
-        id: 2,
-        title: "2222 title som tesdcsadsadt 2",
-        description: "description number 2",
-      },
-    ],
-  },
-];
+export const actions = {
+  ADD_TASK: "ADD_TASK",
+  REMOVE_TASK: "REMOVE_TASK",
+  REFRESH_LIST: "REFRESH_TASK",
+  ARR_SUBTASK: "ADD_SUBTASK",
+};
+
+const defaultState = [];
 
 export const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case "ADD_TASK": {
+    case actions.ADD_TASK: {
       return [...state, action.payload];
     }
-    case "REMOVE_TASK": {
+    case actions.REFRESH_LIST: {
+      return [
+        ...(state = listReorder(
+          state,
+          action.payload.sourceIndex,
+          action.payload.destinationIndex
+        )),
+      ];
+    }
+    case actions.REMOVE_TASK: {
       return [...action.payload];
     }
-    case "ADD_SUBTASK": {
+    case actions.ARR_SUBTASK: {
       return [...state, action.payload];
     }
     default:
       return state;
   }
+};
+
+const listReorder = (list, startIndex, endIndex) => {
+  const result = list.slice();
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
 };

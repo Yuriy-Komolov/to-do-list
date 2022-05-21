@@ -12,10 +12,12 @@ import EstablishIcon from "../../UI/Icons/HomePage/EstablishIcon";
 import FilterIcon from "../../UI/Icons/HomePage/FilterIcon";
 import CheckIcon from "../../UI/Icons/HomePage/CheckIcon";
 import TasksList from "../../Components/Task/TasksList";
+import Filters from "../Filters/Filters";
 
 export default function HomeComponent() {
   const tasks = useSelector((state) => state.persistedReduser.tasks);
   const [showTaskForm, setShowTaskForm] = useState(false);
+  const [filtersBox, setFiltersBox] = useState(true);
 
   return (
     <>
@@ -23,7 +25,11 @@ export default function HomeComponent() {
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
-            <Filter>
+            <Filter
+              onClick={() => {
+                setFiltersBox(true);
+              }}
+            >
               <FilterIcon />
               View
             </Filter>
@@ -53,6 +59,7 @@ export default function HomeComponent() {
             <InnerContent setShowTaskForm={setShowTaskForm} />
           ) : null}
         </PageContainer>
+        <Filters filtersBox={filtersBox} setFiltersBox={setFiltersBox} />
       </MainWrapper>
     </>
   );
@@ -148,9 +155,15 @@ const Filter = styled.div`
   align-items: center;
   cursor: pointer;
   padding-right: 4px;
+  color: grey;
+  font-size: 12px;
   &:hover {
     background-color: rgba(38, 38, 38, 0.2);
     border-radius: 3px;
+    color: #000;
+    & svg path {
+      fill: #000;
+    }
   }
 `;
 

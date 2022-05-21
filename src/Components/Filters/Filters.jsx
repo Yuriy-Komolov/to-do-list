@@ -4,8 +4,16 @@ import ArrowDown from "../../UI/Icons/Filters/ArrowDown";
 import AssignedToIcon from "../../UI/Icons/Filters/AssignedToIcon";
 import GroupByIcon from "../../UI/Icons/Filters/GroupByIcon";
 import SortByIcon from "../../UI/Icons/Filters/SortByIcon";
+import AssignedTo from "./AssignedTo";
+import GroupBy from "./GroupBy";
+import SortBy from "./SortBy";
 
 export default function Filters({ filtersBox, setFiltersBox }) {
+  const [filtersMenu, setFiltersMenu] = useState({
+    group: false,
+    sort: false,
+    assigned: false,
+  });
   const [boxPosition, setBoxPosition] = useState(window.innerWidth - 442);
 
   const updateWindowWitdth = () => {
@@ -24,7 +32,9 @@ export default function Filters({ filtersBox, setFiltersBox }) {
       <FilterWrapper
         active={filtersBox}
         onClick={() => {
-          setFiltersBox(false);
+          if (Object.values(filtersMenu).includes(true)) {
+            return;
+          } else setFiltersBox(false);
         }}
       >
         <Box
@@ -35,7 +45,12 @@ export default function Filters({ filtersBox, setFiltersBox }) {
         >
           <Title>Sort</Title>
           <FiltersList>
-            <FiltersItem>
+            <FiltersItem
+              onClick={() => {
+                setFiltersMenu({ ...filtersMenu, group: true });
+              }}
+              activeItem={filtersMenu.group}
+            >
               <div>
                 <GroupByIcon />
               </div>
@@ -47,7 +62,10 @@ export default function Filters({ filtersBox, setFiltersBox }) {
                 </ItemMenu>
               </ItemContent>
             </FiltersItem>
-            <FiltersItem>
+            <FiltersItem
+              onClick={() => setFiltersMenu({ ...filtersMenu, sort: true })}
+              activeItem={filtersMenu.sort}
+            >
               <div>
                 <SortByIcon />
               </div>
@@ -59,7 +77,10 @@ export default function Filters({ filtersBox, setFiltersBox }) {
                 </ItemMenu>
               </ItemContent>
             </FiltersItem>
-            <FiltersItem>
+            <FiltersItem
+              onClick={() => setFiltersMenu({ ...filtersMenu, assigned: true })}
+              activeItem={filtersMenu.assigned}
+            >
               <div>
                 <AssignedToIcon />
               </div>
@@ -73,6 +94,21 @@ export default function Filters({ filtersBox, setFiltersBox }) {
             </FiltersItem>
           </FiltersList>
         </Box>
+        <GroupBy
+          filtersMenu={filtersMenu}
+          setFiltersMenu={setFiltersMenu}
+          mainBoxPosition={boxPosition}
+        />
+        <SortBy
+          filtersMenu={filtersMenu}
+          setFiltersMenu={setFiltersMenu}
+          mainBoxPosition={boxPosition}
+        />
+        <AssignedTo
+          filtersMenu={filtersMenu}
+          setFiltersMenu={setFiltersMenu}
+          mainBoxPosition={boxPosition}
+        />
       </FilterWrapper>
     </>
   );
@@ -104,12 +140,13 @@ const FiltersList = styled.div``;
 
 const FiltersItem = styled.div`
   display: flex;
-  padding: 6px 12px 4px;
-
+  padding: 4px 10px 2px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.06);
     cursor: pointer;
   }
+  background-color: ${(props) =>
+    props.activeItem ? "rgba(0, 0, 0, 0.06)" : "#fff"};
 `;
 const ItemContent = styled.div`
   width: 100%;

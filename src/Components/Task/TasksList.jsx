@@ -6,14 +6,14 @@ import { refreshListAction } from "../../Store/taskActions";
 import TaskItem from "./TaskItem";
 
 export default function TasksList() {
-  const list = useSelector((state) => state.persistedReduser.tasks);
+  const list = useSelector((state) => state.persistedReduser.tasks.taskList);
   const dispatch = useDispatch();
   return (
     <>
       <DragDropContext
         onDragEnd={(param) => {
           dispatch(
-            refreshListAction(param.source.index, param.destination.index)
+            refreshListAction(list, param.source.index, param.destination.index)
           );
         }}
       >

@@ -1,8 +1,13 @@
 import { actions } from "./taskReduser";
 
-export const refreshListAction = (sourceIndex, destinationIndex) => ({
+export const refreshListAction = (list, sourceIndex, destinationIndex) => ({
   type: actions.REFRESH_LIST,
-  payload: { sourceIndex, destinationIndex },
+  payload: (() => {
+    const result = list.slice();
+    const [removed] = result.splice(sourceIndex, 1);
+    result.splice(destinationIndex, 0, removed);
+    return result;
+  })(),
 });
 
 export const removeTaskAction = (list, task) => ({

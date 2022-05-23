@@ -49,6 +49,7 @@ const Option = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 2px 4px;
+  cursor: pointer;
   &:hover {
     background-color: rgba(0, 0, 0, 0.06);
   }

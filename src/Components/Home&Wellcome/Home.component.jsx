@@ -15,21 +15,16 @@ import TasksList from "../../Components/Task/TasksList";
 import Filters from "../Filters/Filters";
 
 export default function HomeComponent() {
-  const tasks = useSelector((state) => state.persistedReduser.tasks);
+  const tasks = useSelector((state) => state.persistedReduser.tasks.taskList);
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [filtersBox, setFiltersBox] = useState(true);
-
+  const [filtersBox, setFiltersBox] = useState(false);
   return (
     <>
       <MainWrapper>
         <PageContainer>
           <PageHeader>
             <GetCurrentDate />
-            <Filter
-              onClick={() => {
-                setFiltersBox(true);
-              }}
-            >
+            <Filter onClick={() => setFiltersBox(true)}>
               <FilterIcon />
               View
             </Filter>

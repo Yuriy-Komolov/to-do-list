@@ -3,10 +3,12 @@ export const actions = {
   REMOVE_TASK: "REMOVE_TASK",
   REFRESH_LIST: "REFRESH_TASK",
   ADD_SUBTASK: "ADD_SUBTASK",
+  SET_SORTING_METHOD: "SET_SORTING_METHOD",
 };
 
 const defaultState = {
   taskList: [],
+  sortBy: "default",
 };
 
 export const taskReducer = (state = defaultState, action) => {
@@ -25,6 +27,9 @@ export const taskReducer = (state = defaultState, action) => {
     }
     case actions.ADD_SUBTASK: {
       return [...state, action.payload];
+    }
+    case actions.SET_SORTING_METHOD: {
+      return { ...state, sortBy: action.payload };
     }
     default:
       return state;

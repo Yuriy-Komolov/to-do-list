@@ -1,12 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import TaskItemCheckIcon from "../../UI/Icons/HomePage/TaskItemCheckIcon";
+import { sortingBy } from "../../Constants/filterConstants";
+import { useDispatch } from "react-redux";
+import { setSortingMethod } from "../../Store/taskActions";
 
 export default function SortBy({
   filtersMenu,
   setFiltersMenu,
   mainBoxPosition,
 }) {
+  const dispatch = useDispatch();
+  const handler = (e) => {
+    dispatch(setSortingMethod(e.target.dataset.value));
+  };
+
   return (
     <>
       <Wrapper
@@ -14,25 +22,25 @@ export default function SortBy({
         onClick={() => setFiltersMenu({ ...filtersMenu, sort: false })}
       >
         <Container windowPosition={mainBoxPosition}>
-          <Option>
+          <Option data-value={sortingBy.DEFAULT} onClick={handler}>
             Default <TaskItemCheckIcon />
           </Option>
-          <Option>
+          <Option data-value={sortingBy.ALPHABETICALLY} onClick={handler}>
             Alphabetically <TaskItemCheckIcon />
           </Option>
-          <Option>
+          <Option data-value={sortingBy.ASSIGNEE} onClick={handler}>
             Assignee <TaskItemCheckIcon />
           </Option>
-          <Option>
+          <Option data-value={sortingBy.DUE_DATE} onClick={handler}>
             Due date <TaskItemCheckIcon />
           </Option>
-          <Option>
+          <Option data-value={sortingBy.DATE_ADDED} onClick={handler}>
             Date added <TaskItemCheckIcon />
           </Option>
-          <Option>
+          <Option data-value={sortingBy.PRIORITY} onClick={handler}>
             Priority <TaskItemCheckIcon />
           </Option>
-          <Option>
+          <Option data-value={sortingBy.PROJECT} onClick={handler}>
             Project <TaskItemCheckIcon />
           </Option>
         </Container>

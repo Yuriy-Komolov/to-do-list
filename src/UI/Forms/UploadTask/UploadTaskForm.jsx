@@ -62,8 +62,7 @@ export default function UploadTaskForm({
   }, [activeForm, editTask]);
 
   // Submit button ========================
-  const addTask = (e) => {
-    e.preventDefault();
+  const addTask = () => {
     const newTask = {
       id: Date.now(),
       title: title,
@@ -116,7 +115,7 @@ export default function UploadTaskForm({
   return (
     <>
       <FormWrapper>
-        <form>
+        <form onSubmit={modeChecking}>
           <FormInner>
             <FormInputTitle
               placeholder="Title (Example=> To buy a book)"
@@ -133,7 +132,7 @@ export default function UploadTaskForm({
               onKeyPress={(press) => {
                 if (press.key === "Enter") {
                   press.preventDefault();
-                  addTask();
+                  modeChecking();
                 }
               }}
               style={{ height: titleHeight }}

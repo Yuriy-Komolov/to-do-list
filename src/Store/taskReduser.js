@@ -4,11 +4,12 @@ export const actions = {
   REFRESH_LIST: "REFRESH_TASK",
   ADD_SUBTASK: "ADD_SUBTASK",
   SET_SORTING_METHOD: "SET_SORTING_METHOD",
+  SET_SORTING_ORDER: "SET_SORTING_ORDER",
 };
 
 const defaultState = {
   taskList: [],
-  sortBy: "default",
+  sortBy: { method: "Default", order: "descending" },
 };
 
 export const taskReducer = (state = defaultState, action) => {
@@ -29,7 +30,22 @@ export const taskReducer = (state = defaultState, action) => {
       return [...state, action.payload];
     }
     case actions.SET_SORTING_METHOD: {
-      return { ...state, sortBy: action.payload };
+      return {
+        ...state,
+        sortBy: {
+          ...state.sortBy,
+          method: action.payload,
+        },
+      };
+    }
+    case actions.SET_SORTING_ORDER: {
+      return {
+        ...state,
+        sortBy: {
+          ...state.sortBy,
+          order: action.payload,
+        },
+      };
     }
     default:
       return state;

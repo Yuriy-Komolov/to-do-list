@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ArrowDown from "../../UI/Icons/Filters/ArrowDown";
 import AssignedToIcon from "../../UI/Icons/Filters/AssignedToIcon";
@@ -14,7 +15,12 @@ export default function Filters({ filtersBox, setFiltersBox }) {
     sort: false,
     assigned: false,
   });
+
   const [boxPosition, setBoxPosition] = useState(window.innerWidth - 442);
+
+  const sortingMethod = useSelector(
+    (state) => state.persistedReduser.tasks.sortBy.method
+  );
 
   const updateWindowWitdth = () => {
     if (window.innerWidth >= 910) {
@@ -72,7 +78,7 @@ export default function Filters({ filtersBox, setFiltersBox }) {
               <ItemContent>
                 <span>Sort by</span>
                 <ItemMenu>
-                  Default
+                  {sortingMethod}
                   <ArrowDown />
                 </ItemMenu>
               </ItemContent>

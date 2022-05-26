@@ -19,3 +19,8 @@ export const setSortingMethod = (sortingMethod) => ({
   type: actions.SET_SORTING_METHOD,
   payload: sortingMethod,
 });
+
+export const setSortingOrder = (sortingOrder) => ({
+  type: actions.SET_SORTING_ORDER,
+  payload: sortingOrder,
+});

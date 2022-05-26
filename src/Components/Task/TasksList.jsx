@@ -10,11 +10,15 @@ export default function TasksList() {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.persistedReduser.tasks.taskList);
 
-  const sortingMethod = useSelector(
+  const sortingMethodInfo = useSelector(
     (state) => state.persistedReduser.tasks.sortBy
   );
 
-  const sortedList = sortingByMethods(list, sortingMethod);
+  const sortedList = sortingByMethods(
+    list,
+    sortingMethodInfo.method,
+    sortingMethodInfo.order
+  );
 
   return (
     <>

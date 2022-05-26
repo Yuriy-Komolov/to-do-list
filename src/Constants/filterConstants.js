@@ -1,9 +1,14 @@
 export const sortingBy = {
-  DEFAULT: "default",
-  ALPHABETICALLY: "alphabetically",
-  ASSIGNEE: "assignee",
-  DUE_DATE: "due_date",
-  DATE_ADDED: "date_added",
-  PRIORITY: "priority",
-  PROJECT: "project",
+  DEFAULT: "Default",
+  ALPHABETICALLY: "Alphabetically",
+  ASSIGNEE: "Assignee",
+  DUE_DATE: "Due_date",
+  DATE_ADDED: "Date_added",
+  PRIORITY: "Priority",
+  PROJECT: "Project",
+};
+
+export const filteringOrder = {
+  DESCENDING: "descending",
+  ASCENDING: "Ascending ",
 };

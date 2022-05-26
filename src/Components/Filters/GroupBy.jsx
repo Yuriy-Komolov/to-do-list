@@ -14,7 +14,7 @@ export default function GroupBy({
         onClick={() => setFiltersMenu({ ...filtersMenu, group: false })}
       >
         <Container windowPosition={mainBoxPosition}>
-          <Option>
+          {/* <Option>
             Default <TaskItemCheckIcon />
           </Option>
           <Option>
@@ -34,7 +34,7 @@ export default function GroupBy({
           </Option>
           <Option>
             Project <TaskItemCheckIcon />
-          </Option>
+          </Option> */}
         </Container>
       </Wrapper>
     </>

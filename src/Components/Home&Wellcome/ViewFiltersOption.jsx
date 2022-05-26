@@ -14,13 +14,14 @@ export default function ViewFiltersOption({ setFiltersBox }) {
   const dispatch = useDispatch();
   const resetFilters = () => {
     dispatch(setSortingMethod(sortingBy.DEFAULT));
+    dispatch(setSortingOrder(filteringOrder.ASCENDING));
   };
 
   const toggleSortingOrder = () => {
     if (sortingMethodInfo.order === filteringOrder.DESCENDING) {
       return dispatch(setSortingOrder(filteringOrder.ASCENDING));
     } else {
-      dispatch(setSortingOrder(filteringOrder.DESCENDING));
+      return dispatch(setSortingOrder(filteringOrder.DESCENDING));
     }
   };
   return (

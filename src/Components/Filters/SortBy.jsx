@@ -34,6 +34,12 @@ export default function SortBy({
           >
             Alphabetically <TaskItemCheckIcon />
           </Option>
+          <Option
+            data-value={sortingBy.DATE_ADDED}
+            onClick={setSortingMethodValue}
+          >
+            Date added <TaskItemCheckIcon />
+          </Option>
           {/* <Option
             data-value={sortingBy.ASSIGNEE}
             onClick={setSortingMethodValue}
@@ -46,12 +52,7 @@ export default function SortBy({
           >
             Due date <TaskItemCheckIcon />
           </Option>
-          <Option
-            data-value={sortingBy.DATE_ADDED}
-            onClick={setSortingMethodValue}
-          >
-            Date added <TaskItemCheckIcon />
-          </Option>
+
           <Option
             data-value={sortingBy.PRIORITY}
             onClick={setSortingMethodValue}

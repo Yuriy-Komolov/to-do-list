@@ -67,6 +67,7 @@ export default function UploadTaskForm({
       id: Date.now(),
       title: title,
       description: description,
+      dateAdding: Date.now(),
       subtasks: [],
     };
 

@@ -2,39 +2,52 @@ export const actions = {
   ADD_TASK: "ADD_TASK",
   REMOVE_TASK: "REMOVE_TASK",
   REFRESH_LIST: "REFRESH_TASK",
-  ARR_SUBTASK: "ADD_SUBTASK",
+  ADD_SUBTASK: "ADD_SUBTASK",
+  SET_SORTING_METHOD: "SET_SORTING_METHOD",
+  SET_SORTING_ORDER: "SET_SORTING_ORDER",
 };
 
-const defaultState = [];
+const defaultState = {
+  taskList: [],
+  sortBy: { method: "Default", order: "descending" },
+};
 
 export const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.ADD_TASK: {
-      return [...state, action.payload];
+      return { ...state, taskList: [...state.taskList, action.payload] };
     }
     case actions.REFRESH_LIST: {
-      return [
-        ...(state = listReorder(
-          state,
-          action.payload.sourceIndex,
-          action.payload.destinationIndex
-        )),
-      ];
+      return {
+        ...state,
+        taskList: [...action.payload],
+      };
     }
     case actions.REMOVE_TASK: {
-      return [...action.payload];
+      return { ...state, taskList: [...action.payload] };
     }
-    case actions.ARR_SUBTASK: {
+    case actions.ADD_SUBTASK: {
       return [...state, action.payload];
+    }
+    case actions.SET_SORTING_METHOD: {
+      return {
+        ...state,
+        sortBy: {
+          ...state.sortBy,
+          method: action.payload,
+        },
+      };
+    }
+    case actions.SET_SORTING_ORDER: {
+      return {
+        ...state,
+        sortBy: {
+          ...state.sortBy,
+          order: action.payload,
+        },
+      };
     }
     default:
       return state;
   }
-};
-
-const listReorder = (list, startIndex, endIndex) => {
-  const result = list.slice();
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
 };

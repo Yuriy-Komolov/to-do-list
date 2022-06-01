@@ -3,12 +3,17 @@ import React from "react";
 export default function DotsIcon() {
   return (
     <>
-      <svg width="15" height="3">
-        <path
-          d="M1.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
-          fill="grey"
-          fillRule="evenodd"
-        ></path>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+        <g
+          fill="none"
+          stroke="grey"
+          strokeLinecap="round"
+          transform="translate(3 10)"
+        >
+          <circle cx="2" cy="2" r="2"></circle>
+          <circle cx="9" cy="2" r="2"></circle>
+          <circle cx="16" cy="2" r="2"></circle>
+        </g>
       </svg>
     </>
   );

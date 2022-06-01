@@ -12,7 +12,7 @@ export default function TaskItemButton({
       <Button onClick={clickHandler}>
         {children}
         <HintMessage>
-          {hint} <KeybordButton>{keybord}</KeybordButton>
+          {hint} <KeybordButton keybord={keybord}>{keybord}</KeybordButton>
         </HintMessage>
       </Button>
     </>
@@ -21,8 +21,8 @@ export default function TaskItemButton({
 const Button = styled.button`
   border: none;
   cursor: pointer;
-  height: 24px;
-  width: 24px;
+  height: 32px;
+  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,7 @@ const Button = styled.button`
 const HintMessage = styled.div`
   display: none;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: -40px;
   white-space: nowrap;
   width: fit-content;
@@ -54,7 +54,7 @@ const HintMessage = styled.div`
 `;
 
 const KeybordButton = styled.span`
-  padding: 0 4px;
+  padding: ${(props) => (props.keybord ? "0 4px" : "0 0")};
   background-color: grey;
   border-radius: 4px;
   font-size: 12px;

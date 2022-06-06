@@ -8,6 +8,7 @@ import {
   postTitleValidation,
   postDescriptionValidation,
 } from "../../../Utils/validationModule";
+import { priority } from "../../../Constants/priorityConstants";
 
 export default function UploadTaskForm({
   cancelHendler,
@@ -68,6 +69,7 @@ export default function UploadTaskForm({
       title: title,
       description: description,
       dateAdding: Date.now(),
+      priority: priority.DEFAULT,
       subtasks: [],
     };
 

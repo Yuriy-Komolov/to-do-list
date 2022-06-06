@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import InboxIcon from "../../../UI/Icons/Navigation/InboxIcon";
-import Label from "../../../UI/Icons/TaskItem/PriorityLabels/Label";
+import LabelIcon from "../../../UI/Icons/TaskItem/PriorityLabels/LabelIcon";
 import TaskDateCreation from "../../Dates/TaskDateCreation";
 import PriorityLabels from "./PriorityLabels";
 
 export default function ActionsMenu({ task }) {
+  const priorityInfo = task.priority;
   const [actionsWindow, setActionsWindow] = useState({
     project: false,
     priority: false,
-  });
-  console.log(actionsWindow);
-  const [actions, setActions] = useState({
-    priority: "P4",
   });
 
   return (
@@ -40,13 +37,16 @@ export default function ActionsMenu({ task }) {
                 priority: true,
               })
             }
+            active={actionsWindow.priority}
+            priorityInfo={priorityInfo}
           >
-            <Label />
-            {actions.priority}
+            <LabelIcon />
+            {priorityInfo.name.toUpperCase()}
           </LabelMenuItem>
           <PriorityLabels
             actionsWindow={actionsWindow.priority}
             setActionsWindow={setActionsWindow}
+            task={task}
           />
         </MenuItem>
       </Container>
@@ -62,10 +62,11 @@ const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
+  row-gap: 6px;
 `;
 const MenuItem = styled.div`
   padding-bottom: 8px;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 const MenuItemTitle = styled.h3`
   font-size: 12px;
@@ -89,6 +90,10 @@ const MenuItemButton = styled.button`
     background-color: rgba(0, 0, 0, 0.06);
     cursor: pointer;
   }
+  &:active {
+    transition: transform 0.2s;
+    transform: scale(0.97);
+  }
   & svg {
     width: 18px;
     height: 18px;
@@ -96,10 +101,15 @@ const MenuItemButton = styled.button`
 `;
 
 const LabelMenuItem = styled(MenuItemButton)`
-  /* & svg {
-    path {
-      fill-rule: nonzero;
-      fill: red;
-    }
-  } */
+  background-color: ${({ active }) =>
+    active ? "rgba(0, 0, 0, 0.06)" : "transparent"};
+  & svg path {
+    ${({ priorityInfo }) =>
+      priorityInfo.color !== "none"
+        ? css`
+            fill: ${priorityInfo.color};
+            fill-rule: nonzero;
+          `
+        : null};
+  }
 `;

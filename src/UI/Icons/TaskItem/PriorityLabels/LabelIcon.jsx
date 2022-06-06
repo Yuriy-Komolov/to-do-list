@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Label() {
+export default function LabelIcon() {
   return (
     <>
       <svg

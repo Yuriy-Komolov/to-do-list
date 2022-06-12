@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import CloseIconButton from "../../UI/Buttons/CloseIconButton";
 import TaskItemCheckIcon from "../../UI/Icons/HomePage/TaskItemCheckIcon";
@@ -72,7 +72,7 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
           <InnerContainer>
             <MainContent>
               <MainInner>
-                <Checkbox>
+                <Checkbox priority={task.priority.color}>
                   <StyledCheckBoxIcon>
                     <TaskItemCheckIcon />
                   </StyledCheckBoxIcon>
@@ -198,6 +198,25 @@ const Checkbox = styled.div`
       opacity: 1;
     }
   }
+  ${({ priority }) =>
+    priority !== "none"
+      ? css`
+          border: 2px solid ${priority};
+          background-color: rgba(priority, 0.2);
+          &:hover {
+            & div {
+              top: -5px;
+              right: -5px;
+            }
+          }
+
+          & svg path {
+            fill: ${priority};
+          }
+        `
+      : css`
+          border: 1px solid rgba(0, 0, 0, 0.4);
+        `}
 `;
 
 const StyledCheckBoxIcon = styled.div`

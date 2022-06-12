@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
+import { setTaskPriority } from "../../../Store/taskActions";
 import InboxIcon from "../../../UI/Icons/Navigation/InboxIcon";
 import LabelIcon from "../../../UI/Icons/TaskItem/PriorityLabels/LabelIcon";
 import TaskDateCreation from "../../Dates/TaskDateCreation";
 import PriorityLabels from "./PriorityLabels";
 
 export default function ActionsMenu({ task }) {
+  const dispatch = useDispatch();
   const priorityInfo = task.priority;
   const [actionsWindow, setActionsWindow] = useState({
     project: false,
     priority: false,
   });
 
+  const changePriorityLabel = (priorityInfo) => {
+    dispatch(setTaskPriority(task, priorityInfo));
+  };
   return (
     <>
       <Container>
@@ -47,6 +53,7 @@ export default function ActionsMenu({ task }) {
             actionsWindow={actionsWindow.priority}
             setActionsWindow={setActionsWindow}
             task={task}
+            clickHandler={changePriorityLabel}
           />
         </MenuItem>
       </Container>
@@ -57,7 +64,6 @@ export default function ActionsMenu({ task }) {
 const Container = styled.div`
   min-width: 260px;
   height: 100%;
-  overflow: auto;
   padding: 12px 24px;
   background-color: rgba(0, 0, 0, 0.03);
   display: flex;

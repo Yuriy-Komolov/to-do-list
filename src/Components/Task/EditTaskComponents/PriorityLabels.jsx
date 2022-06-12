@@ -1,7 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { setTaskPriority } from "../../../Store/taskActions";
 import LabelIcon from "../../../UI/Icons/TaskItem/PriorityLabels/LabelIcon";
 import { useModalboxPosition } from "../../Hooks/useModalboxPosition";
 import { priority } from "../../../Constants/priorityConstants";
@@ -9,14 +7,9 @@ import { priority } from "../../../Constants/priorityConstants";
 export default function PriorityLabels({
   actionsWindow,
   setActionsWindow,
-  task,
+  clickHandler,
 }) {
-  const dispatch = useDispatch();
   const boxPositon = useModalboxPosition(0.6);
-
-  const clickHandler = (task, priorityInfo) => {
-    dispatch(setTaskPriority(task, priorityInfo));
-  };
 
   return (
     <>
@@ -25,19 +18,19 @@ export default function PriorityLabels({
         onClick={() => setActionsWindow({ ...actionsWindow, priority: false })}
       >
         <Container boxPositon={boxPositon}>
-          <FirstLevel onClick={() => clickHandler(task, priority.LEVEL_ONE)}>
+          <FirstLevel onClick={() => clickHandler(priority.LEVEL_ONE)}>
             <LabelIcon />
             Priority 1
           </FirstLevel>
-          <SecondLevel onClick={() => clickHandler(task, priority.LEVEL_TWO)}>
+          <SecondLevel onClick={() => clickHandler(priority.LEVEL_TWO)}>
             <LabelIcon />
             Priority 2
           </SecondLevel>
-          <ThirdLevel onClick={() => clickHandler(task, priority.LEVEL_THREE)}>
+          <ThirdLevel onClick={() => clickHandler(priority.LEVEL_THREE)}>
             <LabelIcon />
             Priority 3
           </ThirdLevel>
-          <DefaultItem onClick={() => clickHandler(task, priority.DEFAULT)}>
+          <DefaultItem onClick={() => clickHandler(priority.DEFAULT)}>
             <LabelIcon />
             Priority 4
           </DefaultItem>
@@ -56,7 +49,7 @@ const LabelsWrapper = styled.div`
   left: 0;
   bottom: 0;
   z-index: 1000;
-  border: 1px solid green;
+  border: 1px solid red;
 `;
 
 const Container = styled.div`
@@ -69,7 +62,7 @@ const Container = styled.div`
   transform: ${({ boxPositon }) => `translate(${boxPositon}px, 290px)`};
 `;
 
-const DefaultItem = styled.button`
+const DefaultItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;

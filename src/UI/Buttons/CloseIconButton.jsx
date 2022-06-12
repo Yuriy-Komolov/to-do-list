@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function CloseIconButton({ clickHandler }) {
+export default function CloseIconButton() {
   return (
     <>
-      <CloseIconBtn onClick={clickHandler} />
+      <CloseIconBtn />
     </>
   );
 }
@@ -15,10 +15,6 @@ const CloseIconBtn = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover {
-    background-color: rgba(20, 20, 20, 0.1);
-    border-radius: 4px;
-  }
   &::before,
   ::after {
     content: "";

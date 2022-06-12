@@ -24,3 +24,8 @@ export const setSortingOrder = (sortingOrder) => ({
   type: actions.SET_SORTING_ORDER,
   payload: sortingOrder,
 });
+
+export const setTaskPriority = (task, priorityInfo) => ({
+  type: actions.SET_PRIORITY,
+  payload: { task, priorityInfo },
+});

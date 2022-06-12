@@ -8,6 +8,8 @@ import {
   postTitleValidation,
   postDescriptionValidation,
 } from "../../../Utils/validationModule";
+import { priority } from "../../../Constants/priorityConstants";
+import FormExstraFeatures from "./FormExstraFeatures";
 
 export default function UploadTaskForm({
   cancelHendler,
@@ -28,6 +30,8 @@ export default function UploadTaskForm({
   const [description, setDescription] = useState("");
   const [descriptionHeight, setDescriptionHeight] = useState("");
   const descriptionField = useRef(null);
+
+  const [taskPriority, setTaskPriority] = useState(priority.DEFAULT);
 
   const [errors, setErrors] = useState({
     titleError: "",
@@ -68,6 +72,7 @@ export default function UploadTaskForm({
       title: title,
       description: description,
       dateAdding: Date.now(),
+      priority: taskPriority,
       subtasks: [],
     };
 
@@ -76,6 +81,7 @@ export default function UploadTaskForm({
     setTitle("");
     titleField.current.value = "";
     descriptionField.current.value = "";
+    setTaskPriority(priority.DEFAULT);
     if (mode === "quickMode") {
       setEmptyTitle("");
       setQuickFormActive(false);
@@ -116,7 +122,7 @@ export default function UploadTaskForm({
   return (
     <>
       <FormWrapper>
-        <form onSubmit={modeChecking}>
+        <form>
           <FormInner>
             <FormInputTitle
               placeholder="Title (Example=> To buy a book)"
@@ -156,6 +162,10 @@ export default function UploadTaskForm({
             />
             <Error>{errors.titleError}</Error>
             <Error>{errors.descriptionError}</Error>
+            <FormExstraFeatures
+              taskPriority={taskPriority}
+              setTaskPriority={setTaskPriority}
+            />
           </FormInner>
 
           <FormButtons>

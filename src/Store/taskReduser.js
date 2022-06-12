@@ -5,6 +5,7 @@ export const actions = {
   ADD_SUBTASK: "ADD_SUBTASK",
   SET_SORTING_METHOD: "SET_SORTING_METHOD",
   SET_SORTING_ORDER: "SET_SORTING_ORDER",
+  SET_PRIORITY: "SET_PRIORITY",
 };
 
 const defaultState = {
@@ -45,6 +46,16 @@ export const taskReducer = (state = defaultState, action) => {
           ...state.sortBy,
           order: action.payload,
         },
+      };
+    }
+    case actions.SET_PRIORITY: {
+      return {
+        ...state,
+        taskList: state.taskList.map((el) => {
+          if (el.id === action.payload.task.id) {
+            return { ...el, priority: { ...action.payload.priorityInfo } };
+          } else return el;
+        }),
       };
     }
     default:

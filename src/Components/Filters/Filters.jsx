@@ -43,12 +43,7 @@ export default function Filters({ filtersBox, setFiltersBox }) {
           } else setFiltersBox(false);
         }}
       >
-        <Box
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          windowPosition={boxPosition}
-        >
+        <Box onClick={(e) => e.stopPropagation()} windowPosition={boxPosition}>
           <Title>Sort</Title>
           <FiltersList>
             <FiltersItem

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { removeTaskAction } from "../../Store/taskActions";
 
@@ -73,6 +73,7 @@ export default function TaskItem({
               onClick={() => {
                 dispatch(removeTaskAction(list, task));
               }}
+              priority={task.priority.color}
             >
               <StyledCheckBoxIcon>
                 <TaskItemCheckIcon />
@@ -153,7 +154,6 @@ const Checkbox = styled.div`
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.4);
   position: relative;
   margin-top: 2px;
   &:hover {
@@ -163,6 +163,24 @@ const Checkbox = styled.div`
       opacity: 1;
     }
   }
+  ${({ priority }) =>
+    priority !== "none"
+      ? css`
+          border: 2px solid ${priority};
+          &:hover {
+            & div {
+              top: -5px;
+              right: -5px;
+            }
+          }
+
+          & svg path {
+            fill: ${priority};
+          }
+        `
+      : css`
+          border: 1px solid rgba(0, 0, 0, 0.4);
+        `}
 `;
 const StyledCheckBoxIcon = styled.div`
   opacity: 0;

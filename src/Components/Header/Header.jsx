@@ -53,9 +53,7 @@ export default function Header({ burger, setBurger }) {
               <Burger
                 hint={burger ? `Close menu` : "Open menu"}
                 keybord="M"
-                onClick={() => {
-                  setBurger(burger ? false : true);
-                }}
+                onClick={() => setBurger(burger ? false : true)}
               >
                 <span></span>
               </Burger>
@@ -79,9 +77,7 @@ export default function Header({ burger, setBurger }) {
               <HeaderButton
                 hint="Quick Add"
                 keybord="Q"
-                onClick={() => {
-                  setQuickTaskForm(true);
-                }}
+                onClick={() => setQuickTaskForm(true)}
               >
                 <PlusIcon />
               </HeaderButton>
@@ -99,9 +95,7 @@ export default function Header({ burger, setBurger }) {
               <ProfileButton
                 hint="Open profile photo menu "
                 keybord="O then U"
-                onClick={() => {
-                  setUserProfile(true);
-                }}
+                onClick={() => setUserProfile(true)}
               >
                 <ProfileAvatar />
               </ProfileButton>

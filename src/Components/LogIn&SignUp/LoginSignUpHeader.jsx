@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useAuth } from "../Hooks/useAuth";
 import { Line } from "../../UI/Atoms/Line";
 
 import { primaryColor } from "../../Constants/UI.Constants";

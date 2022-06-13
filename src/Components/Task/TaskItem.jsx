@@ -30,12 +30,8 @@ export default function TaskItem({
   const [testingWindow, setTestingWindow] = useState(false);
 
   const editTaskFormHandlers = {
-    openEditTask: () => {
-      setEditTaskForm(true);
-    },
-    closeEditTask: () => {
-      setEditTaskForm(false);
-    },
+    openEditTask: () => setEditTaskForm(true),
+    closeEditTask: () => setEditTaskForm(false),
     id: task.id,
     title: task.title,
     description: task.description,
@@ -53,12 +49,8 @@ export default function TaskItem({
       ) : (
         <Wrapper
           ref={refference}
-          onMouseEnter={() => {
-            setHover(true);
-          }}
-          onMouseLeave={() => {
-            setHover(false);
-          }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
           {...dragging}
           style={{
             ...dragging.style,
@@ -70,20 +62,14 @@ export default function TaskItem({
           </DragButton>
           <Content>
             <Checkbox
-              onClick={() => {
-                dispatch(removeTaskAction(list, task));
-              }}
+              onClick={() => dispatch(removeTaskAction(list, task))}
               priority={task.priority.color}
             >
               <StyledCheckBoxIcon>
                 <TaskItemCheckIcon />
               </StyledCheckBoxIcon>
             </Checkbox>
-            <Text
-              onClick={() => {
-                setTestingWindow(true);
-              }}
-            >
+            <Text onClick={() => setTestingWindow(true)}>
               <Title>{task.title}</Title>
               <Description>{task.description}</Description>
             </Text>

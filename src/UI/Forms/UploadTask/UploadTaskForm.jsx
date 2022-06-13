@@ -162,6 +162,7 @@ export default function UploadTaskForm({
             />
             <Error>{errors.titleError}</Error>
             <Error>{errors.descriptionError}</Error>
+
             <FormExstraFeatures
               taskPriority={taskPriority}
               setTaskPriority={setTaskPriority}

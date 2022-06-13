@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import HeaderButton from "../../UI/Buttons/HeaderButton";
@@ -7,35 +8,34 @@ import InboxIcon from "../../UI/Icons/Navigation/InboxIcon";
 import FilterLabelIcon from "../../UI/Icons/Navigation/FilterLabelsIcon";
 import TodayIcon from "../../UI/Icons/Navigation/TodayIcon";
 import UpcomingIcon from "../../UI/Icons/Navigation/UpcomingIcon";
-
 export default function BurgerNavigation({ active }) {
   return (
     <>
       <NavigationWrapper active={active}>
         <NavigationInner>
-          <a href="/">
+          <Link to="/">
             <NavigationBtn hint="Go to Inbox G then i">
               <InboxIcon /> Inbox
             </NavigationBtn>
-          </a>
+          </Link>
 
-          <a href="/">
+          <Link to="/">
             <NavigationBtn hint="Go to Today G then T">
               <TodayIcon /> Today
             </NavigationBtn>
-          </a>
+          </Link>
 
-          <a href="/upcoming">
+          <Link to="/upcoming">
             <NavigationBtn hint="Go to Upcoming G then U">
               <UpcomingIcon /> Upcoming
             </NavigationBtn>
-          </a>
+          </Link>
 
-          <a href="/">
+          <Link to="/">
             <NavigationBtn hint="Go to Inbox G then V">
               <FilterLabelIcon /> Filters & Labels
             </NavigationBtn>
-          </a>
+          </Link>
         </NavigationInner>
       </NavigationWrapper>
     </>

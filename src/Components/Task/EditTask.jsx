@@ -17,12 +17,8 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
   const [editTaskWindow, setEditTaskWindow] = useState(false);
 
   const editTaskFormHandlers = {
-    openEditTask: () => {
-      setEditTaskWindow(true);
-    },
-    closeEditTask: () => {
-      setEditTaskWindow(false);
-    },
+    openEditTask: () => setEditTaskWindow(true),
+    closeEditTask: () => setEditTaskWindow(false),
     id: task.id,
     title: task.title,
     description: task.description,
@@ -31,15 +27,9 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
     <>
       <ModalWrapper
         active={taskEditModal}
-        onClick={() => {
-          setTaskEditModal(false);
-        }}
+        onClick={() => setTaskEditModal(false)}
       >
-        <ModalBox
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
+        <ModalBox onClick={(e) => e.stopPropagation()}>
           <BoxHeader>
             <InboxBtn>
               <InboxIcon />

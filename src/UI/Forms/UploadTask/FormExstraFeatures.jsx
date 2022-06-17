@@ -40,11 +40,16 @@ export default function FormExstraFeatures({ taskPriority, setTaskPriority }) {
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
+  padding: 0 4px 4px 0;
 `;
 
 const LabelMenuItem = styled(TaskItemButton)``;
 
 const LabelButtonWrapper = styled.div`
+  & button {
+    width: 28px;
+    height: 28px;
+  }
   & svg path {
     ${({ taskPriority }) =>
       taskPriority.color !== "none"

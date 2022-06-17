@@ -15,17 +15,12 @@ export default function ModalQuickAddForm({
     <>
       <QuickWrapper
         onClick={() => {
-          if (checkingEmptyFormTitle.length !== 0) setDiscartWarning(true);
+          if (checkingEmptyFormTitle) setDiscartWarning(true);
           else setFormActive(false);
         }}
         active={active}
       >
-        <QuickAddFormInner
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          active={active}
-        >
+        <QuickAddFormInner onClick={(e) => e.stopPropagation()} active={active}>
           {/**Form----------------------------------------**/}
           <UploadTaskForm
             cancelHendler={() => {
@@ -60,9 +55,10 @@ const QuickWrapper = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 5;
+  transition: display 0.25s;
   transition: 0.2s;
-  ${(props) =>
-    props.active
+  ${({ active }) =>
+    active
       ? css`
           transform: scale(1);
           pointer-events: all;

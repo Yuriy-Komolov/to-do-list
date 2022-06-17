@@ -11,4 +11,5 @@ export default function Error({ children }) {
 const ErrorContainer = styled.p`
   font-size: 12px;
   color: #d1453b;
+  padding-left: 8px;
 `;

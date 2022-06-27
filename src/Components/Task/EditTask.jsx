@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useMemo } from "react";
 import styled, { css } from "styled-components";
 
 import CloseIconButton from "../../UI/Buttons/CloseIconButton";
@@ -7,22 +7,31 @@ import InboxIcon from "../../UI/Icons/Navigation/InboxIcon";
 import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
 import { Line } from "../../UI/Atoms/Line";
 import TaskItemButton from "../../UI/Buttons/TaskItemButton";
-import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 
 import ArrowIcon from "../../UI/Icons/TaskItem/ArrowIcon";
 import AddTaskButton from "../../UI/Buttons/AddTaskButton";
 import ActionsMenu from "./EditTaskComponents/ActionsMenu";
 import EditTaskForm from "../../UI/Forms/EditTaskForm";
 
-export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
+export default function EditTask({
+  taskEditModal,
+  setTaskEditModal,
+  task,
+  taskList,
+}) {
   const [editTaskWindow, setEditTaskWindow] = useState(false);
+  const [currentTaskId, setCurrentTaskId] = useState(taskList.indexOf(task));
+  const currentTask = useMemo(
+    () => taskList.find((el, index) => index === currentTaskId),
+    [currentTaskId, taskList]
+  );
 
   const editTaskFormHandlers = {
     openEditTask: () => setEditTaskWindow(true),
     closeEditTask: () => setEditTaskWindow(false),
-    id: task.id,
-    title: task.title,
-    description: task.description,
+    id: currentTask.id,
+    title: currentTask.title,
+    description: currentTask.description,
   };
   return (
     <>
@@ -38,15 +47,25 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
             </InboxBtn>
 
             <BoxHeaderButtons>
-              <PreviousTaskArrow hint="Previous task" keybord="K">
+              <PreviousTaskBtn
+                hint="Previous task"
+                keybord="K"
+                onClick={() => setCurrentTaskId(currentTaskId - 1)}
+                disabled={currentTaskId <= 0}
+              >
                 <ArrowIcon />
-              </PreviousTaskArrow>
+              </PreviousTaskBtn>
 
-              <TaskItemButton hint="Next Task" keybord="J">
+              <NextTaskBtn
+                hint="Next Task"
+                keybord="J"
+                onClick={() => setCurrentTaskId(currentTaskId + 1)}
+                disabled={currentTaskId >= taskList.length - 1}
+              >
                 <NextTaskArrow>
                   <ArrowIcon />
                 </NextTaskArrow>
-              </TaskItemButton>
+              </NextTaskBtn>
 
               <TaskItemButton hint="More actions" keybord={""}>
                 <DotsIcon />
@@ -63,14 +82,14 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
           <InnerContainer>
             <MainContent>
               <MainInner>
-                <Checkbox priority={task.priority.color}>
+                <Checkbox priority={currentTask.priority.color}>
                   <StyledCheckBoxIcon>
                     <TaskItemCheckIcon />
                   </StyledCheckBoxIcon>
                 </Checkbox>
                 {editTaskWindow ? (
                   <EditTaskForm
-                    taskItem={task}
+                    taskItem={currentTask}
                     cancelHendler={editTaskFormHandlers.closeEditTask}
                   />
                 ) : (
@@ -94,7 +113,7 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
               <Line />
             </MainContent>
             {/* ========================= More Actions Menu =============================== */}
-            <ActionsMenu task={task} />
+            <ActionsMenu task={currentTask} />
           </InnerContainer>
         </ModalBox>
       </ModalWrapper>
@@ -138,10 +157,32 @@ const BoxHeaderButtons = styled.div`
   display: flex;
   column-gap: 6px;
 `;
-const PreviousTaskArrow = styled(TaskItemButton)``;
+const PreviousTaskBtn = styled(TaskItemButton)`
+  &:disabled {
+    & svg {
+      opacity: 0.4;
+    }
+    :hover {
+      background-color: transparent;
+      cursor: url("/Images/icons/block.png"), auto;
+    }
+  }
+`;
+const NextTaskBtn = styled(TaskItemButton)`
+  &:disabled {
+    & svg {
+      opacity: 0.4;
+    }
+    :hover {
+      background-color: transparent;
+      cursor: url("/Images/icons/block.png"), auto;
+    }
+  }
+`;
 const NextTaskArrow = styled.div`
   display: flex;
   align-items: center;
+  line-height: 0;
   transform: rotate(180deg);
 `;
 
@@ -232,6 +273,7 @@ const DescriptionEdit = styled.span`
   cursor: text;
   color: rgba(0, 0, 0, 0.4);
   font-size: 13px;
+  font-weight: 400;
   margin-bottom: 25px;
 `;
 

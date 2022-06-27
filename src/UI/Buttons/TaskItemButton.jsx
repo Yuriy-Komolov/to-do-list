@@ -6,10 +6,11 @@ export default function TaskItemButton({
   hint,
   keybord,
   children,
+  ...otherProps
 }) {
   return (
     <>
-      <Button onClick={clickHandler}>
+      <Button onClick={clickHandler} {...otherProps}>
         {children}
         <HintMessage>
           {hint} <KeybordButton keybord={keybord}>{keybord}</KeybordButton>

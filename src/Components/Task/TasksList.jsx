@@ -42,6 +42,7 @@ export default function TasksList() {
                     <TaskItem
                       list={list}
                       task={item}
+                      taskIndex={index}
                       key={item.id}
                       refference={provided.innerRef}
                       dragging={{ ...provided.draggableProps }}

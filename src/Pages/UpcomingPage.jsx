@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import EditTaskForm from "../UI/Forms/EditTaskForm";
 
 export default function UpcomingPage() {
   return (
     <>
       <Some>
         <Container>
-          <EditTaskForm />
+          <p>Some content</p>
         </Container>
       </Some>
     </>

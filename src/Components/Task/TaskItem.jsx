@@ -10,7 +10,6 @@ import PenIcon from "../../UI/Icons/TaskItem/PenIcon";
 import ComentIcon from "../../UI/Icons/TaskItem/ComentIcon";
 import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
 import DateIconSmooth from "../../UI/Icons/TaskItem/DateIconSmooth";
-import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 import EditTask from "./EditTask";
 import { useDispatch } from "react-redux";
 import EditTaskForm from "../../UI/Forms/EditTaskForm";
@@ -37,7 +36,6 @@ export default function TaskItem({
     title: task.title,
     description: task.description,
   };
-
   return (
     <>
       {editTaskForm ? (
@@ -97,11 +95,14 @@ export default function TaskItem({
           </Controls>
         </Wrapper>
       )}
-      <EditTask
-        taskEditModal={testingWindow}
-        setTaskEditModal={setTestingWindow}
-        task={task}
-      />
+      {testingWindow ? (
+        <EditTask
+          taskEditModal={testingWindow}
+          setTaskEditModal={setTestingWindow}
+          task={task}
+          taskList={list}
+        />
+      ) : null}
     </>
   );
 }

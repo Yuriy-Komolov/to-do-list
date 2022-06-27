@@ -12,6 +12,7 @@ import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 import ArrowIcon from "../../UI/Icons/TaskItem/ArrowIcon";
 import AddTaskButton from "../../UI/Buttons/AddTaskButton";
 import ActionsMenu from "./EditTaskComponents/ActionsMenu";
+import EditTaskForm from "../../UI/Forms/EditTaskForm";
 
 export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
   const [editTaskWindow, setEditTaskWindow] = useState(false);
@@ -68,11 +69,9 @@ export default function EditTask({ taskEditModal, setTaskEditModal, task }) {
                   </StyledCheckBoxIcon>
                 </Checkbox>
                 {editTaskWindow ? (
-                  <UploadTaskForm
-                    editTask={editTaskFormHandlers}
-                    mode="editTask"
-                    cancelHendler={editTaskFormHandlers.closeEditTask}
+                  <EditTaskForm
                     taskItem={task}
+                    cancelHendler={editTaskFormHandlers.closeEditTask}
                   />
                 ) : (
                   <ItemContent>

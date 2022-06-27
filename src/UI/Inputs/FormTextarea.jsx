@@ -3,15 +3,14 @@ import styled from "styled-components";
 
 export default function FormTextarea({ ...otherProps }) {
   const customTexrarea = useRef(null);
-  const MIN_TEXTAREA_HEIGHT = 18;
-
+  const MIN_TEXTAREA_HEIGHT = 4;
   useEffect(() => {
     customTexrarea.current.style.height = "inherit";
     customTexrarea.current.style.height = `${Math.max(
-      customTexrarea.current.scrollHeight,
-      MIN_TEXTAREA_HEIGHT
+      MIN_TEXTAREA_HEIGHT,
+      customTexrarea.current.scrollHeight - 12
     )}px`;
-  });
+  }, [customTexrarea]);
   return (
     <>
       <Textarea ref={customTexrarea} {...otherProps} />

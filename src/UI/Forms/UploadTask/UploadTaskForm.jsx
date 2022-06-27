@@ -42,10 +42,7 @@ export default function UploadTaskForm({
 
   useEffect(() => {
     titleField.current.firstChild.focus();
-    console.log(titleField);
-  }, []);
 
-  useEffect(() => {
     if (!activeForm) {
       setDescription("");
       setTitle("");
@@ -68,7 +65,6 @@ export default function UploadTaskForm({
 
     setTitle("");
     setDescription("");
-
     setTaskPriority(priority.DEFAULT);
 
     if (mode === "quickMode") {
@@ -178,7 +174,8 @@ const FormInner = styled.div`
 
 const FormInputTitle = styled(FormTextarea)`
   padding: 10px 10px 0 10px;
-  border-radius: 24px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
 `;
 
 const FormInputTitleWrapper = styled.div``;

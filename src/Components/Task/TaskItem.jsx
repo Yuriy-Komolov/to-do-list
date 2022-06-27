@@ -13,6 +13,7 @@ import DateIconSmooth from "../../UI/Icons/TaskItem/DateIconSmooth";
 import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 import EditTask from "./EditTask";
 import { useDispatch } from "react-redux";
+import EditTaskForm from "../../UI/Forms/EditTaskForm";
 
 export default function TaskItem({
   list,
@@ -40,12 +41,12 @@ export default function TaskItem({
   return (
     <>
       {editTaskForm ? (
-        <UploadTaskForm
-          editTask={editTaskFormHandlers}
-          mode="editTask"
-          cancelHendler={editTaskFormHandlers.closeEditTask}
-          taskItem={task}
-        />
+        <EditTaskFormContainer>
+          <EditTaskForm
+            cancelHendler={editTaskFormHandlers.closeEditTask}
+            taskItem={task}
+          />
+        </EditTaskFormContainer>
       ) : (
         <Wrapper
           ref={refference}
@@ -129,6 +130,10 @@ const DragButton = styled.span`
       fill: #000;
     }
   }
+`;
+
+const EditTaskFormContainer = styled.div`
+  margin-top: 12px;
 `;
 
 const Content = styled.div`

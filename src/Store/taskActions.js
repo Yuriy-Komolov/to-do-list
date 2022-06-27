@@ -15,6 +15,10 @@ export const removeTaskAction = (list, task) => ({
   payload: list.filter((p) => p.id !== task.id),
 });
 
+export const saveChanges = (task, changes) => ({
+  type: actions.SAVE_CHANGES,
+  payload: { task, changes },
+});
 export const setSortingMethod = (sortingMethod) => ({
   type: actions.SET_SORTING_METHOD,
   payload: sortingMethod,

@@ -5,7 +5,9 @@ export default function UpcomingPage() {
   return (
     <>
       <Some>
-        <p>hello</p>
+        <Container>
+          <p>Some content</p>
+        </Container>
       </Some>
     </>
   );
@@ -13,4 +15,10 @@ export default function UpcomingPage() {
 
 const Some = styled.div`
   padding-top: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Container = styled.div`
+  width: 540px;
 `;

@@ -2,6 +2,7 @@ export const actions = {
   ADD_TASK: "ADD_TASK",
   REMOVE_TASK: "REMOVE_TASK",
   REFRESH_LIST: "REFRESH_TASK",
+  SAVE_CHANGES: "SAVE_CHANGES",
   ADD_SUBTASK: "ADD_SUBTASK",
   SET_SORTING_METHOD: "SET_SORTING_METHOD",
   SET_SORTING_ORDER: "SET_SORTING_ORDER",
@@ -26,6 +27,15 @@ export const taskReducer = (state = defaultState, action) => {
     }
     case actions.REMOVE_TASK: {
       return { ...state, taskList: [...action.payload] };
+    }
+    case actions.SAVE_CHANGES: {
+      const index = state.taskList.indexOf(action.payload.task);
+      return {
+        ...state,
+        taskList: state.taskList.map((task, i) =>
+          i === index ? { ...task, ...action.payload.changes } : task
+        ),
+      };
     }
     case actions.ADD_SUBTASK: {
       return [...state, action.payload];

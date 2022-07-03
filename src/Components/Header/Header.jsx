@@ -24,9 +24,7 @@ export default function Header({ burger, setBurger }) {
 
   const windowFocus = useRef(null);
 
-  useEffect(() => {
-    windowFocus.current.focus();
-  }, []);
+  useEffect(() => windowFocus.current.focus(), []);
 
   const keyboardPress = (press) => {
     if (!quickTaskForm && !inputSearch) {
@@ -82,7 +80,7 @@ export default function Header({ burger, setBurger }) {
                 <PlusIcon />
               </HeaderButton>
 
-              <ProductivityButton hint="Open Productivity " keybord="O then P">
+              {/* <ProductivityButton hint="Open Productivity " keybord="O then P">
                 <ProductivityIcon />0 / 5
               </ProductivityButton>
               <HeaderButton hint="Open help & information " keybord="O then H">
@@ -90,7 +88,7 @@ export default function Header({ burger, setBurger }) {
               </HeaderButton>
               <HeaderButton hint="Open help & information " keybord="O then N">
                 <BellIcon />
-              </HeaderButton>
+              </HeaderButton> */}
 
               <ProfileButton
                 hint="Open profile photo menu "

@@ -47,17 +47,13 @@ export default function HomeComponent() {
               type="button"
               text="Add task"
               $mode="withIcon"
-              onClick={() => {
-                setShowTaskForm(true);
-              }}
+              onClick={() => setShowTaskForm(true)}
             />
           )}
           {/* =======================Basic Add Form =================================*/}
           {showTaskForm ? (
             <UploadTaskForm
-              cancelHendler={() => {
-                setShowTaskForm(false);
-              }}
+              cancelHendler={() => setShowTaskForm(false)}
               activeForm={showTaskForm}
             />
           ) : tasks.length === 0 ? (

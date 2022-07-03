@@ -10,9 +10,9 @@ import PenIcon from "../../UI/Icons/TaskItem/PenIcon";
 import ComentIcon from "../../UI/Icons/TaskItem/ComentIcon";
 import DotsIcon from "../../UI/Icons/TaskItem/DotsIcon";
 import DateIconSmooth from "../../UI/Icons/TaskItem/DateIconSmooth";
-import UploadTaskForm from "../../UI/Forms/UploadTask/UploadTaskForm";
 import EditTask from "./EditTask";
 import { useDispatch } from "react-redux";
+import EditTaskForm from "../../UI/Forms/EditTaskForm";
 
 export default function TaskItem({
   list,
@@ -36,16 +36,15 @@ export default function TaskItem({
     title: task.title,
     description: task.description,
   };
-
   return (
     <>
       {editTaskForm ? (
-        <UploadTaskForm
-          editTask={editTaskFormHandlers}
-          mode="editTask"
-          cancelHendler={editTaskFormHandlers.closeEditTask}
-          taskItem={task}
-        />
+        <EditTaskFormContainer>
+          <EditTaskForm
+            cancelHendler={editTaskFormHandlers.closeEditTask}
+            taskItem={task}
+          />
+        </EditTaskFormContainer>
       ) : (
         <Wrapper
           ref={refference}
@@ -96,11 +95,14 @@ export default function TaskItem({
           </Controls>
         </Wrapper>
       )}
-      <EditTask
-        taskEditModal={testingWindow}
-        setTaskEditModal={setTestingWindow}
-        task={task}
-      />
+      {testingWindow ? (
+        <EditTask
+          taskEditModal={testingWindow}
+          setTaskEditModal={setTestingWindow}
+          task={task}
+          taskList={list}
+        />
+      ) : null}
     </>
   );
 }
@@ -129,6 +131,10 @@ const DragButton = styled.span`
       fill: #000;
     }
   }
+`;
+
+const EditTaskFormContainer = styled.div`
+  margin-top: 12px;
 `;
 
 const Content = styled.div`

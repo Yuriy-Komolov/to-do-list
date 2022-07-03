@@ -23,15 +23,9 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
   return (
     <>
       <InputWrapper
-        onMouseOver={() => {
-          setHover(true);
-        }}
-        onMouseOut={() => {
-          setHover(false);
-        }}
-        onFocus={() => {
-          setActiveFocus(true);
-        }}
+        onMouseOver={() => setHover(true)}
+        onMouseOut={() => setHover(false)}
+        onFocus={() => setActiveFocus(true)}
         onBlur={() => {
           setActiveFocus(false);
           setSearchInput("");
@@ -40,9 +34,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
         <StyledIconWrapper
           hover={hover}
           focus={active}
-          onMouseOver={() => {
-            setHover(true);
-          }}
+          onMouseOver={() => setHover(true)}
         >
           <SearchIcon />
         </StyledIconWrapper>
@@ -60,9 +52,7 @@ export default function InputSearch({ hint, active, setActiveFocus }) {
           keybord="F"
           hover={hover}
           focus={active}
-          onClick={() => {
-            setActiveFocus(true);
-          }}
+          onClick={() => setActiveFocus(true)}
         >
           f
         </ShortCutButton>

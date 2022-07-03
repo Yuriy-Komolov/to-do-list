@@ -10,29 +10,26 @@ import {
 } from "../../../Utils/validationModule";
 import { priority } from "../../../Constants/priorityConstants";
 import FormExstraFeatures from "./FormExstraFeatures";
+import FormTextarea from "../../Inputs/FormTextarea";
 
 export default function UploadTaskForm({
   cancelHendler,
   mode,
-  activeForm,
   setQuickFormActive,
   setDiscartWarning,
   setEmptyTitle,
-  editTask,
   taskItem,
+  activeForm,
 }) {
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [titleHeight, setTitleHeight] = useState("");
   const titleField = useRef(null);
+  const formReference = useRef(null);
 
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [descriptionHeight, setDescriptionHeight] = useState("");
-  const descriptionField = useRef(null);
 
   const [taskPriority, setTaskPriority] = useState(priority.DEFAULT);
-
   const [errors, setErrors] = useState({
     titleError: "",
     descriptionError: "",
@@ -44,26 +41,14 @@ export default function UploadTaskForm({
     errors.descriptionError;
 
   useEffect(() => {
-    if (activeForm === true) {
-      titleField.current.focus();
-    } else {
-      titleField.current.value = "";
-      setTitle("");
+    titleField.current.firstChild.focus();
 
-      descriptionField.current.value = "";
+    if (!activeForm) {
       setDescription("");
+      setTitle("");
+      setTaskPriority(priority.DEFAULT);
     }
-
-    // ======== Edit Task Fields==========================================================
-    if (editTask) {
-      setTitle(editTask.title);
-      titleField.current.value = editTask.title;
-      titleField.current.focus();
-
-      setDescription(editTask.description);
-      descriptionField.current.value = editTask.description;
-    }
-  }, [activeForm, editTask]);
+  }, [activeForm]);
 
   // Submit button ========================
   const addTask = () => {
@@ -79,27 +64,19 @@ export default function UploadTaskForm({
     dispatch({ type: "ADD_TASK", payload: newTask });
 
     setTitle("");
-    titleField.current.value = "";
-    descriptionField.current.value = "";
+    setDescription("");
     setTaskPriority(priority.DEFAULT);
+
     if (mode === "quickMode") {
       setEmptyTitle("");
       setQuickFormActive(false);
     }
+    titleField.current.children[0].focus();
   };
 
   // Close Button
   const formClosing = () => {
     mode === "quickMode" && title ? setDiscartWarning(true) : cancelHendler();
-  };
-
-  // Edit task button ========================
-  const submitEditTask = (e) => {
-    e.preventDefault();
-
-    taskItem.title = title;
-    taskItem.description = description;
-    formClosing();
   };
 
   // Add subtask =============================
@@ -113,57 +90,51 @@ export default function UploadTaskForm({
     taskItem.subtasks = [...taskItem.subtasks, newSubtask];
   };
 
-  const modeChecking =
-    mode === "editTask"
-      ? submitEditTask
-      : mode === "subTask"
-      ? addSubTask
-      : addTask;
+  const modeChecking = mode === "subTask" ? addSubTask : addTask;
   return (
     <>
       <FormWrapper>
-        <form>
+        <form ref={formReference}>
           <FormInner>
-            <FormInputTitle
-              placeholder="Title (Example=> To buy a book)"
-              onChange={(e) => {
-                setTitle(e.target.value);
-                setTitleHeight(e.target.scrollHeight);
-
-                setErrors((errors) => ({
-                  ...errors,
-                  titleError: postTitleValidation(title),
-                }));
-                if (mode === "quickMode") setEmptyTitle(e.target.value);
-              }}
-              onKeyPress={(press) => {
-                if (press.key === "Enter") {
-                  press.preventDefault();
-                  modeChecking();
-                }
-              }}
-              style={{ height: titleHeight }}
-              ref={titleField}
-            />
+            {/*===================================================================================== */}
+            <FormInputTitleWrapper ref={titleField}>
+              <FormInputTitle
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setErrors((errors) => ({
+                    ...errors,
+                    titleError: postTitleValidation(title),
+                  }));
+                  if (mode === "quickMode") setEmptyTitle(e.target.value);
+                }}
+                onKeyPress={(press) => {
+                  if (press.key === "Enter") {
+                    press.preventDefault();
+                    modeChecking();
+                  }
+                }}
+                placeholder="Title (Example=> To buy a book)"
+              />
+            </FormInputTitleWrapper>
+            {/*===================================================================================== */}
 
             <FormInputDescription
+              value={description}
               placeholder="Description..."
               onChange={(e) => {
                 setDescription(e.target.value);
-                setDescriptionHeight(e.target.scrollHeight);
 
                 setErrors((errors) => ({
                   ...errors,
                   descriptionError: postDescriptionValidation(description),
                 }));
               }}
-              ref={descriptionField}
-              style={{ height: descriptionHeight }}
             />
             <Error>{errors.titleError}</Error>
             <Error>{errors.descriptionError}</Error>
 
-            <FormExstraFeatures
+            <UploadFeatures
               taskPriority={taskPriority}
               setTaskPriority={setTaskPriority}
             />
@@ -192,39 +163,28 @@ const FormWrapper = styled.div`
 const FormInner = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  border-radius: 12px;
+  position: relative;
+  cursor: text;
   :focus-within {
     border: 1px solid grey;
   }
 `;
 
-const FormInputTitle = styled.textarea`
-  width: 100%;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 600;
-  resize: none;
-  height: 28px;
-  padding: 4px 8px;
-  overflow: hidden;
-  border: none;
-  &:focus {
-    outline: none;
-  }
-  &::placeholder {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 21px;
-    color: #000;
-  }
+const FormInputTitle = styled(FormTextarea)`
+  padding: 10px 10px 0 10px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
 `;
 
-const FormInputDescription = styled(FormInputTitle)`
+const FormInputTitleWrapper = styled.div``;
+
+const FormInputDescription = styled(FormTextarea)`
   min-height: 46px;
   font-size: 13px;
   line-height: 18px;
+  border-radius: 18px;
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -258,5 +218,13 @@ const StyledSubmit = styled(AddTaskButton)`
     &:hover {
       cursor: url("/Images/icons/block.png"), auto;
     }
+  }
+`;
+
+const UploadFeatures = styled(FormExstraFeatures)`
+  & div {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 `;

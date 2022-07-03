@@ -9,9 +9,9 @@ export default function FormExstraFeatures({ taskPriority, setTaskPriority }) {
     project: false,
     priority: false,
   });
-  const taskPriorityHandler = (priorityInfo) => {
-    setTaskPriority(priorityInfo);
-  };
+
+  const taskPriorityHandler = (priorityInfo) => setTaskPriority(priorityInfo);
+
   return (
     <>
       <Container>

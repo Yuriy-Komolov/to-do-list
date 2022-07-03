@@ -37,8 +37,8 @@ export default function SearchResultBox({ active, searchInput }) {
 }
 
 const Wrapper = styled.div`
-  opacity: ${(props) => (props.active ? "1" : "0")};
-  visibility: ${(props) => (props.active ? "visible" : "hidden")};
+  opacity: ${({ active }) => (active ? "1" : "0")};
+  visibility: ${({ active }) => (active ? "visible" : "hidden")};
   transition: visibility 0.1s;
   padding-top: 12px;
   background-color: #fff;

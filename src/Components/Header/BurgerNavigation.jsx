@@ -47,8 +47,8 @@ const NavigationWrapper = styled.div`
   background-color: #fafafa;
   padding: 80px 10px 0 35px;
   position: fixed;
-  width: ${(props) => (props.active ? "328px" : "0")};
-  left: ${(props) => (props.active ? "0" : "-30%")};
+  width: ${({ active }) => (active ? "328px" : "0")};
+  left: ${({ active }) => (active ? "0" : "-30%")};
   transition: all 0.4s ease-in-out;
 `;
 
